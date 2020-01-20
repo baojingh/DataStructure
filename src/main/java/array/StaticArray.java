@@ -12,20 +12,18 @@ public class StaticArray {
         this.count = 0;
     }
 
-    public void increase() {
+    private void increase() {
         int cap = getCapacity();
         if (this.count < cap) {
             this.count = this.count + 1;
         }
-
     }
 
-    public void decrease() {
+    private void decrease() {
         int len = getLen();
         if (len > 0) {
             this.count = this.count - 1;
         }
-
     }
 
     /**
@@ -33,7 +31,7 @@ public class StaticArray {
      *
      * @return
      */
-    public int getLen() {
+    private int getLen() {
         return this.count;
     }
 
@@ -42,7 +40,7 @@ public class StaticArray {
      *
      * @return
      */
-    public boolean isFull() {
+    private boolean isFull() {
         int n = getLen();
         int cap = getCapacity();
         if (n >= cap) {
@@ -56,7 +54,7 @@ public class StaticArray {
      *
      * @return
      */
-    public boolean isEmpty() {
+    private boolean isEmpty() {
         int n = getLen();
         if (n == 0) {
             return true;
@@ -69,7 +67,7 @@ public class StaticArray {
      *
      * @return
      */
-    public int getCapacity() {
+    private int getCapacity() {
         return this.capacity;
     }
 
@@ -117,13 +115,24 @@ public class StaticArray {
     }
 
     public void printAll() {
-        for (int ele : this.data) {
-            System.out.println(ele);
+        for (int i = 0; i < this.data.length; i++) {
+            System.out.println(i + " " + this.data[i]);
         }
     }
 
     public StaticArray() {
     }
 
+    public static void main(String[] args) {
+        StaticArray arr = new StaticArray(10);
+        arr.insert(1, 1);
+        arr.insert(5, 5);
+        arr.insert(6, 6);
+        arr.insert(9, 9);
+        arr.printAll();
+        System.out.println("***********");
+        arr.delete(2);
+        arr.printAll();
+    }
 
 }
