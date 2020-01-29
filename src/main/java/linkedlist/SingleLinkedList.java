@@ -52,7 +52,7 @@ public class SingleLinkedList {
     private boolean insertToTail(@NonNull Node node) {
         if (head == null) {
             head = node;
-            return false;
+            return true;
         }
         Node currentNode = head;
         while (currentNode.next != null) {
@@ -71,7 +71,7 @@ public class SingleLinkedList {
     }
 
     /**
-     * 输出所有元素
+     * 输出所有元素, 若存在环，应该有检测机制，否则无限循环
      */
     public void printAll() {
         Node currentNode = head;
@@ -106,39 +106,113 @@ public class SingleLinkedList {
         return true;
     }
 
+    /**
+     * 链表反转
+     *
+     * @return
+     */
+    public Node reverseLinkedList() {
+        Node currentNode = head;
+        Node pre = null;
+        Node next = null;
+        while (currentNode != null) {
+            next = currentNode.next;
+            currentNode.next = pre;
+            pre = currentNode;
+            currentNode = next;
+        }
+        head = pre;
+        return head;
+    }
+
+    /**
+     * 检测是否含有环
+     *
+     * @return
+     */
+    public boolean hasCycle() {
+        if (head == null) {
+            return false;
+        }
+        Node fast = head;
+        Node slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 获取链表中间节点
+     *
+     * @return
+     */
+    public Node middleNode() {
+        if (head == null) {
+            return null;
+        }
+        Node fast = head;
+        Node slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return slow;
+    }
+
 
     public static void main(String[] args) {
         SingleLinkedList linkedList = new SingleLinkedList();
-//        linkedList.insertToTailWithValue(1);
-//        linkedList.insertToTailWithValue(2);
-//        linkedList.insertToTailWithValue(3);
+//        Node node1 = new Node(null, 1);
+//        Node node2 = new Node(null, 2);
+//        Node node3 = new Node(null, 3);
+//        Node node4 = new Node(null, 4);
+//        Node node5 = new Node(null, 5);
+//        node1.next = node2;
+//        node2.next = node3;
+//        node3.next = node4;
+//        node4.next = node2;
+//        linkedList.insertToTail(node1);
+//        linkedList.printAll();
+        linkedList.insertToTailWithValue(1);
+        linkedList.insertToTailWithValue(2);
         linkedList.insertToTailWithValue(3);
-        linkedList.insertToTailWithValue(3);
-        linkedList.insertToTailWithValue(4);
+//        linkedList.insertToTailWithValue(4);
+//        linkedList.insertToTailWithValue(5);
+//        linkedList.insertToTailWithValue(6);
         linkedList.printAll();
+
+//        boolean b = linkedList.hasCycle();
+//        System.out.println(b);
 
 //        Node valueNode = linkedList.findByValue(3);
 //        System.out.println("nodeValue:" + valueNode.data);
 
-        boolean b = linkedList.deleteByValue(3);
-        linkedList.printAll();
+//        boolean b = linkedList.deleteByValue(3);
+
+//        Node h = linkedList.reverseLinkedList();
+//        linkedList.printAll();
+        Node middleNode = linkedList.middleNode();
+        if (middleNode == null) {
+            System.out.println("linked list is null");
+        } else {
+            System.out.println("middle node value is:" + middleNode.getData());
+        }
 
     }
 
 
     @Getter
     @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Node {
         private Node next;
         private int data;
-
-        public Node() {
-        }
-
-        public Node(Node next, int data) {
-            this.next = next;
-            this.data = data;
-        }
     }
 }
 
