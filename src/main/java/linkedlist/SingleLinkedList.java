@@ -74,6 +74,11 @@ public class SingleLinkedList {
      * 输出所有元素, 若存在环，应该有检测机制，否则无限循环
      */
     public void printAll() {
+        boolean b = hasCycle();
+        if (b) {
+            System.out.println("linked list has cycle. quit~");
+            return;
+        }
         Node currentNode = head;
         System.out.println("linked list data:");
         while (currentNode != null) {
@@ -167,24 +172,24 @@ public class SingleLinkedList {
 
     public static void main(String[] args) {
         SingleLinkedList linkedList = new SingleLinkedList();
-//        Node node1 = new Node(null, 1);
-//        Node node2 = new Node(null, 2);
-//        Node node3 = new Node(null, 3);
-//        Node node4 = new Node(null, 4);
-//        Node node5 = new Node(null, 5);
-//        node1.next = node2;
-//        node2.next = node3;
-//        node3.next = node4;
-//        node4.next = node2;
-//        linkedList.insertToTail(node1);
-//        linkedList.printAll();
-        linkedList.insertToTailWithValue(1);
-        linkedList.insertToTailWithValue(2);
-        linkedList.insertToTailWithValue(3);
+        Node node1 = new Node(null, 1);
+        Node node2 = new Node(null, 2);
+        Node node3 = new Node(null, 3);
+        Node node4 = new Node(null, 4);
+        Node node5 = new Node(null, 5);
+        node1.next = node2;
+        node2.next = node3;
+        node3.next = node4;
+        node4.next = node2;
+        linkedList.insertToTail(node1);
+        linkedList.printAll();
+//        linkedList.insertToTailWithValue(1);
+//        linkedList.insertToTailWithValue(2);
+//        linkedList.insertToTailWithValue(3);
 //        linkedList.insertToTailWithValue(4);
 //        linkedList.insertToTailWithValue(5);
 //        linkedList.insertToTailWithValue(6);
-        linkedList.printAll();
+//        linkedList.printAll();
 
 //        boolean b = linkedList.hasCycle();
 //        System.out.println(b);
@@ -196,12 +201,12 @@ public class SingleLinkedList {
 
 //        Node h = linkedList.reverseLinkedList();
 //        linkedList.printAll();
-        Node middleNode = linkedList.middleNode();
-        if (middleNode == null) {
-            System.out.println("linked list is null");
-        } else {
-            System.out.println("middle node value is:" + middleNode.getData());
-        }
+//        Node middleNode = linkedList.middleNode();
+//        if (middleNode == null) {
+//            System.out.println("linked list is null");
+//        } else {
+//            System.out.println("middle node value is:" + middleNode.getData());
+//        }
 
     }
 
