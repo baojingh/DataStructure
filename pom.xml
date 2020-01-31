@@ -7,6 +7,71 @@
     <groupId>com.yxt</groupId>
     <artifactId>DataStructure</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
-    
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- Java compiler configuration -->
+        <sourceJavaVersion>1.8</sourceJavaVersion>
+        <targetJavaVersion>1.8</targetJavaVersion>
+        <java.version>1.8</java.version>
+        <lombok.version>1.18.10</lombok.version>
+    </properties>
+
+    <dependencies>
+    <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${lombok.version}</version>
+
+    </dependency>
+</dependencies>
+
+    <!--<build>-->
+        <!--<resources>-->
+            <!--<resource>-->
+                <!--<directory>src/main/java</directory>-->
+                <!--<includes>-->
+                    <!--<include>**/*.properties</include>-->
+                    <!--<include>**/*.xml</include>-->
+                <!--</includes>-->
+                <!--<filtering>false</filtering>-->
+            <!--</resource>-->
+            <!--<resource>-->
+                <!--<directory>src/main/resources</directory>-->
+                <!--<includes>-->
+                    <!--<include>**/*.properties</include>-->
+                    <!--<include>**/*.xml</include>-->
+                <!--</includes>-->
+                <!--<filtering>false</filtering>-->
+            <!--</resource>-->
+        <!--</resources>-->
+        <!--<plugins>-->
+            <!--<plugin>-->
+                <!--<artifactId>maven-assembly-plugin</artifactId>-->
+                <!--<configuration>-->
+                    <!--<descriptorRefs>-->
+                        <!--<descriptorRef>jar-with-dependencies</descriptorRef>-->
+                    <!--</descriptorRefs>-->
+                    <!--<archive>-->
+                        <!--<manifest>-->
+                            <!--<mainClass></mainClass>-->
+                        <!--</manifest>-->
+                    <!--</archive>-->
+                <!--</configuration>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>make-assembly</id>-->
+                        <!--<phase>install</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>single</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
+        <!--</plugins>-->
+    <!--</build>-->
+
 </project>
