@@ -1,5 +1,6 @@
 package linkedlist;
 
+import com.sun.org.apache.bcel.internal.generic.ARETURN;
 import lombok.*;
 
 public class SingleLinkedList {
@@ -169,27 +170,92 @@ public class SingleLinkedList {
         return slow;
     }
 
+    /**
+     * 删除中间节点
+     * @return
+     */
+    public boolean deleteMiddleNode() {
+        if (head == null) {
+            return false;
+        }
+        Node fast =head;
+        Node slow = head;
+        Node pre = null;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            // 目标节点的前一个节点
+            pre = slow;
+            slow = slow.next;
+        }
+        // 真正的删除操作
+        pre.next = slow.next;
+        return true;
+    }
+
+    /**
+     * 根据索引删除节点
+     *
+     * @param index 下标从0开始
+     * @return
+     */
+    public boolean deleteByIndex(int index) {
+        if (head == null) {
+            return false;
+        }
+        // 单独处理删除头节点情况
+        if (index == 0) {
+            head = head.next;
+            return true;
+        }
+        int i = 0;
+        Node node = head;
+        Node pre = head;
+        while (node != null) {
+             if (i == index) {
+                pre.next = node.next;
+                return true;
+            }
+            pre = node;
+            node = node.next;
+            i = i + 1;
+        }
+        return false;
+    }
+
+    /**
+     * 合并链表
+     * @param node1
+     * @param node2
+     */
+    public void mergeLinkedlist(Node node1, Node node2) {
+
+    }
 
     public static void main(String[] args) {
         SingleLinkedList linkedList = new SingleLinkedList();
-        Node node1 = new Node(null, 1);
-        Node node2 = new Node(null, 2);
-        Node node3 = new Node(null, 3);
-        Node node4 = new Node(null, 4);
-        Node node5 = new Node(null, 5);
-        node1.next = node2;
-        node2.next = node3;
-        node3.next = node4;
-        node4.next = node2;
-        linkedList.insertToTail(node1);
-        linkedList.printAll();
-//        linkedList.insertToTailWithValue(1);
-//        linkedList.insertToTailWithValue(2);
-//        linkedList.insertToTailWithValue(3);
+//        Node node1 = new Node(null, 1);
+//        Node node2 = new Node(null, 2);
+//        Node node3 = new Node(null, 3);
+//        Node node4 = new Node(null, 4);
+//        Node node5 = new Node(null, 5);
+//        node1.next = node2;
+//        node2.next = node3;
+//        node3.next = node4;
+//        node4.next = node2;
+//        linkedList.insertToTail(node1);
+//        linkedList.printAll();
+        linkedList.insertToTailWithValue(1);
+        linkedList.insertToTailWithValue(2);
+        linkedList.insertToTailWithValue(3);
 //        linkedList.insertToTailWithValue(4);
 //        linkedList.insertToTailWithValue(5);
 //        linkedList.insertToTailWithValue(6);
-//        linkedList.printAll();
+        linkedList.printAll();
+
+        boolean b = linkedList.deleteByIndex(3);
+        System.out.println(b);
+        linkedList.printAll();
+
 
 //        boolean b = linkedList.hasCycle();
 //        System.out.println(b);
