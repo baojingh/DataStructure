@@ -89,6 +89,19 @@ public class SingleLinkedList {
     }
 
     /**
+     * 输出所有元素, 若存在环，应该有检测机制，否则无限循环
+     */
+    public void printAll(Node head) {
+
+        Node currentNode = head;
+        System.out.println("linked list data:");
+        while (currentNode != null) {
+            System.out.println(currentNode.data);
+            currentNode = currentNode.next;
+        }
+    }
+
+    /**
      * 根据值删除节点, 删除重复值
      *
      * @param ele
@@ -172,13 +185,14 @@ public class SingleLinkedList {
 
     /**
      * 删除中间节点
+     *
      * @return
      */
     public boolean deleteMiddleNode() {
         if (head == null) {
             return false;
         }
-        Node fast =head;
+        Node fast = head;
         Node slow = head;
         Node pre = null;
         while (fast != null && fast.next != null) {
@@ -211,7 +225,7 @@ public class SingleLinkedList {
         Node node = head;
         Node pre = head;
         while (node != null) {
-             if (i == index) {
+            if (i == index) {
                 pre.next = node.next;
                 return true;
             }
@@ -223,16 +237,43 @@ public class SingleLinkedList {
     }
 
     /**
-     * 合并链表
-     * @param node1
-     * @param node2
+     * 有序合并链表
+     *
+     * @param head1
+     * @param head2
      */
-    public void mergeLinkedlist(Node node1, Node node2) {
+    public Node mergeLinkedlist(Node head1, Node head2) {
+        if (head1 == null) {
+            return head2;
+        }
+        if (head2 == null) {
+            return head1;
+        }
+        Node solder = new Node(null, 0);
+        Node p = solder;
+        while (head1 != null && head2 != null) {
+            if (head1.data < head2.data) {
+                p.next = head1;
+                head1 = head1.next;
+            } else {
+                p.next = head2;
+                head2 = head2.next;
+            }
+            p = p.next;
+        }
+        if (head1 != null) {
+            p.next = head1;
+        }
 
+        if (head2 != null) {
+            p.next = head2;
+        }
+        return solder.next;
     }
 
     public static void main(String[] args) {
-        SingleLinkedList linkedList = new SingleLinkedList();
+        SingleLinkedList linked1 = new SingleLinkedList();
+        SingleLinkedList linked2 = new SingleLinkedList();
 //        Node node1 = new Node(null, 1);
 //        Node node2 = new Node(null, 2);
 //        Node node3 = new Node(null, 3);
@@ -244,18 +285,21 @@ public class SingleLinkedList {
 //        node4.next = node2;
 //        linkedList.insertToTail(node1);
 //        linkedList.printAll();
-        linkedList.insertToTailWithValue(1);
-        linkedList.insertToTailWithValue(2);
-        linkedList.insertToTailWithValue(3);
-//        linkedList.insertToTailWithValue(4);
-//        linkedList.insertToTailWithValue(5);
-//        linkedList.insertToTailWithValue(6);
-        linkedList.printAll();
+        linked1.insertToTailWithValue(1);
+        linked1.insertToTailWithValue(3);
+        linked1.insertToTailWithValue(5);
+        System.out.println("linked1");
+        linked1.printAll();
 
-        boolean b = linkedList.deleteByIndex(3);
-        System.out.println(b);
-        linkedList.printAll();
+        linked2.insertToTailWithValue(2);
+        linked2.insertToTailWithValue(4);
+        linked2.insertToTailWithValue(6);
+        System.out.println("linked2");
+        linked2.printAll();
 
+
+        Node newList = linked1.mergeLinkedlist(linked1.head, linked2.head);
+        linked1.printAll(newList);
 
 //        boolean b = linkedList.hasCycle();
 //        System.out.println(b);
