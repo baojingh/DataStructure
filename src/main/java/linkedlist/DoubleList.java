@@ -13,18 +13,23 @@ public class DoubleList {
         this.head = null;
         this.tail = null;
         this.size = 0;
-        this.capacity = 5;
+        this.capacity = capacity;
     }
 
     public DoubleList() {
     }
 
-    private boolean isFull() {
+    public boolean isFull() {
         if (this.size >= this.capacity) {
             return true;
         }
         return false;
     }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
 
     private boolean isEmpty() {
         if (this.size == 0) {
@@ -33,7 +38,7 @@ public class DoubleList {
         return false;
     }
 
-    private int getSize() {
+    public int getSize() {
         return size;
     }
 
@@ -104,6 +109,18 @@ public class DoubleList {
         return tmp;
     }
 
+    /**
+     * 删除节点，注意删除最后一个节点的操作
+     * @param node
+     */
+    public void deleteNode(@NonNull Node node) {
+        node.prev.next = node.next;
+        if (node.next != null) {
+            node.next.prev = node.prev;
+        }
+        this.size = this.size - 1;
+    }
+
 
     /**
      * 输出所有元素, 若存在环，应该有检测机制，否则无限循环
@@ -119,15 +136,27 @@ public class DoubleList {
 
     public static void main(String[] args) {
         DoubleList dl = new DoubleList();
-        dl.insertToTailWithValue(1, 1);
-        dl.insertToTailWithValue(2, 2);
+        Node n1 = new Node(1, 1);
+        Node n2 = new Node(2, 2);
+        Node n3 = new Node(3, 3);
+
+        dl.insertToTail(n1);
+        dl.insertToTail(n2);
+        dl.insertToTail(n3);
+        dl.printAll();
+
+        dl.deleteNode(n2);
+        dl.printAll();
+
+//        dl.insertToTailWithValue(1, 1);
+//        dl.insertToTailWithValue(2, 2);
 //        dl.insertToTailWithValue(3, 3);
 //        dl.insertToTailWithValue(4, 4);
-        dl.printAll();
-        Node n1 = dl.deleteTail();
-        System.out.println(n1.key + "-" + n1.val);
-        dl.deleteTail();
-        dl.printAll();
+//        dl.printAll();
+//        Node n1 = dl.deleteTail();
+//        Node n2 = dl.deleteTail();
+//        dl.deleteTail();
+//        dl.printAll();
 
 
     }
