@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 /**
  * 自己造轮子，哈希+双向链表
+ * 参考：https://leetcode-cn.com/problems/lru-cache/solution/lru-ce-lue-xiang-jie-he-shi-xian-by-labuladong/
  */
 public class LRUCacheCustomize {
     private HashMap<Integer, DoubleList.Node> map;
