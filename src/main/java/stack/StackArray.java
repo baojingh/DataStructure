@@ -50,15 +50,38 @@ public class StackArray {
         return true;
     }
 
+    private boolean resize(int len) {
+        int[] items1 = new int[len];
+        for (int i = 0; i < items.length; i++) {
+            items1[i] = items[i];
+        }
+        this.capacity = len;
+        items = items1;
+        return true;
+    }
+
     /**
      * 入栈+动态扩容
      *
      * @param ele
      * @return
      */
-    public int pushDynamic(int ele) {
+    public boolean pushDynamic(int ele) {
+        if (isFull()) {
+            // 扩容成原来两倍
+            resize(this.capacity * 2);
+        }
+        items[size] = ele;
+        size = size + 1;
+        return true;
+    }
 
-        return 1;
+    public void printAll() {
+        System.out.println("data in stack");
+        for (int i = this.size - 1; i >= 0; i--) {
+            System.out.println(items[i]);
+        }
+        System.out.println(String.format("data size in stack is: %s, capacity is: %s", this.size, this.capacity));
     }
 
     /**
@@ -76,22 +99,18 @@ public class StackArray {
     }
 
     public static void main(String[] args) {
-//        StackArray stackArray = new StackArray(3);
-//        stackArray.push(1);
-//        stackArray.push(2);
-//
-//        int v1 = stackArray.pop();
-//        System.out.println(v1);
-//
-//        stackArray.push(3);
-//
-//        int v2 = stackArray.pop();
-//        System.out.println(v2);
-        while (true) {
-            System.out.println("hello");
-        }
-
+        StackArray stackArray = new StackArray(3);
+        stackArray.pushDynamic(1);
+        stackArray.pushDynamic(2);
+        stackArray.pushDynamic(3);
+        stackArray.pushDynamic(4);
+        stackArray.printAll();
+        stackArray.pop();
+        stackArray.pop();
+        stackArray.printAll();
     }
 
-
 }
+
+
+
