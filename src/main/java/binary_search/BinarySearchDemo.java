@@ -8,9 +8,9 @@ public class BinarySearchDemo {
 
 
     public static void main(String[] args) {
-        int[] arr = new int[]{1, 3};
-        boolean isExists = binarySearch(arr, 3);
-        System.out.println("exists:" + isExists);
+        int[] arr = new int[]{1, 3, 5, 7, 7, 8, 9};
+        int index = binarySearch1(arr, 2);
+        System.out.println("exists:" + index);
     }
 
     /**
@@ -38,6 +38,29 @@ public class BinarySearchDemo {
             }
         }
         return false;
+    }
+
+    /**
+     * 查找第一个等于指定值的元素，即数组中包含重复元素
+     */
+    public static int binarySearch1(int[] arr, int data) {
+        int low = 0;
+        int high = arr.length - 1;
+        while (low <= high) {
+            int mid = low + ((high - low) >> 1);
+            if (arr[mid] > data) {
+                high = mid - 1;
+            } else if (arr[mid] < data) {
+                low = mid + 1;
+            } else {
+                if (mid == 0 || arr[mid - 1] != data) {
+                    return mid;
+                }
+                high = mid - 1;
+            }
+        }
+        return -1;
+
     }
 
 }
