@@ -1,6 +1,8 @@
 package hashTable;
 
 
+import java.util.Map;
+
 /**
  * @Author: hebj
  * @Date: 2020/2/16 13:31
@@ -50,14 +52,31 @@ public class HashTableCustomize<K, V> {
         } else {
             // 使用链表法解决冲突
         }
-
-
-
-
     }
 
     private void resize() {
+        EntryCustomize<K, V>[] oldTable = this.table;
+        this.table = (EntryCustomize<K, V>[]) new EntryCustomize[this.table.length * 2];
+        use = 0;
+        for (int i = 0; i < oldTable.length; i++) {
+            if (oldTable[i] == null || oldTable[i].next == null) {
+                continue;
+            }
+            EntryCustomize<K, V> e = oldTable[i];
+            while (e.next != null) {
+                e = e.next;
+                int index = hash(e.key);
+                if (table[index] == null) {
+                    use = use + 1;
+                    // 创建哨兵节点
+                    table[index] = new EntryCustomize<>(null, null, null);
+                }
+                table[index].next = new EntryCustomize<>(e.key, e.value, table[index].next);
+            }
 
+        }
+        
+        
     }
 
     /**
@@ -76,7 +95,9 @@ public class HashTableCustomize<K, V> {
     }
 
     public static void main(String[] args) {
-
+        HashTableCustomize<String, String> demo = new HashTableCustomize<>();
+        int hash = demo.hash("key");
+        System.out.println(hash);
     }
 
     static class EntryCustomize<K, V> {
