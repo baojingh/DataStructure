@@ -75,8 +75,46 @@ public class HashTableCustomize<K, V> {
             }
 
         }
-        
-        
+    }
+
+    public void remove(K key) {
+        int index = hash(key);
+        EntryCustomize<K, V> e = table[index];
+        // 为什么要求e.next == null
+        if (e == null || e.next == null) {
+            return;
+        }
+        EntryCustomize pre;
+        EntryCustomize<K, V> headNode = table[index];
+        do {
+            pre = e;
+            e = e.next;
+            if (e.key == key) {
+                pre.next = e.next;
+                size = size - 1;
+                if (headNode.next == null) {
+                    use = use - 1;
+                }
+                return;
+            }
+
+        } while (e.next != null);
+    }
+
+    public V get(K key) {
+        int index = hash(key);
+        EntryCustomize<K, V> e = table[index];
+        // 为什么要求e.next == null
+        if (e == null || e.next == null) {
+            return null;
+        }
+        while (e.next != null) {
+            e = e.next;
+            if (key == e.key) {
+                return e.value;
+            }
+        }
+        return null;
     }
 
     /**
