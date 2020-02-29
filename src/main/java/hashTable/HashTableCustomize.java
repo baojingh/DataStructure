@@ -10,10 +10,9 @@ import java.util.Map;
 public class HashTableCustomize<K, V> {
 
     // 散列表默认长度
-    private static final int DEFAULT_CAPACITY = 8;
-
+    private static final int DEFAULT_CAPACITY = 5;
     // 装载因子
-    private static final float LOAD_FACTOR = 0.75f;
+    private static final float LOAD_FACTOR = 0.8f;
 
     // 初始化散列表数组
     private EntryCustomize<K, V>[] table;
@@ -25,7 +24,7 @@ public class HashTableCustomize<K, V> {
     private int use = 0;
 
     public HashTableCustomize() {
-        table = (EntryCustomize<K, V>[])new EntryCustomize[DEFAULT_CAPACITY];
+        table = (EntryCustomize<K, V>[]) new EntryCustomize[DEFAULT_CAPACITY];
     }
 
     /**
@@ -36,10 +35,15 @@ public class HashTableCustomize<K, V> {
      */
     public void put(K key, V value) {
         int index = hash(key);
+        // 数组中存储的是(null,null,next),next是指向链表的。
+        // 数组初始化完成后，每个index位置的元素都是null
         if (table[index] == null) {
+            // 对每个index的元素初始化成(null,null,next)
             table[index] = new EntryCustomize<>(null, null, null);
         }
         EntryCustomize<K, V> tmp = table[index];
+        // 按照索引位置获取元素，如果索引位置处的元素，没有后续节点，即next==null，说明可以将新元素插入next位置
+        // 插入成功后，查看是否超出阀值，超出就resize
         // 新增节点
         if (tmp.next == null) {
             EntryCustomize<K, V> n = new EntryCustomize<>(key, value, null);
@@ -51,6 +55,19 @@ public class HashTableCustomize<K, V> {
             }
         } else {
             // 使用链表法解决冲突
+            do {
+                tmp = tmp.next;
+                // 如果key相同，则覆盖
+                if (tmp.key == key) {
+                    tmp.value = value;
+                    return;
+                }
+            } while (tmp.next != null);
+            // 获取原链表第一个节点
+            EntryCustomize<K, V> temp = table[index].next;
+            // 创建新的节点，插入表头
+            table[index].next = new EntryCustomize<>(key, value, temp);
+            size = size + 1;
         }
     }
 
@@ -80,7 +97,8 @@ public class HashTableCustomize<K, V> {
     public void remove(K key) {
         int index = hash(key);
         EntryCustomize<K, V> e = table[index];
-        // 为什么要求e.next == null
+        // e==null说明数组初始化完成，全部是null
+        // e.next == null 说明数组初始化成(null, null,next) 但是没有新的元素
         if (e == null || e.next == null) {
             return;
         }
@@ -97,7 +115,6 @@ public class HashTableCustomize<K, V> {
                 }
                 return;
             }
-
         } while (e.next != null);
     }
 
@@ -119,6 +136,7 @@ public class HashTableCustomize<K, V> {
 
     /**
      * 散列函数
+     *
      * @param k
      * @return
      */
@@ -133,9 +151,14 @@ public class HashTableCustomize<K, V> {
     }
 
     public static void main(String[] args) {
-        HashTableCustomize<String, String> demo = new HashTableCustomize<>();
-        int hash = demo.hash("key");
-        System.out.println(hash);
+        HashTableCustomize<Integer, String> demo = new HashTableCustomize<>();
+        demo.put(1, "a");
+        demo.put(2, "b");
+        demo.put(3, "c");
+        demo.put(4, "d");
+        demo.put(5, "e");
+        demo.put(6, "f");
+        demo.put(7, "g");
     }
 
     static class EntryCustomize<K, V> {
