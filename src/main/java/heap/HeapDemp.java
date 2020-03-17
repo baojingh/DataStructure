@@ -7,6 +7,43 @@ package heap;
  */
 public class HeapDemp {
 
+    private int[] arr;
+    private int capacity;
+    private int count;
+
+    public HeapDemp(int capacity) {
+        this.arr = new int[capacity];
+        this.capacity = capacity;
+        this.count = 0;
+    }
+
+    public HeapDemp() {
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public int getCount() {
+        return this.count;
+    }
+
+    public void incByOne() {
+        this.count = this.count + 1;
+    }
+
+    private boolean isEmpty() {
+        return 0 == this.count;
+    }
+
+    private boolean isFull() {
+        return this.capacity == this.count;
+    }
+
     public void sort(int[] arr) {
         if (arr == null || arr.length == 1) {
             return;
@@ -18,10 +55,9 @@ public class HeapDemp {
             swapValue(arr, 0, len);
             // 将剩下元素重新堆化，堆顶元素变成最大元素
             heapify(arr, len, 0);
-
         }
-
     }
+
 
     public void buildHeap(int[] arr) {
         // 树中最后一个非叶子节点位置，(arr.length -1) / 2
@@ -67,23 +103,51 @@ public class HeapDemp {
         arr[i] = arr[i] - arr[maxPos];
     }
 
+    public void insert(int data) {
+        // 数组满
+        if (isFull()) {
+            return;
+        }
+        int i = this.count + 1;
+        if (isEmpty()) {
+            i = 1;
+        }
+        arr[i] = data;
+        incByOne();
+        // 维持大顶堆
+        while (i / 2 > 0 && arr[i] > arr[i / 2]) {
+            swapValue(arr, i, i / 2);
+            i = i / 2;
+        }
+    }
+
+    private void printAll() {
+        for (int i = 1; i <= this.count; i++) {
+            System.out.println(arr[i]);
+        }
+    }
 
     public static void main(String[] args) {
-        int[] arr = new int[10];
-        arr[0] = 0;
-        arr[1] = 7;
-        arr[2] = 5;
-        arr[3] = 19;
-        arr[4] = 8;
-        arr[5] = 4;
-        arr[6] = 1;
-        arr[7] = 20;
-        arr[8] = 13;
-        arr[9] = 16;
 
-        HeapDemp heapDemp = new HeapDemp();
-        heapDemp.buildHeap(arr);
-        System.out.println(arr.length);
+        HeapDemp heapDemp = new HeapDemp(20);
+        heapDemp.insert(33);
+        heapDemp.insert(17);
+        heapDemp.insert(21);
+        heapDemp.insert(16);
+        heapDemp.insert(13);
+        heapDemp.insert(15);
+        heapDemp.insert(9);
+        heapDemp.insert(5);
+        heapDemp.insert(6);
+        heapDemp.insert(7);
+        heapDemp.insert(8);
+        heapDemp.insert(1);
+        heapDemp.insert(2);
+        heapDemp.insert(22);
+        heapDemp.printAll();
+
+//        heapDemp.buildHeap(arr);
+//        System.out.println(arr.length);
     }
 
 }
