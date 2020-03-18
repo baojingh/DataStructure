@@ -36,6 +36,10 @@ public class HeapDemp {
         this.count = this.count + 1;
     }
 
+    public void descByOne() {
+        this.count = this.count - 1;
+    }
+
     private boolean isEmpty() {
         return 0 == this.count;
     }
@@ -54,7 +58,7 @@ public class HeapDemp {
             // 将堆顶元素与最后一个元素交换
             swapValue(arr, 0, len);
             // 将剩下元素重新堆化，堆顶元素变成最大元素
-            heapify(arr, len, 0);
+            heapify(len, 0);
         }
     }
 
@@ -67,16 +71,15 @@ public class HeapDemp {
         }
         int len = (arr.length - 1) / 2;
         for (int i = len; i > -1; i--) {
-            heapify(arr, arr.length - 1, i);
+            heapify(arr.length - 1, i);
         }
     }
 
     /**
-     * @param arr 数组
-     * @param n   最后对元素下标
-     * @param i   当前元素下标, 从最大非叶子节点元素，向上直到根节点。i从大到小。
+     * @param n 最后对元素下标
+     * @param i 当前元素下标, 从最大非叶子节点元素，向上直到根节点。i从大到小。
      */
-    public void heapify(int[] arr, int n, int i) {
+    public void heapify(int n, int i) {
         while (true) {
             int maxPos = i;
             // 与左子节点比较，[n/2 + 1, n]属于叶子节点，不需要堆化
@@ -127,23 +130,56 @@ public class HeapDemp {
         }
     }
 
+    /**
+     * 删除堆顶元素
+     */
+    public void deleteMax() {
+        if (isEmpty()) {
+            return;
+        }
+        int len = getCount();
+        arr[1] = arr[len];
+        descByOne();
+        // 此处堆化有问题，先比较左子树还是右子树？2020-03-18，参考数据结构与算法之美的删除节点中的堆化方法
+        heapify(getCount(), 1);
+    }
+
+
     public static void main(String[] args) {
 
         HeapDemp heapDemp = new HeapDemp(20);
+//        heapDemp.insert(33);
+//        heapDemp.insert(17);
+//        heapDemp.insert(21);
+//        heapDemp.insert(16);
+//        heapDemp.insert(13);
+//        heapDemp.insert(15);
+//        heapDemp.insert(9);
+//        heapDemp.insert(5);
+//        heapDemp.insert(6);
+//        heapDemp.insert(7);
+//        heapDemp.insert(8);
+//        heapDemp.insert(1);
+//        heapDemp.insert(2);
+//        heapDemp.insert(22);
+
         heapDemp.insert(33);
-        heapDemp.insert(17);
+        heapDemp.insert(27);
         heapDemp.insert(21);
         heapDemp.insert(16);
         heapDemp.insert(13);
         heapDemp.insert(15);
-        heapDemp.insert(9);
+        heapDemp.insert(19);
         heapDemp.insert(5);
         heapDemp.insert(6);
         heapDemp.insert(7);
         heapDemp.insert(8);
         heapDemp.insert(1);
         heapDemp.insert(2);
-        heapDemp.insert(22);
+        heapDemp.insert(12);
+        heapDemp.printAll();
+        System.out.println();
+        heapDemp.deleteMax();
         heapDemp.printAll();
 
 //        heapDemp.buildHeap(arr);
