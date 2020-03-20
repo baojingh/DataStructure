@@ -1,9 +1,8 @@
 package linkedlist;
 
-import com.sun.org.apache.bcel.internal.generic.ARETURN;
 import lombok.*;
 
-public class SingleLinkedList {
+public class SingleLinkedList_bak {
 
     private Node head = null;
 
@@ -303,8 +302,8 @@ public class SingleLinkedList {
     }
 
     public static void main(String[] args) {
-        SingleLinkedList linked1 = new SingleLinkedList();
-        SingleLinkedList linked2 = new SingleLinkedList();
+        SingleLinkedList_bak linked1 = new SingleLinkedList_bak();
+        SingleLinkedList_bak linked2 = new SingleLinkedList_bak();
 //        Node node1 = new Node(null, 1);
         Node node2 = new Node(null, 2);
         Node node3 = new Node(null, 3);
