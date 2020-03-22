@@ -2,8 +2,6 @@ package linkedlist;
 
 import lombok.*;
 
-import javax.swing.tree.ExpandVetoException;
-
 /**
  * @Author: hebj
  * @Date: 2020/3/20 09:04
@@ -36,6 +34,22 @@ public class SingleLinkedlist {
         currentNode.setNext(node);
         return null;
     }
+
+    /**
+     * 链表头部插入元素
+     *
+     * @param newNode
+     */
+    private boolean insertToHead(@NonNull SingleNode newNode) {
+        if (head == null) {
+            head = newNode;
+            return true;
+        }
+        newNode.setNext(head);
+        head = newNode;
+        return true;
+    }
+
 
     /**
      * 奇偶位置，链表分别排列https://leetcode-cn.com/problems/odd-even-linked-list/
