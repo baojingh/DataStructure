@@ -272,7 +272,7 @@ public class SingleLinkedList_bak {
     }
 
     /**
-     * 删除倒数第K个节点,基于哨兵原理
+     * 删除倒数第K个节点,基于哨兵原理,此方案可以进行优化，参看另一个链表练习
      *
      * @param head
      * @return
