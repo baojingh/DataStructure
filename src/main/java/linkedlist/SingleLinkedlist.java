@@ -303,6 +303,9 @@ public class SingleLinkedlist {
 //        linkedlist.printAll();
 
 
+        
+
+
 //        SingleNode node = linkedlist.oddEvenValueListClassify();
 //        linkedlist.printAll();
 //        SingleNode node = linkedlist.deleteNodeByLastKth(4);
