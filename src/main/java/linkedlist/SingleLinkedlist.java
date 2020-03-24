@@ -222,8 +222,11 @@ public class SingleLinkedlist {
      * 示例:
      * 给定 1->2->3->4, 你应该返回 2->1->4->3.
      * 链接：https://leetcode-cn.com/problems/swap-nodes-in-pairs
-     * <p>
-     * 1 自己画流程图
+     * 自己画流程图:
+     * 1 移动指针指向end节点
+     * 2 start指向end后面的节点
+     * 3 end指向start节点
+     * 4 移动指针移动到start节点
      *
      * @return
      */
@@ -240,6 +243,29 @@ public class SingleLinkedlist {
             tmp = start;
         }
         return solder.getNext();
+    }
+
+    /**
+     * 给定一个链表，旋转链表，将链表每个节点向右移动 k 个位置，其中 k 是非负数。
+     * <p>
+     * 输入: 1->2->3->4->5->NULL, k = 2
+     * 输出: 4->5->1->2->3->NULL
+     * 向右旋转 1 步: 5->1->2->3->4->NULL
+     * 向右旋转 2 步: 4->5->1->2->3->NULL
+     * 链接：https://leetcode-cn.com/problems/rotate-list
+     *
+     * @return
+     */
+    public SingleNode rotateNode(int k) {
+        if (k < 0) {
+            return this.head;
+        }
+        SingleNode solder = new SingleNode(null, 0);
+        solder.setNext(this.head);
+        SingleNode cur = solder;
+
+
+        return null;
     }
 
     public static void main(String[] args) {
