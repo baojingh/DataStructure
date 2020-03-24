@@ -303,8 +303,6 @@ public class SingleLinkedlist {
 //        linkedlist.printAll();
 
 
-        
-
 
 //        SingleNode node = linkedlist.oddEvenValueListClassify();
 //        linkedlist.printAll();
