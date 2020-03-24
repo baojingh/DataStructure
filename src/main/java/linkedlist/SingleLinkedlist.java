@@ -176,19 +176,18 @@ public class SingleLinkedlist {
 
     /**
      * 删除倒数第N个节点,基于哨兵原理
-     *
+     * <p>
      * 给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。
      * 给定一个链表: 1->2->3->4->5, 和 n = 2.
      * 当删除了倒数第二个节点后，链表变为 1->2->3->5.
      * 说明：
      * 给定的 n 保证是有效的。
      * 链接：https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list
-     *
+     * <p>
      * 1 判断位置是非负整数
      * 2 设置前后指针，之间的差值是N，前指针start先移动N个位置，还需要保证start节点不为空
      * 3 然后end指针开始移动，当start指针为空时，end指针就是所要删除元素的前一个元素
      * 4 基于end指针删除目标元素
-     *
      *
      * @return
      */
@@ -216,6 +215,33 @@ public class SingleLinkedlist {
         return solder.getNext();
     }
 
+    /**
+     * 交换链表相邻节点
+     * 给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。
+     * 你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。
+     * 示例:
+     * 给定 1->2->3->4, 你应该返回 2->1->4->3.
+     * 链接：https://leetcode-cn.com/problems/swap-nodes-in-pairs
+     * <p>
+     * 1 自己画流程图
+     *
+     * @return
+     */
+    public SingleNode swapNode() {
+        SingleNode solder = new SingleNode(null, 0);
+        solder.setNext(this.head);
+        SingleNode tmp = solder;
+        while (tmp.getNext() != null && tmp.getNext().getNext() != null) {
+            SingleNode start = tmp.getNext();
+            SingleNode end = tmp.getNext().getNext();
+            tmp.setNext(end);
+            start.setNext(end.getNext());
+            end.setNext(start);
+            tmp = start;
+        }
+        return solder.getNext();
+    }
+
     public static void main(String[] args) {
         SingleLinkedlist linkedlist = new SingleLinkedlist();
         SingleNode node1 = new SingleNode(null, 2);
@@ -225,7 +251,7 @@ public class SingleLinkedlist {
         SingleNode node5 = new SingleNode(null, 6);
         SingleNode node6 = new SingleNode(null, 9);
         SingleNode node7 = new SingleNode(null, 7);
-        SingleNode node8 = new SingleNode(null, 8);
+//        SingleNode node8 = new SingleNode(null, 8);
         linkedlist.insertToTail(node1);
         linkedlist.insertToTail(node2);
         linkedlist.insertToTail(node3);
@@ -233,12 +259,14 @@ public class SingleLinkedlist {
         linkedlist.insertToTail(node5);
         linkedlist.insertToTail(node6);
         linkedlist.insertToTail(node7);
-        linkedlist.insertToTail(node8);
+//        linkedlist.insertToTail(node8);
 //        linkedlist.printAll();
 
 //        SingleNode node = linkedlist.oddEvenValueListClassify();
 //        linkedlist.printAll();
-        SingleNode node = linkedlist.deleteNodeByLastKth(4);
+//        SingleNode node = linkedlist.deleteNodeByLastKth(4);
+
+        SingleNode node = linkedlist.swapNode();
         linkedlist.printWithHead(node);
 
     }
