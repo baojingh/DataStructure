@@ -254,38 +254,51 @@ public class SingleLinkedlist {
      * 向右旋转 2 步: 4->5->1->2->3->NULL
      * 链接：https://leetcode-cn.com/problems/rotate-list
      *
+     * solder原理更适用于链表插入，删除等场景，本次术语移动元素，可以不用solder
+     *
+     *
      * @return
      */
     public SingleNode rotateNode(int k) {
-        if (k < 0) {
+        if (k < 0 || head == null || head.getNext() == null) {
             return this.head;
         }
-        SingleNode solder = new SingleNode(null, 0);
-        solder.setNext(this.head);
-        SingleNode cur = solder;
-
-
-
-        return null;
+        SingleNode fast = this.head;
+        // 计算节点个数，将链表制作成环
+        int count = 1;
+        while (fast.getNext() != null) {
+            count = count + 1;
+            fast = fast.getNext();
+        }
+        fast.setNext(this.head);
+        // 注意考虑k大于count的情况，k是count的倍数，则不做任何操作，正常旋转即可
+        k = k % count;
+        if (k == 0) {
+            return this.head;
+        }
+        // 定位到倒数k个节点的前面节点，，因此count-k-1步
+        SingleNode slow = this.head;
+        for (int i = 0; i < count - k - 1; i++) {
+            slow = slow.getNext();
+        }
+        SingleNode newNode = slow.getNext();
+        slow.setNext(null);
+        return newNode;
     }
 
     public static void main(String[] args) {
         SingleLinkedlist linkedlist = new SingleLinkedlist();
-        SingleNode node1 = new SingleNode(null, 2);
-        SingleNode node2 = new SingleNode(null, 4);
+        SingleNode node1 = new SingleNode(null, 1);
+        SingleNode node2 = new SingleNode(null, 2);
         SingleNode node3 = new SingleNode(null, 3);
-        SingleNode node4 = new SingleNode(null, 5);
-        SingleNode node5 = new SingleNode(null, 6);
-        SingleNode node6 = new SingleNode(null, 9);
-        SingleNode node7 = new SingleNode(null, 7);
+        SingleNode node4 = new SingleNode(null, 4);
+        SingleNode node5 = new SingleNode(null, 5);
 //        SingleNode node8 = new SingleNode(null, 8);
         linkedlist.insertToTail(node1);
         linkedlist.insertToTail(node2);
         linkedlist.insertToTail(node3);
         linkedlist.insertToTail(node4);
         linkedlist.insertToTail(node5);
-        linkedlist.insertToTail(node6);
-        linkedlist.insertToTail(node7);
 //        linkedlist.insertToTail(node8);
 //        linkedlist.printAll();
 
@@ -293,7 +306,10 @@ public class SingleLinkedlist {
 //        linkedlist.printAll();
 //        SingleNode node = linkedlist.deleteNodeByLastKth(4);
 
-        SingleNode node = linkedlist.swapNode();
+//        SingleNode node = linkedlist.swapNode();
+//        linkedlist.printWithHead(node);
+
+        SingleNode node = linkedlist.rotateNode(2);
         linkedlist.printWithHead(node);
 
     }
