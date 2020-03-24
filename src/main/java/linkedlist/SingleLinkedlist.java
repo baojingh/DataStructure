@@ -301,9 +301,6 @@ public class SingleLinkedlist {
         linkedlist.insertToTail(node5);
 //        linkedlist.insertToTail(node8);
 //        linkedlist.printAll();
-
-
-
 //        SingleNode node = linkedlist.oddEvenValueListClassify();
 //        linkedlist.printAll();
 //        SingleNode node = linkedlist.deleteNodeByLastKth(4);
