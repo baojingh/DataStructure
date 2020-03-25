@@ -253,9 +253,8 @@ public class SingleLinkedlist {
      * 向右旋转 1 步: 5->1->2->3->4->NULL
      * 向右旋转 2 步: 4->5->1->2->3->NULL
      * 链接：https://leetcode-cn.com/problems/rotate-list
-     *
+     * <p>
      * solder原理更适用于链表插入，删除等场景，本次术语移动元素，可以不用solder
-     *
      *
      * @return
      */
@@ -271,7 +270,7 @@ public class SingleLinkedlist {
             fast = fast.getNext();
         }
         fast.setNext(this.head);
-        // 注意考虑k大于count的情况，k是count的倍数，则不做任何操作，正常旋转即可
+        // 注意考虑k大于count的情况，k是count的倍数，则不做任何操作。当k不是0，则正常做旋转即可
         k = k % count;
         if (k == 0) {
             return this.head;
@@ -284,6 +283,34 @@ public class SingleLinkedlist {
         SingleNode newNode = slow.getNext();
         slow.setNext(null);
         return newNode;
+    }
+
+
+    /**
+     * 给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中 没有重复出现 的数字。
+     * 示例 1:
+     * 输入: 1->2->3->3->4->4->5
+     * 输出: 1->2->5
+     * 示例 2:
+     * 输入: 1->1->1->2->3
+     * 输出: 2->3
+     * 链接：https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii
+     *
+     * @return
+     */
+    public SingleNode deleteRepeatNode() {
+        SingleNode solder = new SingleNode(null, 0);
+        solder.setNext(this.head);
+        SingleNode cur = solder;
+        while (cur.getNext() != null && cur.getNext().getNext() != null) {
+            SingleNode first = cur.getNext();
+            SingleNode second = cur.getNext().getNext();
+            while (first.getData() == second.getData()) {
+                second = second.getNext();
+            }
+            cur = cur.getNext();
+        }
+        return solder.getNext();
     }
 
     public static void main(String[] args) {
