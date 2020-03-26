@@ -287,7 +287,7 @@ public class SingleLinkedlist {
 
 
     /**
-     * 给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中 没有重复出现 的数字。
+     * 给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中 没有重复出现的数字。
      * 示例 1:
      * 输入: 1->2->3->3->4->4->5
      * 输出: 1->2->5
@@ -303,11 +303,15 @@ public class SingleLinkedlist {
         solder.setNext(this.head);
         SingleNode cur = solder;
         while (cur.getNext() != null && cur.getNext().getNext() != null) {
-            SingleNode first = cur.getNext();
-            SingleNode second = cur.getNext().getNext();
-            while (first.getData() == second.getData()) {
-                second = second.getNext();
+            if (cur.getNext().getData() == cur.getNext().getNext().getData()) {
+                SingleNode tmp = cur.getNext();
+                while (tmp != null && tmp.getNext() != null) {
+                    tmp = tmp.getNext();
+
+                }
+
             }
+
             cur = cur.getNext();
         }
         return solder.getNext();
