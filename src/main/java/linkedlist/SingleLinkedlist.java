@@ -295,6 +295,12 @@ public class SingleLinkedlist {
      * 输入: 1->1->1->2->3
      * 输出: 2->3
      * 链接：https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii
+     * 1 基于哨兵原理，可能会删除头节点
+     * 2 当前节点的下一个节点与下下一个节点是否为空
+     * 3 如果两个节点值不相等，就继续下一个节点
+     * 4 如果两个节点值相等，就将当前节点的下一个节点设置为临时节点，向后判断其后面的节点值是否与临时节点值相等，如果相等就向后遍历，
+     * 如果不相等就退出。
+     * 5 重复节点的最后一个值会被加入到链表中
      *
      * @return
      */
@@ -303,15 +309,16 @@ public class SingleLinkedlist {
         solder.setNext(this.head);
         SingleNode cur = solder;
         while (cur.getNext() != null && cur.getNext().getNext() != null) {
+            // 当前节点的下一个节点与下下一个节点比较值
             if (cur.getNext().getData() == cur.getNext().getNext().getData()) {
                 SingleNode tmp = cur.getNext();
-                while (tmp != null && tmp.getNext() != null) {
+                while (tmp != null && tmp.getNext() != null && tmp.getData() == tmp.getNext().getData()) {
+                    // 下一个重复节点
                     tmp = tmp.getNext();
-
                 }
-
+                // 重复元素最后一个节点加入链表
+                cur.setNext(tmp);
             }
-
             cur = cur.getNext();
         }
         return solder.getNext();
@@ -322,15 +329,17 @@ public class SingleLinkedlist {
         SingleNode node1 = new SingleNode(null, 1);
         SingleNode node2 = new SingleNode(null, 2);
         SingleNode node3 = new SingleNode(null, 3);
-        SingleNode node4 = new SingleNode(null, 4);
-        SingleNode node5 = new SingleNode(null, 5);
-//        SingleNode node8 = new SingleNode(null, 8);
+        SingleNode node4 = new SingleNode(null, 3);
+        SingleNode node5 = new SingleNode(null, 3);
+        SingleNode node6 = new SingleNode(null, 3);
+        SingleNode node7 = new SingleNode(null, 3);
         linkedlist.insertToTail(node1);
         linkedlist.insertToTail(node2);
         linkedlist.insertToTail(node3);
-        linkedlist.insertToTail(node4);
-        linkedlist.insertToTail(node5);
-//        linkedlist.insertToTail(node8);
+//        linkedlist.insertToTail(node4);
+//        linkedlist.insertToTail(node5);
+//        linkedlist.insertToTail(node6);
+//        linkedlist.insertToTail(node7);
 //        linkedlist.printAll();
 //        SingleNode node = linkedlist.oddEvenValueListClassify();
 //        linkedlist.printAll();
@@ -339,7 +348,9 @@ public class SingleLinkedlist {
 //        SingleNode node = linkedlist.swapNode();
 //        linkedlist.printWithHead(node);
 
-        SingleNode node = linkedlist.rotateNode(2);
+//        SingleNode node = linkedlist.rotateNode(2);
+//        linkedlist.printWithHead(node);
+        SingleNode node = linkedlist.deleteRepeatNode();
         linkedlist.printWithHead(node);
 
     }
