@@ -324,21 +324,78 @@ public class SingleLinkedlist {
         return solder.getNext();
     }
 
+    /**
+     * 给定一个链表和一个特定值 x，对链表进行分隔，使得所有小于 x 的节点都在大于或等于 x 的节点之前。
+     * 你应当保留两个分区中每个节点的初始相对位置。
+     * 示例:
+     * 输入: head = 1->4->3->2->5->2, x = 3
+     * 输出: 1->2->2->4->3->5
+     * 链接：https://leetcode-cn.com/problems/partition-list
+     *
+     * 三个链表都添加哨兵节点
+     * 空间复杂度O(1)
+     * 时间复杂度O(n)
+     *
+     * @param x
+     * @return
+     */
+    public SingleNode splitLinkedList(int x) {
+        if (head == null || x < 0) {
+            return head;
+        }
+        SingleNode solder = new SingleNode(null, 0);
+        solder.setNext(head);
+        SingleNode cur = solder;
+
+        SingleNode small_solder = new SingleNode(null, 0);
+        small_solder.setNext(this.head);
+        SingleNode small_cur = small_solder;
+
+        SingleNode big_solder = new SingleNode(null, 0);
+        big_solder.setNext(this.head);
+        SingleNode big_cur = big_solder;
+
+        while (cur.getNext() != null) {
+            // 取出主链表的下一个节点
+            SingleNode next = cur.getNext();
+            int val = next.getData();
+            if (val < x) {
+                // 小于给定的值，此节点加入小链表
+                small_cur.setNext(next);
+                small_cur = small_cur.getNext();
+            } else {
+                // 此节点加入大链表
+                big_cur.setNext(next);
+                big_cur = big_cur.getNext();
+            }
+            // 从主链表取出下一个节点
+            cur = cur.getNext();
+        }
+        // 当主链表最后一个节点小于指定值，
+        // 当主链表元素取完，但是大链表中的big_cur还在指向主链表的倒数第二个节点，倒数第一个节点术语小链表。
+        // 将大链表的最后置成null，否则会出现环。
+        // 如果主链表最后一个节点大于给定值，即使没有 big_cur.setNext(null)，也不会出现环
+        big_cur.setNext(null);
+        // 小链表尾部链接大链表头部
+        small_cur.setNext(big_solder.getNext());
+        return small_solder.getNext();
+
+    }
+
     public static void main(String[] args) {
         SingleLinkedlist linkedlist = new SingleLinkedlist();
         SingleNode node1 = new SingleNode(null, 1);
-        SingleNode node2 = new SingleNode(null, 2);
+        SingleNode node2 = new SingleNode(null, 4);
         SingleNode node3 = new SingleNode(null, 3);
-        SingleNode node4 = new SingleNode(null, 3);
-        SingleNode node5 = new SingleNode(null, 3);
-        SingleNode node6 = new SingleNode(null, 3);
-        SingleNode node7 = new SingleNode(null, 3);
+        SingleNode node4 = new SingleNode(null, 2);
+        SingleNode node5 = new SingleNode(null, 5);
+        SingleNode node6 = new SingleNode(null, 2);
         linkedlist.insertToTail(node1);
         linkedlist.insertToTail(node2);
         linkedlist.insertToTail(node3);
-//        linkedlist.insertToTail(node4);
-//        linkedlist.insertToTail(node5);
-//        linkedlist.insertToTail(node6);
+        linkedlist.insertToTail(node4);
+        linkedlist.insertToTail(node5);
+        linkedlist.insertToTail(node6);
 //        linkedlist.insertToTail(node7);
 //        linkedlist.printAll();
 //        SingleNode node = linkedlist.oddEvenValueListClassify();
@@ -350,8 +407,10 @@ public class SingleLinkedlist {
 
 //        SingleNode node = linkedlist.rotateNode(2);
 //        linkedlist.printWithHead(node);
-        SingleNode node = linkedlist.deleteRepeatNode();
-        linkedlist.printWithHead(node);
+//        SingleNode node = linkedlist.deleteRepeatNode();
+//        linkedlist.printWithHead(node);
 
+        SingleNode node = linkedlist.splitLinkedList(0);
+        linkedlist.printWithHead(node);
     }
 }
