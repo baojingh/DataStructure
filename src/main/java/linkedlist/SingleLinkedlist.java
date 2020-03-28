@@ -331,7 +331,7 @@ public class SingleLinkedlist {
      * 输入: head = 1->4->3->2->5->2, x = 3
      * 输出: 1->2->2->4->3->5
      * 链接：https://leetcode-cn.com/problems/partition-list
-     *
+     * <p>
      * 三个链表都添加哨兵节点
      * 空间复杂度O(1)
      * 时间复杂度O(n)
@@ -379,17 +379,58 @@ public class SingleLinkedlist {
         // 小链表尾部链接大链表头部
         small_cur.setNext(big_solder.getNext());
         return small_solder.getNext();
+    }
 
+    /**
+     * 反转从位置 m 到 n 的链表。请使用一趟扫描完成反转。
+     * 说明:
+     * 1 ≤ m ≤ n ≤ 链表长度。
+     * 示例:
+     * 输入: 1->2->3->4->5->NULL, m = 2, n = 4
+     * 输出: 1->4->3->2->5->NULL
+     * 链接：https://leetcode-cn.com/problems/reverse-linked-list-ii
+     *
+     * @return
+     */
+    public SingleNode reverseLinkedListWithIndex(int start, int end) {
+        if (head == null || start <= 0 || end <= 0 || end <= start) {
+            return head;
+        }
+        SingleNode solder = new SingleNode(null, 0);
+        solder.setNext(head);
+        SingleNode cur = solder;
+        int index = 0;
+        // 到达被翻转节点的前一个节点
+        for (int i = 0; i < start - 1; i++) {
+            cur = cur.getNext();
+        }
+        // 翻转节点
+        SingleNode preserve_node = null;
+        SingleNode start_node = cur.getNext();
+        SingleNode next_node = null;
+        // start_node != null表示即使end参数大于链表长度，确保循环结束
+        for (int i = start; i <= end && start_node != null; i++) {
+            next_node = start_node.getNext();
+            start_node.setNext(preserve_node);
+            preserve_node = start_node;
+            start_node = next_node;
+        }
+        // 需要翻转的前一个节点,其下一个节点还是翻转链表的头节点，其下一个节点当前是null，需要将其下一个节点指向stat_node
+        SingleNode first_node_reserve = cur.getNext();
+        first_node_reserve.setNext(start_node);
+        // 需要翻转的前一个节点指向翻转链表的最后一个节点
+        cur.setNext(preserve_node);
+        return solder.getNext();
     }
 
     public static void main(String[] args) {
         SingleLinkedlist linkedlist = new SingleLinkedlist();
         SingleNode node1 = new SingleNode(null, 1);
-        SingleNode node2 = new SingleNode(null, 4);
+        SingleNode node2 = new SingleNode(null, 2);
         SingleNode node3 = new SingleNode(null, 3);
-        SingleNode node4 = new SingleNode(null, 2);
+        SingleNode node4 = new SingleNode(null, 4);
         SingleNode node5 = new SingleNode(null, 5);
-        SingleNode node6 = new SingleNode(null, 2);
+        SingleNode node6 = new SingleNode(null, 6);
         linkedlist.insertToTail(node1);
         linkedlist.insertToTail(node2);
         linkedlist.insertToTail(node3);
@@ -410,7 +451,12 @@ public class SingleLinkedlist {
 //        SingleNode node = linkedlist.deleteRepeatNode();
 //        linkedlist.printWithHead(node);
 
-        SingleNode node = linkedlist.splitLinkedList(0);
+//        SingleNode node = linkedlist.splitLinkedList(0);
+//        linkedlist.printWithHead(node);
+
+        SingleNode node = linkedlist.reverseLinkedListWithIndex(1, 7);
         linkedlist.printWithHead(node);
+
     }
+
 }
