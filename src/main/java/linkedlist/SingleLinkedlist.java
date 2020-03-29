@@ -423,6 +423,35 @@ public class SingleLinkedlist {
         return solder.getNext();
     }
 
+    /**
+     * 检测是否含有环
+     * 空间复杂度：保存了两个快慢指针，O(1)
+     * 时间复杂度：
+     *      1 链表没有环：快指针到达终点就会结束，时间复杂度O(N)
+     *      2 链表有环：
+     *          2.1 慢指针达到环之前，快指针迭代次数=非环部分长度=N
+     *          2.2 慢指针进入环，快慢指针相遇需要迭代的次数 = 环中快慢指针的距离 / 快慢指针速度差值(是1)，即迭代次数最大是换部分长度M
+     *          2.3 也就是时间复杂度最差是O(M+N)
+     *
+     * @return
+     */
+    public boolean hasCycle() {
+        if (head == null) {
+            return false;
+        }
+        SingleNode fast = head;
+        SingleNode slow = head;
+        while (fast != null && fast.getNext() != null) {
+            fast = fast.getNext().getNext();
+            slow = slow.getNext();
+            if (fast == slow) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     public static void main(String[] args) {
         SingleLinkedlist linkedlist = new SingleLinkedlist();
         SingleNode node1 = new SingleNode(null, 1);
