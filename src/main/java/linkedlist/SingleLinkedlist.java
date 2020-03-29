@@ -427,11 +427,11 @@ public class SingleLinkedlist {
      * 检测是否含有环
      * 空间复杂度：保存了两个快慢指针，O(1)
      * 时间复杂度：
-     *      1 链表没有环：快指针到达终点就会结束，时间复杂度O(N)
-     *      2 链表有环：
-     *          2.1 慢指针达到环之前，快指针迭代次数=非环部分长度=N
-     *          2.2 慢指针进入环，快慢指针相遇需要迭代的次数 = 环中快慢指针的距离 / 快慢指针速度差值(是1)，即迭代次数最大是换部分长度M
-     *          2.3 也就是时间复杂度最差是O(M+N)
+     * 1 链表没有环：快指针到达终点就会结束，时间复杂度O(N)
+     * 2 链表有环：
+     * 2.1 慢指针达到环之前，快指针迭代次数=非环部分长度=N
+     * 2.2 慢指针进入环，快慢指针相遇需要迭代的次数 = 环中快慢指针的距离 / 快慢指针速度差值(是1)，即迭代次数最大是换部分长度M
+     * 2.3 也就是时间复杂度最差是O(M+N)
      *
      * @return
      */
@@ -449,6 +449,68 @@ public class SingleLinkedlist {
             }
         }
         return false;
+    }
+
+    /**
+     * 给定一个单链表 L：L0→L1→…→Ln-1→Ln ，
+     * 将其重新排列后变为： L0→Ln→L1→Ln-1→L2→Ln-2→…
+     * 你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。
+     * 示例 1:
+     * 给定链表 1->2->3->4, 重新排列为 1->4->2->3.
+     * 示例 2:
+     * 给定链表 1->2->3->4->5, 重新排列为 1->5->2->4->3.
+     * 链接：https://leetcode-cn.com/problems/reorder-list
+     * 1 将链表拆成两部分，基于快慢指针拆分
+     * 2 前半部分做成一个链表，后半部分做成一个链表并将其倒置
+     * 3 从前半部分链表开始，交替连接两个链表
+     *
+     * @return
+     */
+    public SingleNode reorderLinkedList() {
+        if (head == null) {
+            return head;
+        }
+        SingleNode main_cur = this.head;
+        SingleNode fast_cur = this.head;
+        SingleNode slow_cur = this.head;
+        // 获取链表中间节点
+        while (fast_cur.getNext() != null && fast_cur.getNext().getNext() != null) {
+            slow_cur = slow_cur.getNext();
+            fast_cur = fast_cur.getNext().getNext();
+        }
+        // 翻转链表的头节点
+        SingleNode reverse_node = slow_cur.getNext();
+        // 得到的slow_cur就是分割链表之前的节点
+        slow_cur.setNext(null);
+        // 翻转链表，得到新的链表
+        SingleNode second_node = reverseLinkedList(reverse_node);
+        // main_cur就是前半部分链表的头节点，second_node就是翻转链表后的头节点，接下来两个链表交替连接
+        SingleNode cur = main_cur;
+        while (cur != null && second_node != null) {
+            SingleNode second_tmp = second_node.getNext();
+            second_node.setNext(cur.getNext());
+            cur.setNext(second_node);
+            cur = second_node.getNext();
+            second_node = second_tmp;
+        }
+        return main_cur;
+    }
+
+    /**
+     * 翻转链表
+     *
+     * @return
+     */
+    private SingleNode reverseLinkedList(SingleNode currentNode) {
+        SingleNode pre = null;
+        SingleNode next = null;
+        while (currentNode != null) {
+            next = currentNode.getNext();
+            currentNode.setNext(pre);
+            pre = currentNode;
+            currentNode = next;
+        }
+        return pre;
     }
 
 
@@ -483,9 +545,11 @@ public class SingleLinkedlist {
 //        SingleNode node = linkedlist.splitLinkedList(0);
 //        linkedlist.printWithHead(node);
 
-        SingleNode node = linkedlist.reverseLinkedListWithIndex(1, 7);
-        linkedlist.printWithHead(node);
+//        SingleNode node = linkedlist.reverseLinkedListWithIndex(1, 7);
+//        linkedlist.printWithHead(node);
 
+        SingleNode node = linkedlist.reorderLinkedList();
+        linkedlist.printWithHead(node);
     }
 
 }
