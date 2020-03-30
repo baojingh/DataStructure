@@ -9,6 +9,23 @@ import lombok.NonNull;
  */
 public class TwoLinkedlistIntersection {
 
+    /**
+     * 两个链表相交处开始，后续的长度相等
+     * 如何消除两个链表的长度差：
+     * 双指针法分别遍历链表list1，list2
+     * 当两个链表没有相交点，两个链表经过多次迭代，肯定会同时为null，就会退出循环
+     * 当某一个链表list1到达终点后继续向后就是null，则转向list2的头节点，继续向后迭代。本链表迭代结束就转向另一个练笔熬的头节点。
+     * 这样目的就是消除两个链表的长度差。
+     * 如果有相交节点，则一定会相遇。
+     * 最多将最短链表遍历两次即可找到位置
+     *
+     * 链接：https://leetcode-cn.com/problems/intersection-of-two-linked-lists/solution/tu-jie-xiang-jiao-lian-biao-by-user7208t/
+     *
+     *
+     * @param head1
+     * @param head2
+     * @return
+     */
     public SingleNode intersection(SingleNode head1, SingleNode head2) {
         SingleNode list1 = head1;
         SingleNode list2 = head2;
@@ -62,9 +79,10 @@ public class TwoLinkedlistIntersection {
         linkedlist1.insertToTail(node5);
         linkedlist1.printAll();
 
+//        linkedlist2.insertToTail(node5);
         linkedlist2.insertToTail(node6);
         // node3的next是node4，其后还有node5
-        linkedlist2.insertToTail(node3);
+        linkedlist2.insertToTail(node7);
         linkedlist2.printAll();
 
 //        SingleNode inter = main.intersection(null, null);
