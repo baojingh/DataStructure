@@ -52,6 +52,7 @@ public class SingleLinkedlist {
 
 
     /**
+     * 对链表中奇偶位置的节点进行排列。即奇数位置的节点放在一起；偶数位置的节点放在一起。都要放在同一链表中。
      * 奇偶位置，链表分别排列https://leetcode-cn.com/problems/odd-even-linked-list/
      * 输入: 1->2->3->4->5->NULL
      * 输出: 1->3->5->2->4->NULL
@@ -515,14 +516,59 @@ public class SingleLinkedlist {
     }
 
 
+    /**
+     * 请判断一个链表是否为回文链表。
+     * 示例 1:
+     * 输入: 1->2
+     * 输出: false
+     * 示例 2:
+     * 输入: 1->2->2->1
+     * 输出: true
+     * 你能否用 O(n) 时间复杂度和 O(1) 空间复杂度解决此题
+     * 链接：https://leetcode-cn.com/problems/palindrome-linked-list
+     *
+     * @return
+     */
+    public boolean isPalindrome() {
+        if (this.head == null) {
+            return false;
+        }
+        // 链表前半部分
+        SingleNode start_cur = this.head;
+        // 获取链表后半部分的头节点
+        SingleNode tmp = this.head;
+
+        // 快慢指针以便获取链表中间位置
+        SingleNode fast = this.head;
+        while (fast != null && fast.getNext() != null) {
+            fast = fast.getNext().getNext();
+            tmp = tmp.getNext();
+        }
+        // 翻转链表后半部分
+        // cur会迭代指向下一个节点，但是end_cur_reverse会一直指向头节点
+        SingleNode end_cur_reverse = reverseLinkedList(tmp);
+        SingleNode cur = end_cur_reverse;
+        while (start_cur != null && cur != null) {
+            int start = start_cur.getData();
+            int end = cur.getData();
+            if (start != end) {
+                return false;
+            }
+            start_cur = start_cur.getNext();
+            cur = cur.getNext();
+        }
+        return true;
+    }
+
+
     public static void main(String[] args) {
         SingleLinkedlist linkedlist = new SingleLinkedlist();
         SingleNode node1 = new SingleNode(null, 1);
         SingleNode node2 = new SingleNode(null, 2);
         SingleNode node3 = new SingleNode(null, 3);
-        SingleNode node4 = new SingleNode(null, 4);
-        SingleNode node5 = new SingleNode(null, 5);
-        SingleNode node6 = new SingleNode(null, 6);
+        SingleNode node4 = new SingleNode(null, 3);
+        SingleNode node5 = new SingleNode(null, 2);
+        SingleNode node6 = new SingleNode(null, 1);
         linkedlist.insertToTail(node1);
         linkedlist.insertToTail(node2);
         linkedlist.insertToTail(node3);
@@ -549,8 +595,11 @@ public class SingleLinkedlist {
 //        SingleNode node = linkedlist.reverseLinkedListWithIndex(1, 7);
 //        linkedlist.printWithHead(node);
 
-        SingleNode node = linkedlist.reorderLinkedList();
-        linkedlist.printWithHead(node);
+//        SingleNode node = linkedlist.reorderLinkedList();
+//        linkedlist.printWithHead(node);
+        boolean palindrome = linkedlist.isPalindrome();
+        System.out.println(palindrome);
+
     }
 
 }
