@@ -583,8 +583,30 @@ public class SingleLinkedlist {
      * @return
      */
     public SingleNode removeZeroSumSublists() {
-
-        return null;
+        SingleNode solder = new SingleNode(null, 0);
+        solder.setNext(this.head);
+        SingleNode cur = solder;
+        while (cur.getNext() != null) {
+            SingleNode cur_next = cur.getNext();
+            SingleNode cur_sum = cur_next;
+            int sum = cur_next.getData();
+            // sum == 0代表即使链表最后几位之和为0，仍然可以进入while，并且将cur的下一个节点设置为null
+            // break跳出本循环，不会跳出最外层循环
+            while (cur_sum.getNext() != null || sum == 0) {
+                if (sum == 0) {
+                    cur.setNext(cur_sum.getNext());
+                    break;
+                }
+                cur_sum = cur_sum.getNext();
+                sum = sum + cur_sum.getData();
+            }
+            // [1,2,3,-3,-2,-1] 内层循环第一次执行完，sum=0，cur_sum就在-1位置，，cur指向null，如果此处不判断sum情况，就会
+            // 导致cur=null情况，进入外层循环后，null.getNext()就会NullException
+            if (sum != 0) {
+                cur = cur.getNext();
+            }
+        }
+        return solder.getNext();
     }
 
 
@@ -593,9 +615,10 @@ public class SingleLinkedlist {
         SingleNode node1 = new SingleNode(null, 1);
         SingleNode node2 = new SingleNode(null, 2);
         SingleNode node3 = new SingleNode(null, 3);
-        SingleNode node4 = new SingleNode(null, 3);
-        SingleNode node5 = new SingleNode(null, 2);
-        SingleNode node6 = new SingleNode(null, 1);
+        SingleNode node4 = new SingleNode(null, -3);
+        SingleNode node5 = new SingleNode(null, -2);
+        SingleNode node6 = new SingleNode(null, -1);
+        SingleNode node7 = new SingleNode(null, 1);
         linkedlist.insertToTail(node1);
         linkedlist.insertToTail(node2);
         linkedlist.insertToTail(node3);
@@ -624,9 +647,10 @@ public class SingleLinkedlist {
 
 //        SingleNode node = linkedlist.reorderLinkedList();
 //        linkedlist.printWithHead(node);
-        boolean palindrome = linkedlist.isPalindrome();
-        System.out.println(palindrome);
-
+//        boolean palindrome = linkedlist.isPalindrome();
+//        System.out.println(palindrome);
+        SingleNode node = linkedlist.removeZeroSumSublists();
+        linkedlist.printWithHead(node);
     }
 
 }
