@@ -610,13 +610,58 @@ public class SingleLinkedlist {
     }
 
 
+    /**
+     * 给你一个单链表的引用结点 head。链表中每个结点的值不是 0 就是 1。已知此链表是一个整数数字的二进制表示形式。
+     * 请你返回该链表所表示数字的 十进制值 。
+     * 链接：https://leetcode-cn.com/problems/convert-binary-number-in-a-linked-list-to-integer
+     * <p>
+     * 链表头到链表尾依次是二进制的低位到高位
+     * 1->0->0->1->0 -----> 10010
+     * <p>
+     * 输入：head = [1,0,1]
+     * 输出：5
+     * 解释：二进制数 (101) 转化为十进制数 (5)
+     * https://www.cnblogs.com/shindo/p/5140049.html
+     *
+     * @return
+     */
+    public int binary2DecimalValue() {
+        if (this.head == null) {
+            return 0;
+        }
+        SingleNode cur = this.head;
+        int sum = 0;
+        while (cur != null) {
+            int val = cur.getData();
+            /**
+             * 10010
+             * 第一次：
+             *      0 * 2 + 1 = 1
+             *      获取第一个元素的值，后面还会循环4次，此处的1，会被幂乘2 * 2 * 2 * 2
+             * 第二次
+             *      (0*2+1) * 2 + 0 = 1*2 + 0 =  0*2*2 + 1*2 + 0
+             * 第三次
+             *      ((0*2+1) * 2 + 0)*2 + 0 = 2*2 + 0 = 0*2*2*2 + 1*2*2 + 0*2 + 0
+             *
+             * 第四次
+             *      (((0*2+1) * 2 + 0)*2 + 0))* 2 + 1 = 0*2*2*2*2 + 1*2*2*2 + 0*2*2 + 0*2 + 1
+             * 第五次
+             *      0*2*2*2*2*2 + 1*2*2*2*2 + 0*2*2*2 + 0*2*2 + 1*2 + 0
+             *
+             */
+            sum = sum * 2 + val;
+            cur = cur.getNext();
+        }
+        return sum;
+    }
+
     public static void main(String[] args) {
         SingleLinkedlist linkedlist = new SingleLinkedlist();
         SingleNode node1 = new SingleNode(null, 1);
-        SingleNode node2 = new SingleNode(null, 2);
-        SingleNode node3 = new SingleNode(null, 3);
-        SingleNode node4 = new SingleNode(null, -3);
-        SingleNode node5 = new SingleNode(null, -2);
+        SingleNode node2 = new SingleNode(null, 0);
+        SingleNode node3 = new SingleNode(null, 0);
+        SingleNode node4 = new SingleNode(null, 1);
+        SingleNode node5 = new SingleNode(null, 0);
         SingleNode node6 = new SingleNode(null, -1);
         SingleNode node7 = new SingleNode(null, 1);
         linkedlist.insertToTail(node1);
@@ -624,7 +669,7 @@ public class SingleLinkedlist {
         linkedlist.insertToTail(node3);
         linkedlist.insertToTail(node4);
         linkedlist.insertToTail(node5);
-        linkedlist.insertToTail(node6);
+//        linkedlist.insertToTail(node6);
 //        linkedlist.insertToTail(node7);
 //        linkedlist.printAll();
 //        SingleNode node = linkedlist.oddEvenValueListClassify();
@@ -649,8 +694,11 @@ public class SingleLinkedlist {
 //        linkedlist.printWithHead(node);
 //        boolean palindrome = linkedlist.isPalindrome();
 //        System.out.println(palindrome);
-        SingleNode node = linkedlist.removeZeroSumSublists();
-        linkedlist.printWithHead(node);
+//        SingleNode node = linkedlist.removeZeroSumSublists();
+//        linkedlist.printWithHead(node);
+        int i = linkedlist.binary2DecimalValue();
+        System.out.println(i);
+
     }
 
 }
