@@ -305,7 +305,7 @@ public class SingleLinkedlist {
      *
      * @return
      */
-    public SingleNode deleteRepeatNode() {
+    public SingleNode deleteRepeatNodeWithSorted() {
         SingleNode solder = new SingleNode(null, 0);
         solder.setNext(this.head);
         SingleNode cur = solder;
@@ -655,22 +655,73 @@ public class SingleLinkedlist {
         return sum;
     }
 
+    /**
+     * 编写代码，移除未排序链表中的重复节点。保留最开始出现的节点。
+     * 示例1:
+     * 输入：[1, 2, 3, 3, 2, 1]
+     * 输出：[1, 2, 3]
+     * 示例2:
+     * 输入：[1, 1, 1, 1, 2]
+     * 输出：[1, 2]
+     * 提示：
+     * 链表长度在[0, 20000]范围内。
+     * 链表元素在[0, 20000]范围内。
+     * 进阶：
+     * 如果不得使用临时缓冲区，该怎么解决？
+     * 链接：https://leetcode-cn.com/problems/remove-duplicate-node-lcci
+     * <p>
+     * 时间复杂度O(n^2), 空间复杂度O(1)
+     * 1 基于哨兵原理
+     * 2 设置快慢指针，两层循环
+     *      2.1 内层循环使用快指针，遍历后面的节点，判断与外层循环的慢指针的值是否相等，若相等就使用快指针移除此节点
+     *      2.2 若不相等，快指针向后迭代
+     *      2.3 快指针每次判断的是自己下一个节点的值是否与慢指针对应节点值是否相等
+     *
+     * @return
+     */
+    public SingleNode deleteRepeatNodeKeepFirst() {
+        SingleNode solder = new SingleNode(null, 1);
+        solder.setNext(this.head);
+        // 基于哨兵原理
+        SingleNode cur = solder;
+        while (cur.getNext() != null) {
+            // 第一次运行时，快慢指针同时指向哨兵节点的下一个节点，即原链表的头节点
+            // 之后就操作的是当前节点的下一个节点
+            SingleNode fast = cur.getNext();
+            SingleNode slow = cur.getNext();
+            while (fast.getNext() != null) {
+                // 慢指针与快指针的下一个节点的值比较，不是快慢指针的值比较
+                if (slow.getData() == fast.getNext().getData()) {
+                    // 若相等，快指针就将次重复值删除，快指针总是在被删除节点之前
+                    fast.setNext(fast.getNext().getNext());
+                } else {
+                    fast = fast.getNext();
+                }
+            }
+            // 哨兵节点迭代
+            cur = cur.getNext();
+        }
+        return solder.getNext();
+    }
+
     public static void main(String[] args) {
         SingleLinkedlist linkedlist = new SingleLinkedlist();
         SingleNode node1 = new SingleNode(null, 1);
-        SingleNode node2 = new SingleNode(null, 0);
-        SingleNode node3 = new SingleNode(null, 0);
-        SingleNode node4 = new SingleNode(null, 1);
-        SingleNode node5 = new SingleNode(null, 0);
-        SingleNode node6 = new SingleNode(null, -1);
-        SingleNode node7 = new SingleNode(null, 1);
+        SingleNode node2 = new SingleNode(null, 1);
+        SingleNode node3 = new SingleNode(null, 1);
+        SingleNode node4 = new SingleNode(null, 2);
+        SingleNode node5 = new SingleNode(null, 4);
+        SingleNode node6 = new SingleNode(null, 5);
+        SingleNode node7 = new SingleNode(null, 4);
+        SingleNode node8 = new SingleNode(null, 3);
         linkedlist.insertToTail(node1);
         linkedlist.insertToTail(node2);
         linkedlist.insertToTail(node3);
-        linkedlist.insertToTail(node4);
-        linkedlist.insertToTail(node5);
+//        linkedlist.insertToTail(node4);
+//        linkedlist.insertToTail(node5);
 //        linkedlist.insertToTail(node6);
 //        linkedlist.insertToTail(node7);
+//        linkedlist.insertToTail(node8);
 //        linkedlist.printAll();
 //        SingleNode node = linkedlist.oddEvenValueListClassify();
 //        linkedlist.printAll();
@@ -696,9 +747,11 @@ public class SingleLinkedlist {
 //        System.out.println(palindrome);
 //        SingleNode node = linkedlist.removeZeroSumSublists();
 //        linkedlist.printWithHead(node);
-        int i = linkedlist.binary2DecimalValue();
-        System.out.println(i);
+//        int i = linkedlist.binary2DecimalValue();
+//        System.out.println(i);
 
+        SingleNode node = linkedlist.deleteRepeatNodeKeepFirst();
+        linkedlist.printWithHead(node);
     }
 
 }
