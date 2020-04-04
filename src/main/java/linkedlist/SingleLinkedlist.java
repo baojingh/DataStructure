@@ -431,7 +431,8 @@ public class SingleLinkedlist {
      * 1 链表没有环：快指针到达终点就会结束，时间复杂度O(N)
      * 2 链表有环：
      * 2.1 慢指针达到环之前，快指针迭代次数=非环部分长度=N
-     * 2.2 慢指针进入环，快慢指针相遇需要迭代的次数 = 环中快慢指针的距离 / 快慢指针速度差值(是1)，即迭代次数最大是换部分长度M
+     * 2.2 慢指针进入环，快慢指针相遇需要迭代的次数 = 环中快慢指针的距离 / 快慢指针速度差值(是1)，
+     *      即迭代次数最大是换部分长度M
      * 2.3 也就是时间复杂度最差是O(M+N)
      *
      * @return
@@ -702,6 +703,32 @@ public class SingleLinkedlist {
             cur = cur.getNext();
         }
         return solder.getNext();
+    }
+
+    /**
+     * 给定一个有环链表，实现一个算法返回环路的开头节点。
+     * 有环链表的定义：在链表中某个节点的next元素指向在它前面出现过的节点，则表明该链表存在环路。
+     * 示例 1：
+     * 输入：head = [3,2,0,-4], pos = 1
+     * 输出：tail connects to node index 1
+     * 解释：链表中有一个环，其尾部连接到第二个节点。
+     * 示例 2：
+     * 输入：head = [1,2], pos = 0
+     * 输出：tail connects to node index 0
+     * 解释：链表中有一个环，其尾部连接到第一个节点。
+     * 示例 3：
+     * 输入：head = [1], pos = -1
+     * 输出：no cycle
+     * 解释：链表中没有环。
+     * 进阶：
+     * 你是否可以不用额外空间解决此题？
+     * 链接：https://leetcode-cn.com/problems/linked-list-cycle-lcci
+     *
+     * @return
+     */
+    public SingleNode detectCycle() {
+
+        return null;
     }
 
     public static void main(String[] args) {
