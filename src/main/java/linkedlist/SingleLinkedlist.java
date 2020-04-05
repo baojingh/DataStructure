@@ -723,6 +723,16 @@ public class SingleLinkedlist {
      * 进阶：
      * 你是否可以不用额外空间解决此题？
      * 链接：https://leetcode-cn.com/problems/linked-list-cycle-lcci
+     * <p>
+     * 能够找到入口点：
+     * 令： m 表示从head到入口的距离， d表示入口到相遇点的距离, r表示环的长度，ls表示slow走的长度，lf表示fast走的长度
+     * 有： ls = m + d, lf = m + d + n * r (n为正整数)， lf = 2 * ls (此处为何快指针长度是慢指针长度两倍？？？)
+     * 则： m + d + n * r = 2 * (m + d)
+     * 则： m = n * r - d， n >= 1
+     * <p>
+     * 当n=1时，m = r - d, 即”head到入口的距离（m）“等于”相遇点到入口的距离(r - d)“， 使用第二步方法能找到入口点；
+     * 当n=2时，m = 2 * r - d, 等价于： m = (r - d) + r, 即”head到入口的距离（m）“等于”相遇点到入口的距离（r - d）加环长度“， 使用第二步方法会让fast指针多走一个环的长度，然后slow和fast还会相遇在环入口
+     * 当n>2时，同理。
      *
      * @return
      */
@@ -730,7 +740,8 @@ public class SingleLinkedlist {
         // 先验证是否有环，找到相交节点
         SingleNode slow = this.head;
         SingleNode fast = this.head;
-        while (fast.getNext() != null) {
+        // fast != null表示：如果链表节点个数是偶数个，且没有环，此处就会NullPointerException
+        while (fast != null && fast.getNext() != null) {
             fast = fast.getNext().getNext();
             slow = slow.getNext();
             if (fast == slow) {
@@ -772,7 +783,7 @@ public class SingleLinkedlist {
         linkedlist.insertToTail(node6);
         linkedlist.insertToTail(node7);
         linkedlist.insertToTail(node8);
-        linkedlist.insertToTail(node9);
+//        linkedlist.insertToTail(node9);
 //        linkedlist.insertToTail(node5);
 //        linkedlist.printAll();
 //        SingleNode node = linkedlist.oddEvenValueListClassify();
