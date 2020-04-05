@@ -432,7 +432,7 @@ public class SingleLinkedlist {
      * 2 链表有环：
      * 2.1 慢指针达到环之前，快指针迭代次数=非环部分长度=N
      * 2.2 慢指针进入环，快慢指针相遇需要迭代的次数 = 环中快慢指针的距离 / 快慢指针速度差值(是1)，
-     *      即迭代次数最大是换部分长度M
+     * 即迭代次数最大是换部分长度M
      * 2.3 也就是时间复杂度最差是O(M+N)
      *
      * @return
@@ -674,9 +674,9 @@ public class SingleLinkedlist {
      * 时间复杂度O(n^2), 空间复杂度O(1)
      * 1 基于哨兵原理
      * 2 设置快慢指针，两层循环
-     *      2.1 内层循环使用快指针，遍历后面的节点，判断与外层循环的慢指针的值是否相等，若相等就使用快指针移除此节点
-     *      2.2 若不相等，快指针向后迭代
-     *      2.3 快指针每次判断的是自己下一个节点的值是否与慢指针对应节点值是否相等
+     * 2.1 内层循环使用快指针，遍历后面的节点，判断与外层循环的慢指针的值是否相等，若相等就使用快指针移除此节点
+     * 2.2 若不相等，快指针向后迭代
+     * 2.3 快指针每次判断的是自己下一个节点的值是否与慢指针对应节点值是否相等
      *
      * @return
      */
@@ -727,28 +727,53 @@ public class SingleLinkedlist {
      * @return
      */
     public SingleNode detectCycle() {
-
+        // 先验证是否有环，找到相交节点
+        SingleNode slow = this.head;
+        SingleNode fast = this.head;
+        while (fast.getNext() != null) {
+            fast = fast.getNext().getNext();
+            slow = slow.getNext();
+            if (fast == slow) {
+                // 快慢指针相遇说明链表有环
+                // 将慢指针重置到链表头，理论证明了慢指针从链表头开始，快指针从当前位置向前移动，均以步长为1的速度移动，
+                // 两者相遇位置就是相交节点
+                slow = this.head;
+                while (fast.getNext() != null) {
+                    // 相遇
+                    if (slow == fast) {
+                        return slow;
+                    }
+                    fast = fast.getNext();
+                    slow = slow.getNext();
+                }
+            }
+        }
+        // 没有环
         return null;
     }
+
 
     public static void main(String[] args) {
         SingleLinkedlist linkedlist = new SingleLinkedlist();
         SingleNode node1 = new SingleNode(null, 1);
-        SingleNode node2 = new SingleNode(null, 1);
-        SingleNode node3 = new SingleNode(null, 1);
-        SingleNode node4 = new SingleNode(null, 2);
-        SingleNode node5 = new SingleNode(null, 4);
-        SingleNode node6 = new SingleNode(null, 5);
-        SingleNode node7 = new SingleNode(null, 4);
-        SingleNode node8 = new SingleNode(null, 3);
+        SingleNode node2 = new SingleNode(null, 2);
+        SingleNode node3 = new SingleNode(null, 3);
+        SingleNode node4 = new SingleNode(null, 4);
+        SingleNode node5 = new SingleNode(null, 5);
+        SingleNode node6 = new SingleNode(null, 6);
+        SingleNode node7 = new SingleNode(null, 7);
+        SingleNode node8 = new SingleNode(null, 8);
+        SingleNode node9 = new SingleNode(null, 9);
         linkedlist.insertToTail(node1);
         linkedlist.insertToTail(node2);
         linkedlist.insertToTail(node3);
-//        linkedlist.insertToTail(node4);
+        linkedlist.insertToTail(node4);
+        linkedlist.insertToTail(node5);
+        linkedlist.insertToTail(node6);
+        linkedlist.insertToTail(node7);
+        linkedlist.insertToTail(node8);
+        linkedlist.insertToTail(node9);
 //        linkedlist.insertToTail(node5);
-//        linkedlist.insertToTail(node6);
-//        linkedlist.insertToTail(node7);
-//        linkedlist.insertToTail(node8);
 //        linkedlist.printAll();
 //        SingleNode node = linkedlist.oddEvenValueListClassify();
 //        linkedlist.printAll();
@@ -777,8 +802,15 @@ public class SingleLinkedlist {
 //        int i = linkedlist.binary2DecimalValue();
 //        System.out.println(i);
 
-        SingleNode node = linkedlist.deleteRepeatNodeKeepFirst();
-        linkedlist.printWithHead(node);
+//        SingleNode node = linkedlist.deleteRepeatNodeKeepFirst();
+//        linkedlist.printWithHead(node);
+        SingleNode node = linkedlist.detectCycle();
+        if (node != null) {
+            System.out.println(node.getData() + "--" + node.getNext().getData());
+        } else {
+            System.out.println("no intersection node");
+        }
+//        linkedlist.printWithHead(node);
     }
 
 }
