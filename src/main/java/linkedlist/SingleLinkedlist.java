@@ -336,6 +336,61 @@ public class SingleLinkedlist {
      * 三个链表都添加哨兵节点
      * 空间复杂度O(1)
      * 时间复杂度O(n)
+     * <p>
+     * <p>
+     * 解法2：基于两指针，不过缺点是交换的节点值，并未交换节点，⚠注意！
+     * https://leetcode-cn.com/problems/partition-list-lcci/solution/ti-yi-de-mu-de-by-kkzz/
+     * 题目要求：使得所有小于 x 的节点排在大于或等于 x 的 节点之前
+     * 也就是只要比x小的在x之前就行了，不需要关心比x大的数的位置
+     * 因此
+     * 双指针
+     * 一个用来从第一位开始存放比x小的数，另一个指针遍历，如果遇到就交换两个指针的值
+     * 这样无论如何 只要比x小的数一定会在x之前
+     * class Solution {
+     * public ListNode partition(ListNode head, int x) {
+     * ListNode a1=head; ListNode a2=head;
+     * while(a1!=null){
+     * if(a1.val<x){
+     * swap(a1,a2);
+     * a2=a2.next;
+     * }
+     * a1=a1.next;
+     * }
+     * return head;
+     * <p>
+     * }
+     * public void swap(ListNode a1,ListNode a2){
+     * int temp=a1.val;a1.val=a2.val;a2.val=temp;
+     * }
+     * }
+     * <p>
+     * 链接：https://leetcode-cn.com/problems/partition-list-lcci/solution/ti-yi-de-mu-de-by-kkzz/
+     * <p>
+     * 解法3：
+     * 使用头插法即可，其中开始循环的节点为head.next，因为head不用判断
+     * class Solution {
+     * public ListNode partition(ListNode head, int x) {
+     * if(head==null) return null;
+     * ListNode dummy=new ListNode(-1);
+     * dummy.next=head;
+     * ListNode prev=head;
+     * head=head.next;
+     * while(head!=null){
+     * if(head.val<x){
+     * prev.next=head.next;
+     * head.next=dummy.next;
+     * dummy.next=head;
+     * head=prev.next;
+     * }else{
+     * prev=prev.next;
+     * head=head.next;
+     * }
+     * }
+     * return dummy.next;
+     * }
+     * }
+     * <p>
+     * 链接：https://leetcode-cn.com/problems/partition-list-lcci/solution/tou-cha-fa-java-by-panc-2/
      *
      * @param x
      * @return
@@ -380,6 +435,26 @@ public class SingleLinkedlist {
         // 小链表尾部链接大链表头部
         small_cur.setNext(big_solder.getNext());
         return small_solder.getNext();
+    }
+
+    public SingleNode partition(int x) {
+        if (head == null) return null;
+        SingleNode dummy = new SingleNode(null, -1);
+        dummy.setNext(head);
+        SingleNode prev = head;
+        head = head.getNext();
+        while (head != null) {
+            if (head.getData() < x) {
+                prev.setNext(head.getNext());
+                head.setNext(dummy.getNext());
+                dummy.setNext(head);
+                head = prev.getNext();
+            } else {
+                prev = prev.getNext();
+                head = head.getNext();
+            }
+        }
+        return dummy.getNext();
     }
 
     /**
@@ -767,22 +842,19 @@ public class SingleLinkedlist {
     public static void main(String[] args) {
         SingleLinkedlist linkedlist = new SingleLinkedlist();
         SingleNode node1 = new SingleNode(null, 1);
-        SingleNode node2 = new SingleNode(null, 2);
+        SingleNode node2 = new SingleNode(null, 4);
         SingleNode node3 = new SingleNode(null, 3);
-        SingleNode node4 = new SingleNode(null, 4);
+        SingleNode node4 = new SingleNode(null, 2);
         SingleNode node5 = new SingleNode(null, 5);
-        SingleNode node6 = new SingleNode(null, 6);
-        SingleNode node7 = new SingleNode(null, 7);
-        SingleNode node8 = new SingleNode(null, 8);
-        SingleNode node9 = new SingleNode(null, 9);
+        SingleNode node6 = new SingleNode(null, 2);
         linkedlist.insertToTail(node1);
         linkedlist.insertToTail(node2);
         linkedlist.insertToTail(node3);
         linkedlist.insertToTail(node4);
         linkedlist.insertToTail(node5);
         linkedlist.insertToTail(node6);
-        linkedlist.insertToTail(node7);
-        linkedlist.insertToTail(node8);
+//        linkedlist.insertToTail(node7);
+//        linkedlist.insertToTail(node8);
 //        linkedlist.insertToTail(node9);
 //        linkedlist.insertToTail(node5);
 //        linkedlist.printAll();
@@ -815,13 +887,17 @@ public class SingleLinkedlist {
 
 //        SingleNode node = linkedlist.deleteRepeatNodeKeepFirst();
 //        linkedlist.printWithHead(node);
-        SingleNode node = linkedlist.detectCycle();
-        if (node != null) {
-            System.out.println(node.getData() + "--" + node.getNext().getData());
-        } else {
-            System.out.println("no intersection node");
-        }
+//        SingleNode node = linkedlist.detectCycle();
+//        if (node != null) {
+//            System.out.println(node.getData() + "--" + node.getNext().getData());
+//        } else {
+//            System.out.println("no intersection node");
+//        }
 //        linkedlist.printWithHead(node);
+        SingleNode partition = linkedlist.partition(3);
+        linkedlist.printWithHead(partition);
+
+
     }
 
 }
