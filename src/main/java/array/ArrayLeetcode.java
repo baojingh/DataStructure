@@ -48,12 +48,69 @@ public class ArrayLeetcode {
         return null;
     }
 
+    /**
+     * 给你 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。
+     * 在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。
+     * 找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
+     * 说明：你不能倾斜容器，且 n 的值至少为 2。
+     * 链接：https://leetcode-cn.com/problems/container-with-most-water
+     * <p>
+     * 图解比较清晰
+     * https://leetcode-cn.com/problems/container-with-most-water
+     * /solution/container-with-most-water-shuang-zhi-zhen-fa-yi-do/
+     * <p>
+     * https://leetcode-cn.com/problems/container-with-most-water/solution/
+     * man-hua-bi-xu-neng-kan-dong-de-ti-jie-xiao-hao-chu/#comment
+     * <p>
+     * 为什么要将短板向长板方向移动？反证法
+     * 假设height[start] < height[end]
+     * w = end - start
+     * area = height[start] * w
+     * <p>
+     * 假设移动短板到start1
+     * 如果height[start1] > height[end]
+     * height[end] * (w -1) 可能打或者可能小，可能相等
+     * 如果height[start1] < height[end]
+     * height[start1] * (w -1) 可能打或者可能小，可能相等
+     * <p>
+     * 假如移动长板到end1
+     * 如果height[end1] > height[start]
+     * height[start] * (w -1) < area
+     * 如果height[end1] < height[start]
+     * height[end1] * (w -1) < area
+     *
+     * @param height
+     * @return
+     */
+    public int maxArea(int[] height) {
+        int area = 0;
+        for (int i = 0, j = height.length - 1; i < j; ) {
+            int start = height[i];
+            int end = height[j];
+            int temp_area = 0;
+            if (start > end) {
+                // 短板向后
+                temp_area = (j - i) * end;
+                j = j - 1;
+            } else {
+                // 短板向前移动
+                temp_area = (j - i) * start;
+                i = i + 1;
+            }
+            area = Math.max(area, temp_area);
+        }
+        return area;
+    }
+
 
     public static void main(String[] args) {
         ArrayLeetcode array = new ArrayLeetcode();
-        int[] nums = new int[]{1, 8, 6, 8, 9};
-        int target = 16;
-        int[] ints = array.twoSum(nums, target);
-        array.printAll(ints);
+        int[] nums = new int[]{1, 8, 6, 2, 5, 4, 8, 3, 7};
+//        int target = 16;
+//        int[] ints = array.twoSum(nums, target);
+//        array.printAll(ints);
+        int i = array.maxArea(nums);
+        System.out.println(i);
+
     }
 }
