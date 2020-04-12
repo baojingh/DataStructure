@@ -9,7 +9,7 @@ public class BinarySearchDemo {
 
     public static void main(String[] args) {
         int[] arr = new int[]{1, 3, 5, 7, 9, 11, 13};
-        int index = binarySearch4(arr, 19);
+        int index = binarySearch3(arr, 19);
         System.out.println("exists: " + index);
     }
 
