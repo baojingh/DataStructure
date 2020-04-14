@@ -25,7 +25,7 @@ package leetcode.editor.cn;
 //Java：跳跃游戏
 public class P55JumpGame {
     public static void main(String[] args) {
-        int[] nums = new int[]{2, 0, 0};
+        int[] nums = new int[]{2,0,0};
         Solution solution = new P55JumpGame().new Solution();
         boolean b = solution.canJump(nums);
         System.out.println(b);
@@ -45,14 +45,12 @@ public class P55JumpGame {
          * @return
          */
         public boolean canJump(int[] nums) {
-            if (nums[0] == 0 && nums.length == 1) {
-                return true;
-            }
             int max = 0;
             int end = nums.length - 1;
             for (int i = 0; i < nums.length; i++) {
-                if (max >= i && i + nums[i] > max) {
-                    max = i + nums[i];
+                int tmp = i + nums[i];
+                if (max >= i && tmp >= max) {
+                    max = tmp;
                     if (max >= end) {
                         return true;
                     }
