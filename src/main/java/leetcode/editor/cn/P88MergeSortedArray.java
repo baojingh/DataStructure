@@ -31,8 +31,10 @@ public class P88MergeSortedArray {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         /**
-         * 指针1指向num1的有效值最后，指针2指向num2的有效值最后
-         * 从右向左比较两个数组，大的数字放在num1的最右侧，
+         * 1 指针1指向num1的有效值最后len1，指针2指向num2的有效值最后len2，指针3指向num1的合并后长度最后一位len（len1+len2+1）
+         * 2 从右向左比较两个数组，大的数字放在num1的最右侧即len位置，len左移，同时对应的那个数组的指针也要左移。
+         * 3 当数组指针左移，小于0时，代表这个数组元素已经写入新的数组了
+         * 4 如果num2还有元素，则将num2的剩余元素循环写入；如果num1还有元素，则保持不变，不要移动，因为数组有序
          *
          * 向左移动指针
          * @param nums1
@@ -54,11 +56,6 @@ public class P88MergeSortedArray {
                 }
                 len = len - 1;
             }
-//            while (len1 >= 0) {
-//                nums1[len] = nums1[len1];
-//                len1 = len1 - 1;
-//                len = len - 1;
-//            }
             while (len2 >= 0) {
                 nums1[len] = nums2[len2];
                 len2 = len2 - 1;
