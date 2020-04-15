@@ -30,6 +30,16 @@ public class P88MergeSortedArray {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        /**
+         * 指针1指向num1的有效值最后，指针2指向num2的有效值最后
+         * 从右向左比较两个数组，大的数字放在num1的最右侧，
+         *
+         * 向左移动指针
+         * @param nums1
+         * @param m
+         * @param nums2
+         * @param n
+         */
         public void merge(int[] nums1, int m, int[] nums2, int n) {
             int len1 = m - 1;
             int len2 = n - 1;
