@@ -18,9 +18,9 @@ import java.util.Set;
 //Java：存在重复元素 II
 public class P219ContainsDuplicateIi {
     public static void main(String[] args) {
-        int[] nums = new int[]{1, 2, 3, 1};
+        int[] nums = new int[]{1, 2, 3, 3, 1};
         Solution solution = new P219ContainsDuplicateIi().new Solution();
-        boolean b = solution.containsNearbyDuplicate(nums, 3);
+        boolean b = solution.containsNearbyDuplicate(nums, 2);
         System.out.println(b);
     }
 
