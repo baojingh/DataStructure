@@ -53,6 +53,7 @@ public class P724FindPivotIndex {
                 sum = sum + nums[i];
             }
             for (int i = 0; i < len; i++) {
+                // 包含[-1,-1,-1,0,1,1]情况，即中心在第一个位置
                 if (2 * left + nums[i] == sum) {
                     return i;
                 }
