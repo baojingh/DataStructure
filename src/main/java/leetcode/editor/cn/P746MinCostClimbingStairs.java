@@ -20,23 +20,33 @@ package leetcode.editor.cn;
 //Java：使用最小花费爬楼梯
 public class P746MinCostClimbingStairs {
     public static void main(String[] args) {
-        int[] nums = new int[]{};
+        int[] nums = new int[]{1, 2, 4, 3, 6};
         Solution solution = new P746MinCostClimbingStairs().new Solution();
-        System.out.println();
+        int i = solution.minCostClimbingStairs(nums);
+        System.out.println(i);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         /**
          * 动态规划问题
+         * https://leetcode-cn.com/problems/min-cost-climbing-stairs/solution/dong-tai-gui-hua-by-liweiwei1419-3/
          * 因此状态转移方程是：
          * dp[i] = min(dp[i-2], dp[i-1]) + cost[i]。
+         * 2020-04-23没看懂
          *
          * @param cost
          * @return
          */
         public int minCostClimbingStairs(int[] cost) {
-            return 0;
+            int len = cost.length;
+            int[] nums = new int[len + 1];
+            nums[0] = 0;
+            nums[1] = 0;
+            for (int i = 2; i < nums.length; i++) {
+                nums[i] = Math.min(cost[i - 1] + +nums[i - 1], cost[i - 2] + nums[i - 2]);
+            }
+            return nums[len];
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
