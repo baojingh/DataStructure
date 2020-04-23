@@ -41,7 +41,7 @@ import java.util.List;
 //Java：较大分组的位置
 public class P830PositionsOfLargeGroups {
     public static void main(String[] args) {
-        String S = "qqqaaa";
+        String S = "abcdddeeeeaabbbcd";
         Solution solution = new P830PositionsOfLargeGroups().new Solution();
         List<List<Integer>> lists = solution.largeGroupPositions(S);
         for (List<Integer> list : lists) {
@@ -60,6 +60,9 @@ public class P830PositionsOfLargeGroups {
             int slow = 0;
             int len = S.length();
             for (int i = 0; i < len; i++) {
+                // 两种情况会进入if条件
+                // 1 i == len - 1 代表如果快指针i已经到达数组尾部即后面不会有元素，就进入if内部
+                // 2 出现长度是3
                 if (i == len - 1 || S.charAt(i) != S.charAt(i + 1)) {
                     if (i - slow + 1 >= 3) {
                         List<Integer> list = Arrays.asList(slow, i);
