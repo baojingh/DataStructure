@@ -32,6 +32,7 @@ public class P905SortArrayByParity {
             int len = A.length;
             int i = 0;
             int j = len - 1;
+            // 遍历一遍即可完成
             while (i < j) {
                 while ((A[j] & 1) == 1 && i < j) {
                     // 奇数
