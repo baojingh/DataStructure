@@ -25,20 +25,38 @@
 
 
 package leetcode.editor.cn;
+
+import java.util.HashMap;
+
 //Java：无重复字符的最长子串
-public class P3LongestSubstringWithoutRepeatingCharacters{
+public class P3LongestSubstringWithoutRepeatingCharacters {
     public static void main(String[] args) {
         int[] nums = new int[]{};
         Solution solution = new P3LongestSubstringWithoutRepeatingCharacters().new Solution();
-        
+
         System.out.println();
     }
-    //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public int lengthOfLongestSubstring(String s) {
 
+    //leetcode submit region begin(Prohibit modification and deletion)
+    class Solution {
+        /**
+         * 滑动窗口，左右指针
+         *
+         * @param s
+         * @return
+         */
+        public int lengthOfLongestSubstring(String s) {
+            HashMap<Character, Integer> map = new HashMap<>();
+            for (int i = 0; i < s.length(); i++) {
+                char c = s.charAt(i);
+                map.putIfAbsent(c, i);
+
+            }
+
+
+            return 0;
+        }
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
 }
