@@ -46,26 +46,28 @@ public class P509FibonacciNumber {
     public static void main(String[] args) {
         int[] nums = new int[]{};
         Solution solution = new P509FibonacciNumber().new Solution();
-
-        System.out.println();
+        int fib = solution.fib(7);
+        System.out.println(fib);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int fib(int N) {
+            int a = 0;
+            int b = 1;
             if (N == 0) {
-                return 0;
+                return a;
             }
             if (N == 1) {
-                return 1;
+                return b;
             }
-            for (int i = 2; i < N; i++) {
-
+            int sum = 0;
+            for (int i = 2; i <= N; i++) {
+                sum = a + b;
+                a = b;
+                b = sum;
             }
-
-
-
-            return 0;
+            return sum;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
