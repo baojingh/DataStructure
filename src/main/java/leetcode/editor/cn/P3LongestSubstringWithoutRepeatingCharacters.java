@@ -33,28 +33,35 @@ public class P3LongestSubstringWithoutRepeatingCharacters {
     public static void main(String[] args) {
         int[] nums = new int[]{};
         Solution solution = new P3LongestSubstringWithoutRepeatingCharacters().new Solution();
-
-        System.out.println();
+        int substring = solution.lengthOfLongestSubstring("pwwkew");
+        System.out.println(substring);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         /**
-         * 滑动窗口，左右指针
+         * https://leetcode-cn.com/problems/
+         * longest-substring-without-repeating-characters/solution/hua-jie-suan-fa-3-wu-zhong-fu-zi-fu-de-zui-chang-z/
+         * 2020-04-27没搞定
          *
          * @param s
          * @return
          */
         public int lengthOfLongestSubstring(String s) {
             HashMap<Character, Integer> map = new HashMap<>();
-            for (int i = 0; i < s.length(); i++) {
-                char c = s.charAt(i);
-                map.putIfAbsent(c, i);
-
+            int start = 0;
+            int end = 0;
+            int maxLen = 0;
+            int len = s.length();
+            for (; end < len; end++) {
+                char c = s.charAt(end);
+                if (map.get(c) != null) {
+                    start = Math.max(start, map.get(c));
+                }
+                maxLen = Math.max(end - start + 1, maxLen);
+                map.put(c, end + 1);
             }
-
-
-            return 0;
+            return maxLen;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
