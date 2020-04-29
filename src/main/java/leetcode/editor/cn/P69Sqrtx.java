@@ -44,8 +44,9 @@ public class P69Sqrtx {
             int pivot = 0;
             while (left <= right) {
                 pivot = left + (right - left) / 2;
-                // pivot * pivot有整型溢出风险
-                if (pivot * pivot - x > 0) {
+                // pivot * pivot有整型溢出的风险
+                val = (long)pivot * pivot - x;
+                if (val > 0) {
                     right = pivot - 1;
                 } else if (val < 0) {
                     left = pivot + 1;
