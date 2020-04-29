@@ -37,6 +37,23 @@ int数组转List：List<Integer> list = Arrays.stream(数组名).boxed().collect
     一个已排序的数组包含N个元素，查找某个元素是否在列表中，最多需要查找logN
     此处基于数组做二分查找，就是使用了顺序表基于下标的随机访问
     时间复杂度：log(N)
+    模版
+    int left = 0;
+    int right = nums.length;
+    int mid = 0;
+    while(left <= right){
+        mid = left + (right - left) / 2;
+        if (nums[mid] > target){
+            right = mid - 1;
+        } else if(nums[mid] > target) {
+            left = mid + 1;
+        } else if((nums[mid] == target) {
+            retun mid
+        }
+    }
+    return -1;
+    应用番位：一个数的平方根；一个数是否是整数的平方根；
+
 
 
 
