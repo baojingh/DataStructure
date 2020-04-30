@@ -1,4 +1,4 @@
-package binary_search;
+package binarySearch;
 
 /**
  * @Author: hebj
@@ -8,8 +8,8 @@ public class BinarySearchDemo {
 
 
     public static void main(String[] args) {
-        int[] arr = new int[]{1, 3, 5, 7, 9, 11, 13};
-        int index = binarySearch3(arr, 19);
+        int[] arr = new int[]{};
+        int index = binarySearch2_improve(arr, 4);
         System.out.println("exists: " + index);
     }
 
@@ -83,6 +83,28 @@ public class BinarySearchDemo {
             }
         }
         return -1;
+    }
+
+    /**
+     * 查找最后一个等于指定值的元素，即数组中包含重复元素
+     */
+    public static int binarySearch2_improve(int[] arr, int data) {
+        int low = 0;
+        int len = arr.length;
+        int high = len - 1;
+        int res = -1;
+        while (low <= high) {
+            int mid = low + ((high - low) >> 1);
+            if (arr[mid] > data) {
+                high = mid - 1;
+            } else if (arr[mid] < data) {
+                low = mid + 1;
+            } else {
+                res = mid;
+                high = mid - 1;
+            }
+        }
+        return res;
     }
 
     /**

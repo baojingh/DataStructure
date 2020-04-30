@@ -52,6 +52,7 @@ public class P34FindFirstAndLastPositionOfElementInSortedArray {
             int left = 0;
             int right = nums.length - 1;
             int mid = 0;
+            int res = -1;
             while (left <= right) {
                 mid = left + (right - left) / 2;
                 if (nums[mid] > target) {
@@ -59,19 +60,18 @@ public class P34FindFirstAndLastPositionOfElementInSortedArray {
                 } else if (nums[mid] < target) {
                     left = mid + 1;
                 } else {
-                    if (mid == 0 || nums[mid - 1] != target) {
-                        return mid;
-                    }
+                    res = mid;
                     right = mid - 1;
                 }
             }
-            return -1;
+            return res;
         }
 
         private int rightBound(int[] nums, int target) {
             int left = 0;
             int right = nums.length - 1;
             int mid = 0;
+            int res = -1;
             while (left <= right) {
                 mid = left + (right - left) / 2;
                 if (nums[mid] > target) {
@@ -79,13 +79,11 @@ public class P34FindFirstAndLastPositionOfElementInSortedArray {
                 } else if (nums[mid] < target) {
                     left = mid + 1;
                 } else {
-                    if (mid == nums.length - 1 || nums[mid + 1] != target) {
-                        return mid;
-                    }
+                    res = mid;
                     left = mid + 1;
                 }
             }
-            return -1;
+            return res;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
