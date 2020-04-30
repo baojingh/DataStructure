@@ -33,11 +33,11 @@ public class P278FirstBadVersion {
 /* The isBadVersion API is defined in the parent class VersionControl.
       boolean isBadVersion(int version); */
 
-//    static class VersionControl {
-//        public boolean isBadVersion(int version) {
-//            return true;
-//        }
-//    }
+    static class VersionControl {
+        public boolean isBadVersion(int version) {
+            return true;
+        }
+    }
 
     public class Solution extends VersionControl {
         /**
@@ -54,11 +54,7 @@ public class P278FirstBadVersion {
                 mid = low + (high - low) / 2;
                 boolean badVersion = isBadVersion(mid);
                 if (badVersion) {
-                    if (mid == 1) {
-                        return mid;
-                    }
-                    boolean b = isBadVersion(mid - 1);
-                    if (!b) {
+                    if (mid == 1 || !isBadVersion(mid - 1)) {
                         return mid;
                     }
                     high = mid - 1;
