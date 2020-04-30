@@ -26,8 +26,9 @@ public class P278FirstBadVersion {
     public static void main(String[] args) {
         String str = "abc";
         Solution solution = new P278FirstBadVersion().new Solution();
-
-        System.out.println();
+//        solution.firstBadVersion(115, 2);
+//        System.out.println();
+//        solution.firstBadVersion1(115, 2);
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 /* The isBadVersion API is defined in the parent class VersionControl.
@@ -35,7 +36,13 @@ public class P278FirstBadVersion {
 
     static class VersionControl {
         public boolean isBadVersion(int version) {
-            return true;
+        }
+    }
+
+    static class VersionControl1 {
+        public boolean isBadVersion(int version, int target) {
+            System.out.println("****");
+            return version >= target;
         }
     }
 
@@ -50,20 +57,39 @@ public class P278FirstBadVersion {
             int low = 1;
             int high = n;
             int mid = 0;
+            int res = n;
             while (low <= high) {
                 mid = low + (high - low) / 2;
                 boolean badVersion = isBadVersion(mid);
                 if (badVersion) {
-                    if (mid == 1 || !isBadVersion(mid - 1)) {
-                        return mid;
-                    }
+                    res = mid;
                     high = mid - 1;
                 } else if (!badVersion) {
                     low = mid + 1;
                 }
             }
-            return -1;
+            return res;
         }
+
+//        public int firstBadVersion1(int n, int target) {
+//            int low = 1;
+//            int high = n;
+//            int mid = 0;
+//            while (low <= high) {
+//                mid = low + (high - low) / 2;
+//                boolean badVersion = isBadVersion(mid, target);
+//                if (badVersion) {
+//                    if (mid == 1 || !isBadVersion(mid - 1, target)) {
+//                        return mid;
+//                    }
+//                    high = mid - 1;
+//                } else if (!badVersion) {
+//                    low = mid + 1;
+//                }
+//            }
+//            return -1;
+//        }
+
     }
 //leetcode submit region end(Prohibit modification and deletion)
 
