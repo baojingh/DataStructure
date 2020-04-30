@@ -31,16 +31,45 @@ package leetcode.editor.cn;
 //Java：寻找峰值
 public class P162FindPeakElement {
     public static void main(String[] args) {
-        String str = "abc";
+        int[] nums = new int[]{1, 2};
         Solution solution = new P162FindPeakElement().new Solution();
-
-        System.out.println();
+        int peakElement = solution.findPeakElement(nums);
+        System.out.println(peakElement);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        /**
+         * 1 找到序列中点位置
+         * 2 如果中点元素<下一个元素，峰值在右侧，low=mid+1，有可能mid+1位置就是峰值点
+         * 3 如果中点元素>下一个元素，峰值在左侧，high=mid，有可能mid位置就是峰值点
+         * 4 low==high代表找到峰值点，注意while条件中没有"="
+         * <p>
+         * 局限性
+         * 只能找到随机的峰值，无法找到所有的峰值
+         *
+         * @param nums
+         * @return
+         */
         public int findPeakElement(int[] nums) {
-            return 0;
+            if (nums.length < 1) {
+                return -1;
+            }
+            int low = 0;
+            int high = nums.length - 1;
+            int mid = 0;
+            // 相等表示找到峰值点
+            while (low < high) {
+                mid = low + (high - low) / 2;
+                if (nums[mid] < nums[mid + 1]) {
+                    // 递增序列，峰值在右边
+                    low = mid + 1;
+                } else if (nums[mid] > nums[mid + 1]) {
+                    // 峰值在左边
+                    high = mid;
+                }
+            }
+            return low;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
