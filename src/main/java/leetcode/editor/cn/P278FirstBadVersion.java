@@ -36,6 +36,7 @@ public class P278FirstBadVersion {
 
     static class VersionControl {
         public boolean isBadVersion(int version) {
+            return false;
         }
     }
 
