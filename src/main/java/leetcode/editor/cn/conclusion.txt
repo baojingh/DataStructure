@@ -52,7 +52,7 @@ int数组转List：List<Integer> list = Arrays.stream(数组名).boxed().collect
         }
     }
     return -1;
-    应用番位：一个数的平方根；一个数是否是整数的平方根；
+    应用范围：一个数的平方根；一个数是否是整数的平方根；数组中符合条件的下标范围
 
 
 
