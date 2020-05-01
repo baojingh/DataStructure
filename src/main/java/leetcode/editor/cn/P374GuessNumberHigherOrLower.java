@@ -39,11 +39,11 @@ public class P374GuessNumberHigherOrLower {
      * int guess(int num);
      */
 
-//    static class GuessGame {
-//        public int guess(int num) {
-//            return 1;
-//        }
-//    }
+    static class GuessGame {
+        public int guess(int num) {
+            return 1;
+        }
+    }
 
     public class Solution extends GuessGame {
         public int guessNumber(int n) {
