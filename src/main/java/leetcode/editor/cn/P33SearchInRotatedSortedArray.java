@@ -34,6 +34,26 @@ public class P33SearchInRotatedSortedArray {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        /**
+         * 三种情况
+         * 1 旋转点在中间位置
+         * - 直接获取中间位置索引，返回
+         * 2 旋转点在中间偏左
+         * - 在左半部分查找
+         * 3 旋转点在中间偏右
+         * - 在右半部分查找
+         * <p>
+         * 中间位置的值与左边界值比较
+         * - 中间位置的数据较大，说明左半部分是递增的
+         * -- 如果目标值在左半部分，则high=mid-1
+         * -- 如果目标值不在左半部分，则low=mid+1
+         * - 中间位置的数据较小，说明右半部分是递增的
+         * -- 同上
+         *
+         * @param nums
+         * @param target
+         * @return
+         */
         public int search(int[] nums, int target) {
             int low = 0;
             int high = nums.length - 1;
