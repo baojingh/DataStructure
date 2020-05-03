@@ -26,9 +26,9 @@ package leetcode.editor.cn;
 //Java：搜索旋转排序数组
 public class P33SearchInRotatedSortedArray {
     public static void main(String[] args) {
-        int[] nums = new int[]{5, 1, 3};
+        int[] nums = new int[]{8, 1, 3, 4, 6};
         Solution solution = new P33SearchInRotatedSortedArray().new Solution();
-        int search = solution.search(nums, 3);
+        int search = solution.search(nums, 4);
         System.out.println(search);
     }
 

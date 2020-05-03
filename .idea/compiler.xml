@@ -4,5 +4,8 @@
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="DataStructure" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>
