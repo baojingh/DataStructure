@@ -4,7 +4,7 @@
 //
 // 示例 1: 
 //
-// 输入:       1         1
+// 输入:      1         1
 //          / \       / \
 //         2   3     2   3
 //
@@ -41,10 +41,21 @@ package leetcode.editor.cn;
 //Java：相同的树
 public class P100SameTree {
     public static void main(String[] args) {
-        int[] nums = new int[]{};
-        Solution solution = new P100SameTree().new Solution();
+        TreeNode node1 = new TreeNode(1);
+        TreeNode node2 = new TreeNode(2);
+        TreeNode node3 = new TreeNode(3);
+        node1.left = node2;
+        node1.right = node3;
 
-        System.out.println();
+        TreeNode n1 = new TreeNode(1);
+        TreeNode n2 = new TreeNode(22);
+        TreeNode n3 = new TreeNode(3);
+        n1.left = n2;
+        n1.right = n3;
+
+        Solution solution = new P100SameTree().new Solution();
+        boolean sameTree = solution.isSameTree(node1, n1);
+        System.out.println(sameTree);
     }
 
     public static class TreeNode {
@@ -69,7 +80,18 @@ public class P100SameTree {
      */
     class Solution {
         public boolean isSameTree(TreeNode p, TreeNode q) {
-            return false;
+            if (p == null && q == null) {
+                return true;
+            }
+            if (p == null || q == null) {
+                return false;
+            }
+            if (p.val != q.val) {
+                return false;
+            }
+            boolean sameTree1 = isSameTree(p.left, q.left);
+            boolean sameTree2 = isSameTree(p.right, q.right);
+            return sameTree1 && sameTree2;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
