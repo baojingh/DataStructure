@@ -92,14 +92,14 @@ public class P94BinaryTreeInorderTraversal {
          * solution/er-cha-shu-de-zhong-xu-bian-li-by-leetcode/
          * 时间复杂度：O(n)
          * 空间复杂度：O(h),h是树的高度
-         *
-         *     1
-         *    / \
-         *   2   3
-         *    \
-         *     4
+         * <p>
+         * 1
+         * / \
+         * 2   3
+         * \
+         * 4
          * 其执行过程是
-         *
+         * <p>
          * 1放入栈中，继续往左
          * 2放入栈中，继续往左
          * 此时节点为空，执行else分支
@@ -120,16 +120,18 @@ public class P94BinaryTreeInorderTraversal {
             while (cur != null || !stack.isEmpty()) {
                 // 向左子树方向前进
                 // 每前进一次，就将值入栈
-                while (cur != null) {
+                // 模拟递归
+                if (cur != null) {
                     stack.push(cur);
                     cur = cur.left;
+                } else {
+                    // 当前节点为空，就说明左子树走到头
+                    // 开始出栈
+                    // 出栈的元素，遍历右子树
+                    TreeNode node = stack.pop();
+                    list.add(node.val);
+                    cur = node.right;
                 }
-                // 当前节点为空，就说明左子树走到头
-                // 开始出栈
-                // 出栈的元素，遍历右子树
-                TreeNode node = stack.pop();
-                list.add(node.val);
-                cur = node.right;
             }
             return list;
         }
