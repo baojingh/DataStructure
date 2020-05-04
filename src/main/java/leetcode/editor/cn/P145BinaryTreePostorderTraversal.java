@@ -16,8 +16,14 @@
 
 
 package leetcode.editor.cn;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Stack;
+
 //Java：二叉树的后序遍历
-public class P145BinaryTreePostorderTraversal{
+public class P145BinaryTreePostorderTraversal {
     public static void main(String[] args) {
         TreeNode node1 = new TreeNode(1);
         TreeNode node2 = new TreeNode(2);
@@ -38,11 +44,11 @@ public class P145BinaryTreePostorderTraversal{
         n1.left = n2;
         n1.right = n3;
         Solution solution = new P145BinaryTreePostorderTraversal().new Solution();
-        
-        System.out.println();
+        List<Integer> list = solution.postorderTraversal(node1);
+        System.out.println(list.toString());
     }
-    
-   static class TreeNode {
+
+    static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
@@ -51,22 +57,40 @@ public class P145BinaryTreePostorderTraversal{
             val = x;
         }
     }
-    
-    //leetcode submit region begin(Prohibit modification and deletion)
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
- * }
- */
-class Solution {
-    public List<Integer> postorderTraversal(TreeNode root) {
 
+    //leetcode submit region begin(Prohibit modification and deletion)
+
+    /**
+     * Definition for a binary tree node.
+     * public class TreeNode {
+     * int val;
+     * TreeNode left;
+     * TreeNode right;
+     * TreeNode(int x) { val = x; }
+     * }
+     */
+    class Solution {
+        public List<Integer> postorderTraversal(TreeNode root) {
+            ArrayList<Integer> list = new ArrayList<>();
+            if (root == null) {
+                return list;
+            }
+            Stack<TreeNode> stack = new Stack<>();
+            TreeNode cur = root;
+            while (cur != null || !stack.isEmpty()) {
+                if (cur != null) {
+                    list.add(cur.val);
+                    stack.push(cur);
+                    cur = cur.right;
+                } else {
+                    cur = stack.pop();
+                    cur = cur.left;
+                }
+            }
+            Collections.reverse(list);
+            return list;
+        }
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
 }

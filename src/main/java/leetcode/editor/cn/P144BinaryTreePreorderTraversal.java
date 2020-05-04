@@ -84,6 +84,13 @@ public class P144BinaryTreePreorderTraversal {
      * }
      */
     class Solution {
+        /**
+         * https://leetcode-cn.com/problems/binary-tree-postorder-traversal/
+         * solution/xiang-xi-tong-su-de-si-lu-fen-xi-duo-jie-fa-by--34/
+         *
+         * @param root
+         * @return
+         */
         public List<Integer> preorderTraversal(TreeNode root) {
             List<Integer> list = new ArrayList<>();
             if (root == null) {
@@ -91,15 +98,14 @@ public class P144BinaryTreePreorderTraversal {
             }
             Stack<TreeNode> stack = new Stack<>();
             TreeNode cur = root;
-            stack.push(cur);
-            while (!stack.isEmpty()) {
-                cur = stack.pop();
-                list.add(cur.val);
-                if (cur.right != null) {
-                    stack.push(cur.right);
-                }
-                if (cur.left != null) {
-                    stack.push(cur.left);
+            while (cur != null || !stack.isEmpty()) {
+                if (cur != null) {
+                    list.add(cur.val);
+                    stack.push(cur);
+                    cur = cur.left;
+                } else {
+                    TreeNode node = stack.pop();
+                    cur = node.right;
                 }
             }
             return list;
