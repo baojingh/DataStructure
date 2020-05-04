@@ -43,15 +43,34 @@ public class P98ValidateBinarySearchTree {
         node1.left = node2;
         node1.right = node3;
 
-        TreeNode n1 = new TreeNode(1);
-        TreeNode n2 = new TreeNode(2);
-        TreeNode n3 = new TreeNode(3);
-        n1.left = n2;
-        n1.right = n3;
-        Solution solution = new P98ValidateBinarySearchTree().new Solution();
-        boolean validBST = solution.isValidBST(node1);
-        System.out.println(validBST);
+//        TreeNode n1 = new TreeNode(1);
+//        TreeNode n2 = new TreeNode(2);
+//        TreeNode n3 = new TreeNode(3);
+//        n1.left = n2;
+//        n1.right = n3;
+//        Solution solution = new P98ValidateBinarySearchTree().new Solution();
+//        boolean validBST = solution.isValidBST(node1);
+//        System.out.println(validBST);
+        boolean b = find(node1, 3);
+        System.out.println(b);
     }
+
+    public static boolean find(TreeNode node, int target) {
+        if (node == null) {
+            return false;
+        }
+        boolean b;
+        if (node.val > target) {
+            b = find(node.right, target);
+            return b;
+        } else if (node.val < target) {
+            b = find(node.left, target);
+            return b;
+        } else {
+            return true;
+        }
+    }
+
 
     static class TreeNode {
         int val;
