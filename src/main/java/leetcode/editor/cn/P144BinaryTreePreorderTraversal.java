@@ -18,7 +18,6 @@
 
 package leetcode.editor.cn;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -45,9 +44,8 @@ public class P144BinaryTreePreorderTraversal {
         n1.left = n2;
         n1.right = n3;
         Solution solution = new P144BinaryTreePreorderTraversal().new Solution();
-
-        System.out.println();
-        preOrder(node1);
+        List<Integer> list = solution.preorderTraversal(node1);
+        System.out.println(list.toString());
     }
 
     /**
@@ -88,12 +86,23 @@ public class P144BinaryTreePreorderTraversal {
     class Solution {
         public List<Integer> preorderTraversal(TreeNode root) {
             List<Integer> list = new ArrayList<>();
+            if (root == null) {
+                return list;
+            }
             Stack<TreeNode> stack = new Stack<>();
             TreeNode cur = root;
-            while ()
-
-
-            return null;
+            stack.push(cur);
+            while (!stack.isEmpty()) {
+                cur = stack.pop();
+                list.add(cur.val);
+                if (cur.right != null) {
+                    stack.push(cur.right);
+                }
+                if (cur.left != null) {
+                    stack.push(cur.left);
+                }
+            }
+            return list;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
