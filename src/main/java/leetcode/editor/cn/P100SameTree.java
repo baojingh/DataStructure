@@ -48,7 +48,7 @@ public class P100SameTree {
         node1.right = node3;
 
         TreeNode n1 = new TreeNode(1);
-        TreeNode n2 = new TreeNode(22);
+        TreeNode n2 = new TreeNode(2);
         TreeNode n3 = new TreeNode(3);
         n1.left = n2;
         n1.right = n3;
@@ -58,7 +58,7 @@ public class P100SameTree {
         System.out.println(sameTree);
     }
 
-    public static class TreeNode {
+    static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
@@ -91,7 +91,8 @@ public class P100SameTree {
             }
             boolean sameTree1 = isSameTree(p.left, q.left);
             boolean sameTree2 = isSameTree(p.right, q.right);
-            return sameTree1 && sameTree2;
+            boolean b = sameTree1 && sameTree2;
+            return b;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
