@@ -38,6 +38,8 @@
 
 package leetcode.editor.cn;
 
+import java.util.Stack;
+
 //Java：相同的树
 public class P100SameTree {
     public static void main(String[] args) {
@@ -57,6 +59,23 @@ public class P100SameTree {
         boolean sameTree = solution.isSameTree(node1, n1);
         System.out.println(sameTree);
     }
+
+    public static boolean isSameTree(TreeNode p, TreeNode q) {
+        if (p == null && q == null) {
+            return true;
+        }
+        if (p == null || q == null) {
+            return false;
+        }
+        if (p.val != q.val) {
+            return false;
+        }
+        boolean sameTree1 = isSameTree(p.left, q.left);
+        boolean sameTree2 = isSameTree(p.right, q.right);
+        boolean b = sameTree1 && sameTree2;
+        return b;
+    }
+
 
     static class TreeNode {
         int val;
@@ -79,20 +98,40 @@ public class P100SameTree {
      * }
      */
     class Solution {
+        /**
+         * 迭代的方案
+         *
+         * @param p
+         * @param q
+         * @return
+         */
         public boolean isSameTree(TreeNode p, TreeNode q) {
-            if (p == null && q == null) {
-                return true;
+            Stack<TreeNode> stack = new Stack<>();
+            TreeNode pCur = p;
+            TreeNode qCur = q;
+            // 根节点元素入栈
+            // 注意顺序，p，q
+            stack.push(qCur);
+            stack.push(pCur);
+            while (!stack.isEmpty()) {
+                pCur = stack.pop();
+                qCur = stack.pop();
+                // 遇到叶子结点，就跳过
+                if (qCur == null && pCur == null) {
+                    continue;
+                }
+                // 当前p，q均不为空且两个值相等，才会入栈
+                //不相等情况： 一个为空，一个不为空；两个值不相等
+                if (qCur != null && pCur != null && qCur.val == pCur.val) {
+                    stack.push(pCur.left);
+                    stack.push(qCur.left);
+                    stack.push(pCur.right);
+                    stack.push(qCur.right);
+                } else {
+                    return false;
+                }
             }
-            if (p == null || q == null) {
-                return false;
-            }
-            if (p.val != q.val) {
-                return false;
-            }
-            boolean sameTree1 = isSameTree(p.left, q.left);
-            boolean sameTree2 = isSameTree(p.right, q.right);
-            boolean b = sameTree1 && sameTree2;
-            return b;
+            return true;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
