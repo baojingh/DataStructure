@@ -20,6 +20,8 @@
 
 package leetcode.editor.cn;
 
+import java.util.LinkedList;
+
 //Java：二叉树的最小深度
 public class P111MinimumDepthOfBinaryTree {
     public static void main(String[] args) {
@@ -68,8 +70,40 @@ public class P111MinimumDepthOfBinaryTree {
      * }
      */
     class Solution {
+        /**
+         * 队列：入队列是将元素放入队列尾部；出队列是从头部出
+         * @param root
+         * @return
+         */
         public int minDepth(TreeNode root) {
-            return 0;
+            if (root == null) {
+                return 0;
+            }
+            LinkedList<TreeNode> queue = new LinkedList<>();
+            int level = 1;
+            // 元素插入链表尾部
+            queue.offer(root);
+            while (queue.size() > 0) {
+                // 当前层元素个数
+                int size = queue.size();
+                for (int i = 0; i < size; i++) {
+                    // 链表头部，元素出队列
+                    TreeNode node = queue.poll();
+                    // 当前如果是叶子结点，就返回level
+                    if (node != null && node.left == null && node.right == null) {
+                        return level;
+                    }
+                    //不是叶子结点
+                    if (node != null && node.left != null) {
+                        queue.offer(node.left);
+                    }
+                    if (node != null && node.right != null) {
+                        queue.offer(node.right);
+                    }
+                }
+                level = level + 1;
+            }
+            return level;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
