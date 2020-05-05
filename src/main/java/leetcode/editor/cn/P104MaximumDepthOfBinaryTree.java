@@ -19,6 +19,7 @@
 
 package leetcode.editor.cn;
 
+import java.util.LinkedList;
 import java.util.Stack;
 
 //Java：二叉树的最大深度
@@ -47,6 +48,7 @@ public class P104MaximumDepthOfBinaryTree {
         System.out.println();
     }
 
+
     static class TreeNode {
         int val;
         TreeNode left;
@@ -58,10 +60,12 @@ public class P104MaximumDepthOfBinaryTree {
     }
 
 
-
     //leetcode submit region begin(Prohibit modification and deletion)
 
     class Pair {
+        /**
+         * 存储当前节点以及对应的深度，深度就是节点个数
+         */
         TreeNode node;
         int level;
 
@@ -69,18 +73,10 @@ public class P104MaximumDepthOfBinaryTree {
             this.node = node;
             this.level = level;
         }
+
     }
 
-    /**
-     * Definition for a binary tree node.
-     * public class TreeNode {
-     * int val;
-     * TreeNode left;
-     * TreeNode right;
-     * TreeNode(int x) { val = x; }
-     * }
-     */
-    class Solution {
+    class MaxDeepth {
         public int maxDepth(TreeNode root) {
             Stack<Pair> stack = new Stack<>();
             int maxLevel = 0;
@@ -96,6 +92,45 @@ public class P104MaximumDepthOfBinaryTree {
                 }
             }
             return maxLevel;
+        }
+    }
+
+
+    /**
+     * Definition for a binary tree node.
+     * public class TreeNode {
+     * int val;
+     * TreeNode left;
+     * TreeNode right;
+     * TreeNode(int x) { val = x; }
+     * }
+     */
+    class Solution {
+        public int maxDepth(TreeNode root) {
+            int level = 0;
+            if (root == null) {
+                return level;
+            }
+            LinkedList<TreeNode> queue = new LinkedList<>();
+            // 链表的尾部插入元素
+            queue.offer(root);
+            while (queue.size() > 0) {
+                int size = queue.size();
+                for (int i = 0; i < size; i++) {
+                    // 链表头部元素，并删除
+                    TreeNode node = queue.poll();
+                    if (node != null && node.left != null) {
+                        queue.offer(node.left);
+                    }
+                    if (node != null && node.right != null) {
+                        queue.offer(node.right);
+                    }
+                }
+                level = level + 1;
+            }
+
+
+            return level;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
