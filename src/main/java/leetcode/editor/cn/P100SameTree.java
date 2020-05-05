@@ -100,6 +100,8 @@ public class P100SameTree {
     class Solution {
         /**
          * 迭代的方案
+         * https://leetcode-cn.com/problems/same-tree/solution/
+         * dong-hua-yan-shi-100-xiang-tong-de-shu-by-user7439/
          *
          * @param p
          * @param q
