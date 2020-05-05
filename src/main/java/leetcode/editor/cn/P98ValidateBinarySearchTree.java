@@ -34,12 +34,14 @@
 
 package leetcode.editor.cn;
 
+import java.util.Stack;
+
 //Java：验证二叉搜索树
 public class P98ValidateBinarySearchTree {
     public static void main(String[] args) {
-        TreeNode node1 = new TreeNode(1);
-        TreeNode node2 = new TreeNode(2);
-        TreeNode node3 = new TreeNode(3);
+        TreeNode node1 = new TreeNode(2);
+        TreeNode node2 = new TreeNode(1);
+        TreeNode node3 = new TreeNode(2);
         node1.left = node2;
         node1.right = node3;
 
@@ -48,11 +50,11 @@ public class P98ValidateBinarySearchTree {
 //        TreeNode n3 = new TreeNode(3);
 //        n1.left = n2;
 //        n1.right = n3;
-//        Solution solution = new P98ValidateBinarySearchTree().new Solution();
-//        boolean validBST = solution.isValidBST(node1);
-//        System.out.println(validBST);
-        boolean b = find(node1, 3);
-        System.out.println(b);
+        Solution solution = new P98ValidateBinarySearchTree().new Solution();
+        boolean validBST = solution.isValidBST(node1);
+        System.out.println(validBST);
+//        boolean b = find(node1, 3);
+//        System.out.println(b);
     }
 
     public static boolean find(TreeNode node, int target) {
@@ -68,6 +70,28 @@ public class P98ValidateBinarySearchTree {
             return b;
         } else {
             return true;
+        }
+    }
+
+    static class ValidBST {
+        public boolean isValidBST(TreeNode root) {
+            boolean bst = isValidBST(root, null, null);
+            return bst;
+        }
+
+        private boolean isValidBST(TreeNode node, TreeNode min, TreeNode max) {
+            if (node == null) {
+                return true;
+            }
+            if (min != null && node.val <= min.val) {
+                return false;
+            }
+            if (max != null && node.val >= max.val) {
+                return false;
+            }
+            boolean b1 = isValidBST(node.left, min, node);
+            boolean b2 = isValidBST(node.right, node, max);
+            return b1 && b2;
         }
     }
 
@@ -94,24 +118,34 @@ public class P98ValidateBinarySearchTree {
      * }
      */
     class Solution {
+        /**
+         * 使用栈，基于中序遍历，数据是递增的
+         *
+         * @param root
+         * @return
+         */
         public boolean isValidBST(TreeNode root) {
-            boolean bst = isValidBST(root, null, null);
-            return bst;
-        }
-
-        private boolean isValidBST(TreeNode node, TreeNode min, TreeNode max) {
-            if (node == null) {
-                return true;
+            Stack<TreeNode> stack = new Stack<>();
+            TreeNode cur = root;
+            double maxValue = - Double.MAX_VALUE;
+            while (cur != null || !stack.isEmpty()) {
+                if (cur != null) {
+                    // 中序遍历，先找左子树
+                    stack.push(cur);
+                    cur = cur.left;
+                } else {
+                    // 出栈
+                    cur = stack.pop();
+                    int curVal = cur.val;
+                    // 固定一个当前的最大值，如果有比这个最大值还小的值出现，说明中序遍历的序列，不是递增的
+                    if (maxValue >= curVal) {
+                        return false;
+                    }
+                    maxValue = curVal;
+                    cur = cur.right;
+                }
             }
-            if (min != null && node.val <= min.val) {
-                return false;
-            }
-            if (max != null && node.val >= max.val) {
-                return false;
-            }
-            boolean b1 = isValidBST(node.left, min, node);
-            boolean b2 = isValidBST(node.right, node, max);
-            return b1 && b2;
+            return true;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

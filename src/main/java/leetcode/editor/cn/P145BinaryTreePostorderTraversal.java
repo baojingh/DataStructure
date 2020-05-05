@@ -87,6 +87,7 @@ public class P145BinaryTreePostorderTraversal {
                     cur = cur.left;
                 }
             }
+            // 按照中-右-左顺序遍历，然后逆序输出
             Collections.reverse(list);
             return list;
         }
