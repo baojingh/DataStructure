@@ -83,7 +83,7 @@ public class P637AverageOfLevelsInBinaryTree {
             queue.offer(root);
             while (queue.size() > 0) {
                 int size = queue.size();
-                int sum = 0;
+                Double sum = 0.0;
                 for (int i = 0; i < size; i++) {
                     TreeNode node = queue.poll();
                     sum = sum + node.val;
@@ -94,7 +94,7 @@ public class P637AverageOfLevelsInBinaryTree {
                         queue.offer(node.right);
                     }
                 }
-                list.add(sum * 1.0 / size);
+                list.add(sum / size);
             }
             return list;
         }
