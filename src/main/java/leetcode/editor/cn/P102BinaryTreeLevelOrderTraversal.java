@@ -95,6 +95,7 @@ public class P102BinaryTreeLevelOrderTraversal {
             linkedList.offer(root);
             while (linkedList.size() > 0) {
                 // 根节点只有一个
+                // 当前层的节点个数，⚠️注意⚠️
                 int size = linkedList.size();
                 // 取出这一层的节点
                 // 将左右子节点加入队列
