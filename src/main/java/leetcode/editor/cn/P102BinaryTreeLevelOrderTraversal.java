@@ -79,24 +79,29 @@ public class P102BinaryTreeLevelOrderTraversal {
      * }
      */
     class Solution {
+        /**
+         * 参照树的最大深度/最小深度解法
+         *
+         * @param root
+         * @return
+         */
         public List<List<Integer>> levelOrder(TreeNode root) {
             List<List<Integer>> list = new ArrayList<List<Integer>>();
             LinkedList<TreeNode> linkedList = new LinkedList<>();
             if (root == null) {
                 return list;
             }
+            // 入队列
             linkedList.offer(root);
             while (linkedList.size() > 0) {
+                // 根节点只有一个
                 int size = linkedList.size();
+                // 取出这一层的节点
+                // 将左右子节点加入队列
                 List<Integer> tmp = new ArrayList<Integer>();
-                for (TreeNode node : linkedList) {
-                    tmp.add(node.val);
-                }
-                if (tmp != null) {
-                    list.add(tmp);
-                }
                 for (int i = 0; i < size; i++) {
                     TreeNode node = linkedList.poll();
+                    tmp.add(node.val);
                     if (node.left != null) {
                         linkedList.offer(node.left);
                     }
@@ -104,6 +109,7 @@ public class P102BinaryTreeLevelOrderTraversal {
                         linkedList.offer(node.right);
                     }
                 }
+                list.add(tmp);
             }
             return list;
         }
