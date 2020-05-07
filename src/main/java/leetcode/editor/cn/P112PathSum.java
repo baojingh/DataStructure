@@ -72,6 +72,13 @@ public class P112PathSum {
     class Solution {
         /**
          * 广度优先遍历
+         * 1 节点入队列；节点的值入队列；节点路径入队列
+         * 2 三个队列的首元素出队列
+         * 如果当前节点的左右子节点均为空，说明已经到达叶子结点，比较出队列的值与sum比较
+         * 如果当前节点的左右子节点不为空，说明已经未到达叶子结点：
+         * 将左子节点入队列，左子节点的路径入队列，左子节点值与刚才的出队列值相加入队列
+         * 将右子节点入队列，右子节点的路径入队列，右子节点值与刚才的出队列值相加入队列
+         * 3 重复2，直到节点队列长度是0
          *
          * @param root
          * @param sum
@@ -89,9 +96,11 @@ public class P112PathSum {
             pathStack.offer(Integer.toString(root.val));
             while (queue.size() > 0) {
                 TreeNode node = queue.poll();
+                // 出队列的路径就是根节点到当前节点node的路径
                 String path = pathStack.poll();
-                System.out.println("[" + path + "]");
+                // 出队列的值就是根节点到当前节点node的总和
                 Integer integer = integerStack.poll();
+                // 到达叶子节点
                 if (node.left == null && node.right == null) {
                     if (sum == integer) {
                         System.out.println(path);
@@ -101,6 +110,7 @@ public class P112PathSum {
                 if (node.left != null) {
                     queue.offer(node.left);
                     pathStack.offer(new StringBuffer(path).append(" ->").append(node.left.val).toString());
+                    // 路径之和
                     integerStack.offer(node.left.val + integer);
                 }
                 if (node.right != null) {
