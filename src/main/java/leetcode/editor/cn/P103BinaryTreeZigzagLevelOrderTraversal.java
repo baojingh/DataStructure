@@ -75,6 +75,11 @@ public class P103BinaryTreeZigzagLevelOrderTraversal {
      * }
      */
     class Solution {
+        /**
+         *
+         * @param root
+         * @return
+         */
         public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
             List<List<Integer>> list = new ArrayList<List<Integer>>();
             if (root == null) {
@@ -82,6 +87,7 @@ public class P103BinaryTreeZigzagLevelOrderTraversal {
             }
             LinkedList<TreeNode> queue = new LinkedList<>();
             queue.offer(root);
+            // 标记奇偶层
             int level = 0;
             while (queue.size() > 0) {
                 level = level + 1;
@@ -90,8 +96,10 @@ public class P103BinaryTreeZigzagLevelOrderTraversal {
                 for (int i = 0; i < size; i++) {
                     TreeNode node = queue.poll();
                     if ((level & 1) == 1) {
+                        // 奇数层，添加
                         integers.add(node.val);
                     } else {
+                        // 偶数层，逆序添加，每次都插入0索引位置
                         integers.add(0, node.val);
                     }
                     if (node.left != null) {
