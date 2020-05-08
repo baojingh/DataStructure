@@ -26,6 +26,8 @@
 
 package leetcode.editor.cn;
 
+import java.util.Stack;
+
 //Java：二叉树展开为链表
 public class P114FlattenBinaryTreeToLinkedList {
     public static void main(String[] args) {
@@ -80,7 +82,36 @@ public class P114FlattenBinaryTreeToLinkedList {
      * }
      */
     class Solution {
+        /**
+         * 使用栈做前序遍历
+         * 但是题目要求使用原地算法，即不可使用额外的空间
+         *
+         * 参考以下原地算法
+         * https://leetcode-cn.com/problems/flatten-binary-tree-to-linked-list/solution/
+         * biao-biao-zhun-zhun-de-hou-xu-bian-li-dai-ma-jian-/
+         *
+         * @param root
+         */
         public void flatten(TreeNode root) {
+            if (root == null) {
+                return;
+            }
+            Stack<TreeNode> stack = new Stack<>();
+            stack.push(root);
+            TreeNode pre = new TreeNode(-1);
+            while (stack.size() > 0) {
+                TreeNode node = stack.pop();
+                pre.right = node;
+                pre.left = null;
+                if (node.right != null) {
+                    stack.push(node.right);
+                }
+                if (node.left != null) {
+                    stack.push(node.left);
+                }
+                pre = node;
+            }
+
 
         }
     }
