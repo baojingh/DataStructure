@@ -77,33 +77,65 @@ public class P113PathSumIi {
      * }
      */
     class Solution {
+        /**
+         * 广度优先遍历
+         *
+         * @param root
+         * @param sum
+         * @return
+         */
         public List<List<Integer>> pathSum(TreeNode root, int sum) {
+            // 存放节点
             LinkedList<TreeNode> queue = new LinkedList<>();
+
+            // 每个路径的节点累加和
             LinkedList<Integer> integerStack = new LinkedList<>();
 
+            // 结果集
             LinkedList<List<Integer>> integerList = new LinkedList<List<Integer>>();
+
+            // 每个路径的节点列表
             LinkedList<LinkedList<Integer>> integers = new LinkedList<>();
             if (root == null) {
                 return integerList;
             }
             queue.offer(root);
             integerStack.offer(root.val);
+
+            // 根节点以集合形式存入队列
             LinkedList<Integer> tmp = new LinkedList<>();
             tmp.add(root.val);
             integers.offer(tmp);
+
             while (queue.size() > 0) {
+                // 节点出队列
                 TreeNode node = queue.poll();
+
+                // 路径累计和
                 Integer integer = integerStack.poll();
+
+                // 路径集合
                 LinkedList<Integer> linkedList = integers.poll();
+                // 达到叶子结点，是否有路径之和是sum
                 if (node.left == null && node.right == null) {
                     if (integer == sum) {
-                        System.out.println(integers.toString());
+                        // 添加到结果集
                         integerList.add(linkedList);
                     }
                 }
+
                 if (node.left != null) {
+                    // 节点node的左节点入队列
                     queue.offer(node.left);
+                    // 累计和入队列
                     integerStack.offer(integer + node.left.val);
+
+                    /**
+                     * ⚠️⚠️
+                     * ️出队列的集合，添加左子节点，然后将此集合入队列
+                     * 注意这个入队列的集合是一个全新的集合，确保集合内只有左子节点的元素
+                     * 如果都使用linkedList，那么左右子节点俊晖被加入集合，无法实现左右子节点的分割
+                     */
                     LinkedList<Integer> leftList = new LinkedList<>(linkedList);
                     leftList.offer(node.left.val);
                     integers.offer(leftList);
