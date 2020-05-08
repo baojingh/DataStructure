@@ -97,15 +97,15 @@ public class P144BinaryTreePreorderTraversal {
                 return list;
             }
             Stack<TreeNode> stack = new Stack<>();
-            TreeNode cur = root;
-            while (cur != null || !stack.isEmpty()) {
-                if (cur != null) {
-                    list.add(cur.val);
-                    stack.push(cur);
-                    cur = cur.left;
-                } else {
-                    TreeNode node = stack.pop();
-                    cur = node.right;
+            stack.push(root);
+            while (stack.size() > 0) {
+                TreeNode node = stack.pop();
+                list.add(node.val);
+                if (node.right != null) {
+                    stack.push(node.right);
+                }
+                if (node.left != null) {
+                    stack.push(node.left);
                 }
             }
             return list;
