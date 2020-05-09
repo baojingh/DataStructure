@@ -38,17 +38,22 @@ import java.util.Stack;
 public class P230KthSmallestElementInABst {
     public static void main(String[] args) {
         TreeNode node1 = new TreeNode(1);
-        TreeNode node2 = new TreeNode(2);
-        TreeNode node3 = new TreeNode(3);
-        TreeNode node4 = new TreeNode(4);
-        TreeNode node5 = new TreeNode(5);
-        TreeNode node6 = new TreeNode(6);
+        TreeNode node2 = new TreeNode(3);
+        TreeNode node3 = new TreeNode(4);
+        TreeNode node4 = new TreeNode(6);
+        TreeNode node5 = new TreeNode(8);
+        TreeNode node6 = new TreeNode(10);
+        TreeNode node7 = new TreeNode(11);
 
-        node2.left = node4;
-        node2.right = node5;
-        node3.left = node6;
-        node1.left = node2;
-        node1.right = node3;
+
+        node2.left = node1;
+        node2.right = node3;
+
+        node6.left = node5;
+        node6.right = node7;
+
+        node4.left = node2;
+        node4.right = node6;
 
         TreeNode n1 = new TreeNode(1);
         TreeNode n2 = new TreeNode(2);
@@ -56,8 +61,8 @@ public class P230KthSmallestElementInABst {
         n1.left = n2;
         n1.right = n3;
         Solution solution = new P230KthSmallestElementInABst().new Solution();
-
-        System.out.println();
+        int smallest = solution.kthSmallest(node4, 3);
+        System.out.println(smallest);
     }
 
     static class TreeNode {
@@ -85,6 +90,7 @@ public class P230KthSmallestElementInABst {
         /**
          * 深度优先搜索
          * 中序遍历，节点顺序递增
+         * 第k小，就是从小到大排序，第k个数据
          *
          * @param root
          * @param k
@@ -96,14 +102,32 @@ public class P230KthSmallestElementInABst {
             }
             Stack<TreeNode> stack = new Stack<>();
             stack.push(root);
-            int count = 1;
+            int res = -1;
+            int count = 0;
             while (stack.size() > 0) {
                 TreeNode node = stack.pop();
-
-
+                // 叶子结点，就表示这是第几个数
+                if (node.left == null && node.right == null) {
+                    count = count + 1;
+                    if (count == k) {
+                        // 达到目标数，就退出
+                        res = node.val;
+                        break;
+                    }
+                    // 叶子结点，注意不能执行后面的stack.push(node)，此处应该继续迭代，从stack中取值
+                    continue;
+                }
+                if (node.right != null) {
+                    stack.push(node.right);
+                    node.right = null;
+                }
+                stack.push(node);
+                if (node.left != null) {
+                    stack.push(node.left);
+                    node.left = null;
+                }
             }
-
-            return 0;
+            return res;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
