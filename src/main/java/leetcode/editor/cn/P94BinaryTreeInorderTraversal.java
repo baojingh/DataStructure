@@ -17,7 +17,7 @@
 
 package leetcode.editor.cn;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -114,23 +114,29 @@ public class P94BinaryTreeInorderTraversal {
          * @return
          */
         public List<Integer> inorderTraversal(TreeNode root) {
-            ArrayList<Integer> list = new ArrayList<>();
+            LinkedList<Integer> list = new LinkedList<>();
             Stack<TreeNode> stack = new Stack<>();
-            TreeNode cur = root;
-            while (cur != null || !stack.isEmpty()) {
-                // 向左子树方向前进
-                // 每前进一次，就将值入栈
-                // 模拟递归
-                if (cur != null) {
-                    stack.push(cur);
-                    cur = cur.left;
-                } else {
-                    // 当前节点为空，就说明左子树走到头
-                    // 开始出栈
-                    // 出栈的元素，遍历右子树
-                    TreeNode node = stack.pop();
+            if (root == null) {
+                return list;
+            }
+            stack.push(root);
+            while (stack.size() > 0) {
+                TreeNode node = stack.pop();
+                if (node.left == null && node.right == null) {
+                    // 叶子结点
                     list.add(node.val);
-                    cur = node.right;
+                    // 找到叶子结点，还需要继续迭代，不能向下走，不可执行stack.push(node)
+                    continue;
+                }
+                // 右子节点入栈->本节点入栈->左子节点入栈，出栈的顺序就是左中右
+                if (node.right != null) {
+                    stack.push(node.right);
+                    node.right = null;
+                }
+                stack.push(node);
+                if (node.left != null) {
+                    stack.push(node.left);
+                    node.left = null;
                 }
             }
             return list;
