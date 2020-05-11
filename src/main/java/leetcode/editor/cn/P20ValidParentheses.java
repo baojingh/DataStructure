@@ -68,7 +68,7 @@ public class P20ValidParentheses {
         n1.left = n2;
         n1.right = n3;
         Solution solution = new P20ValidParentheses().new Solution();
-        boolean valid = solution.isValid("(]");
+        boolean valid = solution.isValid(")]");
         System.out.println(valid);
     }
 
@@ -86,7 +86,7 @@ public class P20ValidParentheses {
     class Solution {
         public boolean isValid(String s) {
             int len = s.length();
-            if ((len ^ 1) == 1 || len < 1) {
+            if ((len & 1) == 1) {
                 return false;
             }
             Map<Character, Character> map = new HashMap<>();
@@ -99,13 +99,16 @@ public class P20ValidParentheses {
                 char c = s.charAt(i);
                 if (c == '{' | c == '[' || c == '(') {
                     stack.push(map.get(c));
-                } else if ((c != stack.pop())) {
+                } else if (stack.isEmpty() || (c != stack.pop())) {
+                    // 如果是")}"，需要走到这一步进行pop，但是栈是空的，会出错,需要先判断是否为空
                     return false;
                 }
             }
             if (stack.isEmpty()) {
+                // 栈中的元素全部出栈，说明比较完毕，没有走到false这一步
                 return true;
             }
+            // 栈还有元素，
             return false;
         }
     }
