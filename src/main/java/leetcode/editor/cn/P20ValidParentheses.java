@@ -84,6 +84,19 @@ public class P20ValidParentheses {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        /**
+         * 1 遇到左括号，将其对应的右括号入栈
+         * 2 遇到了右括号，出栈
+         * 出栈时如果栈为空(即只有右括号的特殊情况)，返回false
+         * 出栈时，栈不为空，判断出栈元素与当前元素是否相等
+         * 如果相等，继续迭代
+         * 如果不相等，说明存在左右括号对应不上，可以直接返回false
+         * <p>
+         * 遍历完所有元素，如果栈为空，说明括号匹配；如果栈不为空，说明有的括号不匹配，false
+         *
+         * @param s
+         * @return
+         */
         public boolean isValid(String s) {
             int len = s.length();
             if ((len & 1) == 1) {
