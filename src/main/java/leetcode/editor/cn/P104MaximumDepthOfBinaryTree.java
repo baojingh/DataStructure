@@ -118,6 +118,7 @@ public class P104MaximumDepthOfBinaryTree {
                 int size = queue.size();
                 for (int i = 0; i < size; i++) {
                     // 链表头部元素，并删除
+                    // 树的前序遍历，中->左->右
                     TreeNode node = queue.poll();
                     if (node != null && node.left != null) {
                         queue.offer(node.left);
