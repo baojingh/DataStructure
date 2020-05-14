@@ -41,14 +41,29 @@
 
 package leetcode.editor.cn;
 
+import java.util.Stack;
+
 //Java：最小栈
 public class P155MinStack {
     public static void main(String[] args) {
         TreeNode node1 = new TreeNode(1);
 
         MinStack solution = new P155MinStack().new MinStack();
+//        solution.push(2);
+//        solution.push(3);
+//        solution.push(4);
+//        solution.push(5);
+//        solution.push(6);
 
-        System.out.println();
+        int top = solution.top();
+        System.out.println(top);
+
+        solution.pop();
+
+        int top2 = solution.top();
+        System.out.println(top2);
+        System.out.println(solution.getMin());
+
     }
 
     static class TreeNode {
@@ -64,70 +79,79 @@ public class P155MinStack {
     //leetcode submit region begin(Prohibit modification and deletion)
     class MinStack {
 
-        private int[] array;
-        private int capacity = 5;
-        private int size;
-        private int minValue;
-
+        /**
+         * 使用两个栈，一个存放正常的数据，另一个存放最小值
+         */
+        private Stack<Integer> originStack;
+        private Stack<Integer> minStack;
 
         /**
          * initialize your data structure here.
          */
         public MinStack() {
-            array = new int[capacity];
-            size = 0;
-        }
-
-        private int getSize() {
-            return size;
-        }
-
-        private boolean isFull() {
-            return size >= capacity;
-        }
-
-        private boolean isEmpty() {
-            return size == 0;
-        }
-
-        private void resize() {
-            int[] newArray = new int[capacity * 2];
-            for (int i = 0; i < array.length; i++) {
-                newArray[i] = array[i];
-            }
-            array = newArray;
+            // 存储原始数据
+            originStack = new Stack<Integer>();
+            // 存储顺序数据，栈顶到栈底依次增大，栈顶元素最小
+            minStack = new Stack<Integer>();
         }
 
         public void push(int x) {
-            if (isFull()) {
-                resize();
+            originStack.push(x);
+            if (minStack.size() == 0) {
+                // 第一次入栈
+                minStack.push(x);
+            } else {
+                // 最小栈中有数据，判断最小栈的栈顶元素是入栈元素的大小关系
+                // x比较大，则不操作最小栈；x比较小，将x也胶乳最小栈
+                Integer peek = minStack.peek();
+                if (peek >= x) {
+                    minStack.push(x);
+                }
             }
-            array[size] = x;
-            size = size + 1;
         }
 
         public void pop() {
-            if (isEmpty()) {
+            // 对栈正常出栈
+            if (originStack.size() < 1) {
                 return;
             }
-            size = size - 1;
+            if (minStack.size() < 1) {
+                return;
+            }
+            Integer pop = originStack.pop();
+            Integer minValue = minStack.peek();
+            if (minValue.equals(pop)) {
+                // 如果出栈的元素==最小栈元素，就把最小栈出栈
+                minStack.pop();
+            }
         }
 
         public int top() {
-            if (isEmpty()) {
+            if (originStack.size() < 1) {
                 try {
-                    throw new Exception();
-                } catch (Exception e) {
+                    throw new IllegalAccessException();
+                } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
             }
-            int val = array[size];
-            size = size - 1;
-            return val;
+            return originStack.peek();
         }
 
+        /**
+         * 出栈或者
+         *
+         * @return
+         */
         public int getMin() {
-            return minValue;
+            if (originStack.size() < 1) {
+                try {
+                    throw new IllegalAccessException();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+            Integer pop = minStack.peek();
+            return pop;
         }
     }
 
