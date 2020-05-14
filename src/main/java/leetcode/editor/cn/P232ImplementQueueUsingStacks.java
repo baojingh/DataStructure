@@ -38,7 +38,9 @@ public class P232ImplementQueueUsingStacks {
         TreeNode node1 = new TreeNode(1);
 
         MyQueue solution = new P232ImplementQueueUsingStacks().new MyQueue();
-
+        solution.push(1);
+        solution.pop();
+        solution.pop();
         System.out.println();
     }
 
@@ -77,9 +79,12 @@ public class P232ImplementQueueUsingStacks {
          * Removes the element from in front of queue and returns that element.
          */
         public int pop() {
-            transferStack();
+            if (outStack.size() == 0) {
+                transferStack();
+            }
             return outStack.pop();
         }
+
 
         private void transferStack() {
             while (inStack.size() > 0) {
@@ -92,7 +97,9 @@ public class P232ImplementQueueUsingStacks {
          * Get the front element.
          */
         public int peek() {
-            transferStack();
+            if (outStack.size() == 0) {
+                transferStack();
+            }
             return outStack.peek();
         }
 
