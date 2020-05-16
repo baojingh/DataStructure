@@ -76,16 +76,25 @@ public class P145BinaryTreePostorderTraversal {
                 return list;
             }
             Stack<TreeNode> stack = new Stack<>();
-            TreeNode cur = root;
-            while (cur != null || !stack.isEmpty()) {
-                if (cur != null) {
-                    list.add(cur.val);
-                    stack.push(cur);
-                    cur = cur.right;
-                } else {
-                    cur = stack.pop();
-                    cur = cur.left;
+            stack.push(root);
+            while (!stack.isEmpty()) {
+                TreeNode node = stack.pop();
+                if (node.left == null && node.right == null) {
+                    // 叶子结点
+                    // 处理叶子结点
+                    list.add(node.val);
+                    // 找到叶子结点，还需要继续迭代，不能向下走，不可执行stack.push(node)
+                    continue;
                 }
+                if (node.left != null) {
+                    stack.push(node.left);
+                    node.left = null;
+                }
+                if (node.right != null) {
+                    stack.push(node.right);
+                    node.right = null;
+                }
+                stack.push(node);
             }
             // 按照中-右-左顺序遍历，然后逆序输出
             Collections.reverse(list);

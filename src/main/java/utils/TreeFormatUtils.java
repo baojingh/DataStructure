@@ -21,7 +21,7 @@ public class TreeFormatUtils {
      *
      * @return
      */
-    public static void printTree(Integer[] nums) {
+    public static void printTree(String[] nums) {
         TreeNode root = createTree(nums);
 
         if (root == null) System.out.println("EMPTY!");
@@ -61,7 +61,7 @@ public class TreeFormatUtils {
 
     public static void main(String[] args) {
 //        Integer[] nums = new Integer[]{5, 4, 8, 11, null, 13, 4, 7, 2, null, null, null, 1};
-        Integer[] nums = new Integer[]{1, 2, 3, 4, null, 5};
+        String[] nums = new String[]{"A", "B", "C", "D", "E", "F", "G"};
 //        TreeNode root = createTree(nums);
         printTree(nums);
 //        System.out.println(hight);
@@ -107,7 +107,7 @@ public class TreeFormatUtils {
      * @param nums
      * @return
      */
-    private static TreeNode createTree(Integer[] nums) {
+    private static TreeNode createTree(String[] nums) {
         int len = nums.length;
         if (len < 1 || nums[0] == null) {
             return null;
@@ -210,11 +210,11 @@ public class TreeFormatUtils {
     }
 
     static class TreeNode {
-        Integer val;
+        String val;
         TreeNode left;
         TreeNode right;
 
-        TreeNode(Integer x) {
+        TreeNode(String x) {
             val = x;
         }
     }
