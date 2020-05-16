@@ -48,7 +48,7 @@ public class P145BinaryTreePostorderTraversal {
         System.out.println(list.toString());
     }
 
-    static class TreeNode {
+    public static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
@@ -86,6 +86,7 @@ public class P145BinaryTreePostorderTraversal {
                     // 找到叶子结点，还需要继续迭代，不能向下走，不可执行stack.push(node)
                     continue;
                 }
+                stack.push(node);
                 if (node.left != null) {
                     stack.push(node.left);
                     node.left = null;
@@ -94,10 +95,8 @@ public class P145BinaryTreePostorderTraversal {
                     stack.push(node.right);
                     node.right = null;
                 }
-                stack.push(node);
             }
             // 按照中-右-左顺序遍历，然后逆序输出
-            Collections.reverse(list);
             return list;
         }
     }

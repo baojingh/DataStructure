@@ -1,5 +1,7 @@
 package utils;
 
+import entity.TreeNode;
+
 import java.util.LinkedList;
 
 /**
@@ -8,6 +10,41 @@ import java.util.LinkedList;
  * @Description:
  */
 public class TreeFormatUtils {
+
+    public static void printTreeWithTree(TreeNode root) {
+        if (root == null) System.out.println("EMPTY!");
+        // 得到树的深度
+        int treeDepth = treeHeight(root);
+
+        // 最后一行的宽度为2的（n - 1）次方乘3，再加1
+        // 作为整个二维数组的宽度
+        int arrayHeight = treeDepth * 2 - 1;
+        int arrayWidth = (2 << (treeDepth - 2)) * 3 + 1;
+        // 用一个字符串数组来存储每个位置应显示的元素
+        String[][] res = new String[arrayHeight][arrayWidth];
+        // 对数组进行初始化，默认为一个空格
+        for (int i = 0; i < arrayHeight; i++) {
+            for (int j = 0; j < arrayWidth; j++) {
+                res[i][j] = " ";
+            }
+        }
+
+        // 从根节点开始，递归处理整个树
+        // res[0][(arrayWidth + 1)/ 2] = (char)(root.val + '0');
+        writeArray(root, 0, arrayWidth / 2, res, treeDepth);
+
+        // 此时，已经将所有需要显示的元素储存到了二维数组中，将其拼接并打印即可
+        for (String[] line : res) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < line.length; i++) {
+                sb.append(line[i]);
+                if (line[i].length() > 1 && i <= line.length - 1) {
+                    i += line[i].length() > 4 ? 2 : line[i].length() - 1;
+                }
+            }
+            System.out.println(sb.toString());
+        }
+    }
 
     /**
      * 根据数据，基于广度优先遍历，输出树形
@@ -209,14 +246,5 @@ public class TreeFormatUtils {
         return 0;
     }
 
-    static class TreeNode {
-        String val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(String x) {
-            val = x;
-        }
-    }
 
 }
