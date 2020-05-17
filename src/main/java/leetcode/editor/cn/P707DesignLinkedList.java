@@ -43,7 +43,16 @@ package leetcode.editor.cn;
 public class P707DesignLinkedList {
     public static void main(String[] args) {
         MyLinkedList solution = new P707DesignLinkedList().new MyLinkedList();
+        solution.addAtIndex(0, 0);
+        solution.addAtIndex(1, 1);
+        solution.addAtIndex(2, 2);
+//        solution.addAtIndex(-1, -1);
+//        solution.addAtIndex(2, 2);
+//        int i = solution.get(-2);
+//        int j = solution.get(3);
+        solution.deleteAtIndex(3);
         System.out.println();
+
     }
 
     public class ListNode {
@@ -58,11 +67,13 @@ public class P707DesignLinkedList {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class MyLinkedList {
-
-        private ListNode head;
         private ListNode solder;
         private int size;
 
+
+        /**
+         * https://leetcode-cn.com/problems/design-linked-list/solution/java-shi-xian-jian-duan-yi-dong-by-nan-jing-shi-di/
+         */
         /**
          * Initialize your data structure here.
          */
@@ -79,12 +90,14 @@ public class P707DesignLinkedList {
          * Get the value of the index-th node in the linked list. If the index is invalid, return -1.
          */
         public int get(int index) {
-            if(index < 0 || index >= size)
+            if (index < 0 || index >= size || size == 0) {
                 return -1;
-            ListNode curr = solder.next;
-            for(int i = 0; i < index; i++)
-                curr = curr.next;
-            return curr.val;
+            }
+            ListNode prev = solder;
+            for (int i = 0; i < index; i++) {
+                prev = prev.next;
+            }
+            return prev.next.val;
         }
 
         /**
@@ -92,10 +105,7 @@ public class P707DesignLinkedList {
          * the new node will be the first node of the linked list.
          */
         public void addAtHead(int val) {
-            ListNode newNode = new ListNode(val);
-            newNode.next = head;
-            size = size + 1;
-            head = newNode;
+            addAtIndex(0, val);
         }
 
         /**
@@ -109,6 +119,12 @@ public class P707DesignLinkedList {
          * Add a node of value val before the index-th node in the linked list.
          * If index equals to the length of linked list, the node will be appended to the end of linked list.
          * If index is greater than the length, the node will not be inserted.
+         * <p>
+         * 1 index 负数-头节点
+         * 2 index 0 - 头节点
+         * 3 index 正数 - 正常插入
+         * 4 index = size - 插入链表尾
+         * 5 index > size - 不操作
          */
         public void addAtIndex(int index, int val) {
             if (index > size) {
@@ -118,30 +134,37 @@ public class P707DesignLinkedList {
                 addAtHead(val);
                 return;
             }
-
-            ListNode prev = solder;
+            ListNode node = new ListNode(val);
+            ListNode pre = solder;
             for (int i = 0; i < index; i++) {
-                prev = prev.next;
+                pre = pre.next;
             }
-            ListNode newNode = new ListNode(val);
-            newNode.next = prev.next;
-            prev.next = newNode;
+            ListNode n = pre.next;
+            node.next = n;
+            pre.next = node;
             size = size + 1;
         }
 
         /**
          * Delete the index-th node in the linked list, if the index is valid.
+         * <p>
+         * 0 先考虑正常情况，在考虑异常情况/边界情况
+         * 1 index 负数-头节点
+         * 2 index 0 - 头节点
+         * 3 index 正数 - 正常插入
+         * 4 index = size - 插入链表尾
+         * 5 index > size - 不操作
          */
         public void deleteAtIndex(int index) {
-            if (index >= size || index < 0) {
+            if (index < 0 || index >= size) {
                 return;
             }
-            ListNode prev = solder;
+            ListNode pre = solder;
             for (int i = 0; i < index; i++) {
-                prev = prev.next;
+                pre = pre.next;
             }
-            ListNode n = prev.next;
-            prev.next = n.next;
+            ListNode n = pre.next;
+            pre.next = n.next;
             n.next = null;
             size = size - 1;
         }
