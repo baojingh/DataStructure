@@ -39,6 +39,7 @@
 
 package leetcode.editor.cn;
 
+
 //Java：设计链表
 public class P707DesignLinkedList {
     public static void main(String[] args) {
@@ -55,7 +56,7 @@ public class P707DesignLinkedList {
 
     }
 
-    public class ListNode {
+    static class ListNode {
         int val;
         ListNode next;
 
@@ -88,16 +89,39 @@ public class P707DesignLinkedList {
 
         /**
          * Get the value of the index-th node in the linked list. If the index is invalid, return -1.
+         * <p>
+         * 解释题意
+         * 1 索引要在合理正确的范围内
+         * 2 根据索引查询链表节点值
+         * <p>
+         * <p>
+         * 设计算法
+         * 1 增加/删除/修改均使用solder，未来便有基于统一的模式进行迭代节点
+         * 2 从solder开始迭代，到达目标节点的前一个节点
+         * 3 手动迭代到目标节点
+         * 4 获取目标节点的值
+         * <p>
+         * <p>
+         * 测试用例
+         * 1 空链表
+         * 2 一个节点。index：-1，0，1
+         * 3 两个节点。idnex：-1，0，1，2
+         * <p>
+         * 复杂度分析
+         * 时间复杂度：O(n)
+         * 空间复杂度：O(1)
          */
         public int get(int index) {
-            if (index < 0 || index >= size || size == 0) {
+            if (index >= size | index < 0) {
+                // 索引无效
                 return -1;
             }
-            ListNode prev = solder;
+            ListNode cur = solder;
             for (int i = 0; i < index; i++) {
-                prev = prev.next;
+                cur = cur.next;
             }
-            return prev.next.val;
+            return cur.next.val;
+
         }
 
         /**
@@ -125,28 +149,76 @@ public class P707DesignLinkedList {
          * 3 index 正数 - 正常插入
          * 4 index = size - 插入链表尾
          * 5 index > size - 不操作
+         * <p>
+         * 解释题意：
+         * 链表中插入一个节点，在index位置插入这个元素；
+         * 如果idnex大于size，就忽略；index>=0,index<= size,就插入相应位置；index<0,插入头部
+         * -1 1 2 3 4 5
+         * 0 1 2 3 4 5
+         * 设计算法
+         * 插入/删除操作都要设置solder
+         * 1 从solder节点开始遍历
+         * 1 迭代节点，到插入位置前，节点是cur
+         * 2 新节点node的next指向cur.next
+         * 3 cur.next指向新节点
+         * 4 链表个数增加
+         * <p>
+         * <p>
+         * 测试用例
+         * 1 空链表
+         * 2 一个节点，index：0，1，2
+         *
+         *
+         * <p>
+         * 复杂度分析
+         * 时间复杂度:O(n)
+         * 空间复杂度: O(1)
          */
         public void addAtIndex(int index, int val) {
+            ListNode cur = solder;
             if (index > size) {
                 return;
             }
-            if (index < 0) {
-                addAtHead(val);
-                return;
+            for (int i = 0; i < index; i++) {
+                cur = cur.next;
             }
             ListNode node = new ListNode(val);
-            ListNode pre = solder;
-            for (int i = 0; i < index; i++) {
-                pre = pre.next;
-            }
-            ListNode n = pre.next;
-            node.next = n;
-            pre.next = node;
+            node.next = cur.next;
+            // 前一个节点指向新增节点
+            cur.next = node;
             size = size + 1;
+
         }
 
         /**
          * Delete the index-th node in the linked list, if the index is valid.
+         * <p>
+         * 解释题意
+         * 1 根据链表中的节点索引，删除节点
+         * 2 链表长度减1
+         * 3 不符合条件的索引，直接结束程序
+         * <p>
+         * 设计算法
+         * 链表增加/删除节点，均使用solder节点
+         * 1 遍历节点，到达目标节点之前的一个节点prev
+         * 2 得到目标节点target以及其后的节点targetNext
+         * 3 将prev的next指向targetNext
+         * <p>
+         * 测试用例
+         * 1 空链表
+         * 2 一个节点，删除-1
+         * 2 一个节点，删除0
+         * 3 一个节点，删除1
+         * 4 两个节点。删除0
+         * 5 两个节点。删除1
+         * 6 三个节点，删除1【正常逻辑】
+         * <p>
+         * <p>
+         * <p>
+         * 复杂度：
+         * 空间复杂度：O(1)
+         * 时间复杂度:O(n)
+         * <p>
          * <p>
          * 0 先考虑正常情况，在考虑异常情况/边界情况
          * 1 index 负数-头节点
@@ -156,16 +228,26 @@ public class P707DesignLinkedList {
          * 5 index > size - 不操作
          */
         public void deleteAtIndex(int index) {
-            if (index < 0 || index >= size) {
+            if (index >= size || index < 0) {
                 return;
             }
-            ListNode pre = solder;
+            // 从solder开始遍历
+            ListNode cur = solder;
             for (int i = 0; i < index; i++) {
-                pre = pre.next;
+                cur = cur.next;
             }
-            ListNode n = pre.next;
-            pre.next = n.next;
-            n.next = null;
+            //-1 2 3 4 5， index = 2
+            //   0 1 2 3
+            // cur在此处是目标节点的前一个节点
+
+            // 要删除的目标节点
+            ListNode delNode = cur.next;
+
+            // 前置节点指向目标节点后的节点
+            cur.next = delNode.next;
+            // 便于垃圾回收
+            delNode.next = null;
+            // 操作元素个数
             size = size - 1;
         }
     }
