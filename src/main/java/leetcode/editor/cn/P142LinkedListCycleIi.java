@@ -74,6 +74,8 @@ public class P142LinkedListCycleIi {
      */
     public class Solution {
         /**
+         * https://leetcode-cn.com/problems/linked-list-cycle-ii/solution/linked-list-cycle-ii-kuai-man-zhi-zhen-shuang-zhi-/
+         * <p>
          * 快慢指针法
          * <p>
          * 解释题意
@@ -107,8 +109,10 @@ public class P142LinkedListCycleIi {
          * 1 快慢指针同时指向链表头节点
          * 2 快指针以及后续指针不为空
          * 3 快指针走两步，慢指针走一步
-         * 3 快慢指针对应的节点是否相等，如果相等就返回这个节点
-         * 4 回到2
+         * 3 快慢指针对应的节点是否相等，如果相等就说明有环，进一步验证环的入口（有环就一定有入口）
+         * 快节点从头开始走，慢节点继续前进，步长均为1，当slow==fast，说明入口到了
+         * 4 如果没有找到或者快节点为空，就说明没有环，返回null
+         * 5 回到2
          * <p>
          * 测试用例
          * 1 空链表
@@ -136,6 +140,8 @@ public class P142LinkedListCycleIi {
          * <p>
          * <p>
          * 复杂度分析
+         * 时间复杂度:
+         * 空间复杂度O(1)
          *
          * @param head
          * @return
