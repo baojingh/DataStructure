@@ -73,7 +73,9 @@ public class P21MergeTwoSortedLists {
             ListNode cur = solder;
             ListNode cur1 = l1;
             ListNode cur2 = l2;
+            // 两个链表的头节点对齐
             while (cur1 != null && cur2 != null) {
+                // 链表1的这个节点对比链表2的这个节点，添加到新的链表，并且更新相应链表的指针
                 if (cur1.val <= cur2.val) {
                     cur.next = cur1;
                     cur1 = cur1.next;
@@ -82,14 +84,17 @@ public class P21MergeTwoSortedLists {
                     cur2 = cur2.next;
 
                 }
+                // 更新新链表的指针
                 cur = cur.next;
             }
+            // 如果一个链表很长，一个链表很短，那就需要将长链表剩余的部分再添加到新链表
             if (cur1 != null) {
                 cur.next = cur1;
             }
             if (cur2 != null) {
                 cur.next = cur2;
             }
+            // 新链表的头节点是solder的下一个节点
             return solder.next;
         }
     }
