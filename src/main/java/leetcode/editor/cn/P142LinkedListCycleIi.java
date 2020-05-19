@@ -41,13 +41,14 @@
 
 
 package leetcode.editor.cn;
+
 //Java：环形链表 II
-public class P142LinkedListCycleIi{
+public class P142LinkedListCycleIi {
     public static void main(String[] args) {
         Solution solution = new P142LinkedListCycleIi().new Solution();
         System.out.println();
     }
-    
+
     static class ListNode {
         int val;
         ListNode next;
@@ -55,26 +56,114 @@ public class P142LinkedListCycleIi{
         ListNode(int x) {
             val = x;
         }
-     }
-    
-    
-    //leetcode submit region begin(Prohibit modification and deletion)
-/**
- * Definition for singly-linked list.
- * class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) {
- *         val = x;
- *         next = null;
- *     }
- * }
- */
-public class Solution {
-    public ListNode detectCycle(ListNode head) {
-        
     }
-}
+
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+
+    /**
+     * Definition for singly-linked list.
+     * class ListNode {
+     * int val;
+     * ListNode next;
+     * ListNode(int x) {
+     * val = x;
+     * next = null;
+     * }
+     * }
+     */
+    public class Solution {
+        /**
+         * 快慢指针法
+         * <p>
+         * 解释题意
+         * 1 链表有环，返回快慢指针的相交节点
+         * 2 没有环就返回null
+         * 3 链表的节点全部在环中
+         * <p>
+         * 数学分析
+         * 为什么会相遇？前面已经分析过了。
+         * 假设：链表的非环部分长度a，环的长度是b
+         * 节点相遇时：
+         * <p>
+         * slow指针走过的长度是s
+         * fast指针走过的长度是f
+         * fast指针走过的长度是slow的两倍（这个容易推算）
+         * f = 2s
+         * fast比slow多走了n的环
+         * f = nb + s
+         * 得出：s = nb, f = 2nb
+         * slow走了n个环，fast走了2n个环
+         * <p>
+         * 如何计算入口节点？
+         * 1 fast从链表头部走，slow从第一次相遇位置向前走
+         * 2 如果在入口相遇，fast走到入口走过的距离是a+nb, slow走过的距离是nb(快节点比慢节点多走nb)
+         * 3 slow只要再走a步就可以和fast相遇，到达入口，如何让slow走a步，
+         * 从链表头部即可！！
+         * <p>
+         * 2020-05-19 为什么多走a，就可以相遇到入口节点，再想想～
+         * <p>
+         * 设计算法
+         * 1 快慢指针同时指向链表头节点
+         * 2 快指针以及后续指针不为空
+         * 3 快指针走两步，慢指针走一步
+         * 3 快慢指针对应的节点是否相等，如果相等就返回这个节点
+         * 4 回到2
+         * <p>
+         * 测试用例
+         * 1 空链表
+         * 1 单节点
+         * 2 2-3
+         * 3
+         * 2=2
+         * <p>
+         * 4
+         * 1
+         * / \
+         * 2 - 3
+         * <p>
+         * 5
+         * 1
+         * / \
+         * 5- 2 - 3
+         * <p>
+         * <p>
+         * 6
+         * 1
+         * / \
+         * 2 - 3
+         * <p>
+         * <p>
+         * <p>
+         * 复杂度分析
+         *
+         * @param head
+         * @return
+         */
+        public ListNode detectCycle(ListNode head) {
+            ListNode fast = head;
+            ListNode slow = head;
+            while (fast != null && fast.next != null) {
+                fast = fast.next.next;
+                slow = slow.next;
+                if (slow == fast) {
+                    // 有环，退出循环
+                    // fast从链表节点开始，单步走；slow按照原有的规则继续前进
+                    fast = head;
+                    while (fast != null) {
+                        // 先判断是否相等
+                        if (slow == fast) {
+                            return slow;
+                        }
+                        //快慢指针值向前走一步
+                        slow = slow.next;
+                        fast = fast.next;
+                    }
+                }
+            }
+            return null;
+        }
+    }
 //leetcode submit region end(Prohibit modification and deletion)
 
 }
