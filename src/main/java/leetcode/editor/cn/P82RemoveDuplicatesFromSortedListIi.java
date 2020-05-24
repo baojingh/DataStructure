@@ -44,9 +44,52 @@ public class P82RemoveDuplicatesFromSortedListIi {
      */
     class Solution {
         public ListNode deleteDuplicates(ListNode head) {
-            return null;
+            ListNode solder = new ListNode(-1);
+            solder.next = head;
+            ListNode fast = solder.next;
+            ListNode slow = solder;
+            while (fast != null) {
+                if (fast.val != fast.next.val) {
+                    slow = slow.next;
+                    fast = fast.next;
+                } else {
+                    // 相邻元素相等
+                    while (fast.val == fast.next.val) {
+                        fast = fast.next;
+                    }
+                    slow.next = fast.next;
+                    slow = slow.next;
+                }
+            }
+            return solder.next;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
 
+
+    /**
+     if head == None or head.next == None:
+     return head
+     dummy = ListNode(-1000)
+     dummy.next = head
+     slow = dummy
+     fast = dummy.next
+     while fast:
+     if  fast.next and fast.next.val == fast.val:
+     tmp = fast.val
+     while fast and tmp == fast.val:
+     fast = fast.next
+     else:
+     slow.next = fast
+     slow = fast
+     fast = fast.next
+     slow.next = fast
+     return dummy.next
+
+     作者：powcai
+     链接：https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii/solution/kuai-man-zhi-zhen-by-powcai-2/
+     来源：力扣（LeetCode）
+     著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+     *
+     */
 }
