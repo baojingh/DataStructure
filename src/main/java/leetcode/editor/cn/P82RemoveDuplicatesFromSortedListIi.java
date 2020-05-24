@@ -14,13 +14,14 @@
 
 
 package leetcode.editor.cn;
+
 //Java：删除排序链表中的重复元素 II
-public class P82RemoveDuplicatesFromSortedListIi{
+public class P82RemoveDuplicatesFromSortedListIi {
     public static void main(String[] args) {
         Solution solution = new P82RemoveDuplicatesFromSortedListIi().new Solution();
         System.out.println();
     }
-    
+
     static class ListNode {
         int val;
         ListNode next;
@@ -28,23 +29,24 @@ public class P82RemoveDuplicatesFromSortedListIi{
         ListNode(int x) {
             val = x;
         }
-     }
-    
-    
-    //leetcode submit region begin(Prohibit modification and deletion)
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) { val = x; }
- * }
- */
-class Solution {
-    public ListNode deleteDuplicates(ListNode head) {
-
     }
-}
+
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+
+    /**
+     * Definition for singly-linked list.
+     * public class ListNode {
+     * int val;
+     * ListNode next;
+     * ListNode(int x) { val = x; }
+     * }
+     */
+    class Solution {
+        public ListNode deleteDuplicates(ListNode head) {
+            return null;
+        }
+    }
 //leetcode submit region end(Prohibit modification and deletion)
 
 }

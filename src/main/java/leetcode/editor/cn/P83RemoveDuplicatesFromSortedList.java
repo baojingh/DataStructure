@@ -49,27 +49,47 @@ public class P83RemoveDuplicatesFromSortedList {
          * 2 有重复元素
          * 3 删除重复元素，仅出现一次
          * 设计算法
-         * 单指针
-         * 1 从solder开始遍历其后面的两个节点
-         *
-         *
-         *
-         *
          * 快慢指针
-         * 1 指针fast在前，slow在后，相差1
-         * 2 如果slow与fast相等，slow暂停，fast继续前进，判断fast与slow是否相等
-         * 3 如果相等，fast继续前进；如果不相等，将其赋值给slow，fast向前一步
-         * 4 继续执行2
-         * 5 如果fast到达链表尾部，就返回链表；未到达就继续执行1
+         * 1 从solder开始遍历其后面的两个节点
+         * 2 fast不为空
+         * 3 如果fast与slow相等，共同向前走一步
+         * 4 如果不相等，fast向前走一步，slow指向fast
+         * 5 fast为空，返回solder.next
          * 测试用例
          * 1 -1-null
+         * 2 -1-1
+         * 3 -1-1-1
+         * 4 -1-1-2
+         * 5 -1-1-1-1-2-2-3-4-4-5
          *
          * @param head
          * @return
          */
-        public ListNode deleteDuplicates(ListNode head) {
+        public ListNode deleteDuplicates1(ListNode head) {
+            // 链表为空或者只有一个节点，就返回，不需处理
+            if (head == null || head.next == null) {
+                return head;
+            }
 
-            return null;
+            ListNode sodler = new ListNode(-1);
+            sodler.next = head;
+            // 快慢指针，分别指向链表第一个/第二个节点
+            ListNode fast = sodler.next.next;
+            ListNode slow = sodler.next;
+            while (fast != null) {
+                // fast不为空就开始判断
+                if (slow.val != fast.val) {
+                    // 不相等就各自移动一步
+                    fast = fast.next;
+                    slow = slow.next;
+                } else {
+                    // 如果fast与slow相等，slow指向的是重复节点的第一个节点
+                    // fast继续前进，每前进一次，slow就会指向这个fast
+                    fast = fast.next;
+                    slow.next = fast;
+                }
+            }
+            return sodler.next;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
