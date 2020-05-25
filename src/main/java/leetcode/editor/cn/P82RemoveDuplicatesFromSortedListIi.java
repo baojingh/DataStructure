@@ -43,22 +43,39 @@ public class P82RemoveDuplicatesFromSortedListIi {
      * }
      */
     class Solution {
+        /**
+         * 解释题意
+         * <p>
+         * <p>
+         * 设计算法
+         * <p>
+         * <p>
+         * 测试用例
+         * 0 -1-1-2-3-3-3-4-5
+         * 1 -1-null
+         * 2 -1-1
+         * 3 -1-1-1
+         * 4 -1-1-1-2
+         * 5 -1-1-2-2-2-3-3-4-5
+         *
+         * @param head
+         * @return
+         */
         public ListNode deleteDuplicates(ListNode head) {
             ListNode solder = new ListNode(-1);
             solder.next = head;
             ListNode fast = solder.next;
             ListNode slow = solder;
-            while (fast != null) {
-                if (fast.val != fast.next.val) {
-                    slow = slow.next;
+            while (fast != null && fast.next != null) {
+                if (slow.next.val != fast.next.val) {
                     fast = fast.next;
+                    slow = slow.next;
                 } else {
-                    // 相邻元素相等
-                    while (fast.val == fast.next.val) {
+                    while (fast != null && fast.next != null && slow.next.val == fast.next.val) {
                         fast = fast.next;
                     }
                     slow.next = fast.next;
-                    slow = slow.next;
+                    fast = fast.next;
                 }
             }
             return solder.next;
