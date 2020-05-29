@@ -98,7 +98,13 @@ public class P160IntersectionOfTwoLinkedLists {
         public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
             ListNode curA = headA;
             ListNode curB = headB;
+            /**
+             *
+             * null == null 是成立的，是true
+             *
+             */
             while (curA != curB) {
+                // 如果curA与curB没有交点，迭代完A和B后，还是会同时到达null，满足while条件的null==null，退出while循环，返回的是null
                 if (curA != null) {
                     curA = curA.next;
                 } else {
