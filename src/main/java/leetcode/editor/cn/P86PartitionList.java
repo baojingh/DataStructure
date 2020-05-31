@@ -16,7 +16,20 @@ package leetcode.editor.cn;
 public class P86PartitionList {
     public static void main(String[] args) {
         Solution solution = new P86PartitionList().new Solution();
-        System.out.println();
+
+        ListNode n1 = new ListNode(1);
+        ListNode n2 = new ListNode(4);
+        ListNode n3 = new ListNode(3);
+        ListNode n4 = new ListNode(2);
+        ListNode n5 = new ListNode(5);
+        ListNode n6 = new ListNode(2);
+        n1.next = n2;
+        n2.next = n3;
+        n3.next = n4;
+        n4.next = n5;
+        n5.next = n6;
+        ListNode partition = solution.partition(n1, 3);
+        System.out.println(partition.val);
     }
 
     static class ListNode {
@@ -53,8 +66,24 @@ public class P86PartitionList {
          * @return
          */
         public ListNode partition(ListNode head, int x) {
-
-            return null;
+            ListNode minDummy = new ListNode(-1);
+            ListNode minCur = minDummy;
+            ListNode maxDummy = new ListNode(-1);
+            ListNode maxCur = maxDummy;
+            ListNode cur = head;
+            while (cur != null) {
+                if (cur.val >= x) {
+                    maxCur.next = cur;
+                    maxCur = maxCur.next;
+                } else {
+                    minCur.next = cur;
+                    minCur = minCur.next;
+                }
+                cur = cur.next;
+            }
+            maxCur.next = null;
+            minCur.next = maxDummy.next;
+            return minDummy.next;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
