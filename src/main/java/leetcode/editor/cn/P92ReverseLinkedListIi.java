@@ -42,7 +42,20 @@ public class P92ReverseLinkedListIi {
     class Solution {
         /**
          * 解释题意
+         * 1 反转指定位置
+         * 2 指定的位置是有效的，无需程序判断
+         *
+         *
          * 设计算法
+         * 0 solder节点
+         * 1 根据指定的位置，将指针prev移动到目标节点的前一个节点
+         * 2 按照链表反转的流程进行反转，注意从第m个位置到第n个位置
+         * 3 https://leetcode-cn.com/problems/reverse-linked-list-ii/solution/ji-bai-liao-100de-javayong-hu-by-reedfan-6/
+         * 4 目标链表反转完毕，开始做拼接：cur是目标链表之后的第一个节点，应将cur赋值给目标链表的第一个节点的next；
+         * prev的下一个节点是目标链表的最后一个节点
+         *
+         *
+         *
          * 测试用例
          * m,n保证在链表长度范围内，且链表长度大于等于1
          * 1 1
