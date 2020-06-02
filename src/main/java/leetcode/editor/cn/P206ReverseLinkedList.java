@@ -61,17 +61,22 @@ public class P206ReverseLinkedList {
          * @return
          */
         public ListNode reverseList(ListNode head) {
-            ListNode cur = head;
+            ListNode solder = new ListNode(-1);
+            solder.next = head;
+
+            ListNode prev = solder;
+            ListNode p = null;
             // 第一次迭代，当作链表尾
-            ListNode prev = null;
+            ListNode cur = prev.next;
             ListNode next = null;
             while (cur != null) {
                 next = cur.next;
-                cur.next = prev;
-                prev = cur;
+                cur.next = p;
+                p = cur;
                 cur = next;
             }
-            return prev;
+            prev.next = p;
+            return solder.next;
 
         }
     }
