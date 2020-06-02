@@ -849,10 +849,10 @@ public class SingleLinkedlist {
         SingleNode node6 = new SingleNode(null, 2);
         linkedlist.insertToTail(node1);
         linkedlist.insertToTail(node2);
-        linkedlist.insertToTail(node3);
-        linkedlist.insertToTail(node4);
-        linkedlist.insertToTail(node5);
-        linkedlist.insertToTail(node6);
+//        linkedlist.insertToTail(node3);
+//        linkedlist.insertToTail(node4);
+//        linkedlist.insertToTail(node5);
+//        linkedlist.insertToTail(node6);
 //        linkedlist.insertToTail(node7);
 //        linkedlist.insertToTail(node8);
 //        linkedlist.insertToTail(node9);
@@ -878,8 +878,8 @@ public class SingleLinkedlist {
 
 //        SingleNode node = linkedlist.reorderLinkedList();
 //        linkedlist.printWithHead(node);
-//        boolean palindrome = linkedlist.isPalindrome();
-//        System.out.println(palindrome);
+        boolean palindrome = linkedlist.isPalindrome();
+        System.out.println(palindrome);
 //        SingleNode node = linkedlist.removeZeroSumSublists();
 //        linkedlist.printWithHead(node);
 //        int i = linkedlist.binary2DecimalValue();
@@ -894,8 +894,8 @@ public class SingleLinkedlist {
 //            System.out.println("no intersection node");
 //        }
 //        linkedlist.printWithHead(node);
-        SingleNode partition = linkedlist.partition(3);
-        linkedlist.printWithHead(partition);
+//        SingleNode partition = linkedlist.partition(3);
+//        linkedlist.printWithHead(partition);
 
 
     }
