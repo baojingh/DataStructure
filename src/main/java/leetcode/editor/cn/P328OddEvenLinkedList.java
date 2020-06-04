@@ -54,6 +54,31 @@ public class P328OddEvenLinkedList {
      * }
      */
     class Solution {
+        /**
+         * 解释题意
+         * 1 按照奇偶位置对链表分割
+         * 2 奇数位置在前，偶数位置在后
+         * 3 保持奇偶位置相对顺序不变
+         * <p>
+         * 设计算法
+         * 1 初始化奇偶位置头指针【迭代期间不动】以及奇偶位置移动指针【负责迭代】
+         * 2 奇指针指向偶指针的next节点
+         * 3 奇指针向后迭代【偶指针之后的节点】
+         * 4 偶指针指向奇指针之后的节点
+         * 5 偶指针向后迭代【奇指针之后的节点】
+         * 6 判断偶指针以及偶指针的next是否是null【注意】
+         * 7 奇数个节点的链表，最后的状态是even_cur链表尾部的null；odd_cur指向最后一个节点
+         * 7 偶数个节点的链表，最后的状态是even_cur链表最后一个节点；odd_cur指向链表倒数第二个节点
+         * 8 奇链表尾部的next【odd_cur】指向偶链表的头部
+         * 9 返回奇链表的头部
+         * <p>
+         * 测试用例
+         * 1 null
+         * 2
+         *
+         * @param head
+         * @return
+         */
         public ListNode oddEvenList(ListNode head) {
             if (head == null) {
                 return head;
