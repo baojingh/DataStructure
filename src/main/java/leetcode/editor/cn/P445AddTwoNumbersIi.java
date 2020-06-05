@@ -97,9 +97,8 @@ public class P445AddTwoNumbersIi {
         public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
             Stack<Integer> stack1 = new Stack<>();
             Stack<Integer> stack2 = new Stack<>();
-            ListNode solder = new ListNode(-1);
-            ListNode cur = solder;
-            ListNode next = null;
+            // 头节点
+            ListNode cur = null;
             int carry = 0;
             int sum = 0;
             // 两个链表创建出两个栈
@@ -126,19 +125,17 @@ public class P445AddTwoNumbersIi {
                 carry = sum / 10;
                 // 组装新的链表，这里可以不使用栈或者队列，只需要记录前一个节点即可
                 ListNode tmp = new ListNode(sum % 10);
-                tmp.next = next;
-                cur.next = tmp;
-                next = tmp;
+                tmp.next = cur;
+                cur = tmp;
             }
             if (carry == 1) {
                 // 是否还有进位
                 // 注意重复代码的提取
                 ListNode tmp = new ListNode(carry);
-                tmp.next = next;
-                cur.next = tmp;
-                next = tmp;
+                tmp.next = cur;
+                cur = tmp;
             }
-            return solder.next;
+            return cur;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
