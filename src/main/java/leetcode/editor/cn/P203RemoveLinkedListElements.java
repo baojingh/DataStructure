@@ -46,10 +46,10 @@ public class P203RemoveLinkedListElements {
          * <p>
          * 设计算法
          * 单指针
-         * 1 迭代链表，当前元素的next是否是null，
-         * 2 这个元素的下一个元素值是否是目标值
+         * 1 迭代链表，当前元素的next是否是null，为空就结束循环，不为空就向下执行
+         * 2 当前指针cur的下一个元素值是否是目标值
          * 3 如果不是目标值，继续迭代
-         * 4 如果是目标值，当前节点的next指向next.next
+         * 4 如果是目标值，cur.next=cur.next.next
          * 5 继续1
          *
          *
