@@ -63,6 +63,13 @@ public class P143ReorderList {
      */
     class Solution {
         /**
+         * 设计算法
+         * 1 计算链表的中间节点：
+         *      链表长度是奇数，slow是链表中间节点
+         *      链表长度是偶数，slow是链表中间位置偏右侧的节点
+         * 2 链表的后半部分反转，得到反转后的链表头部
+         * 3 链表前半部分与反转后的链表穿插串联节点
+         *
          * @param head
          */
         public void reorderList(ListNode head) {
