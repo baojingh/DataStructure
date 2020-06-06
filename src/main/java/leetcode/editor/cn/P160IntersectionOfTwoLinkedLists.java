@@ -95,6 +95,21 @@ public class P160IntersectionOfTwoLinkedLists {
      * }
      */
     public class Solution {
+        /**
+         * 设计算法
+         * 1 双指针分别指向两个链表的头节点
+         * 2 判断两个节点是否相等，若不相等则两个指针向后迭代；
+         *      如果两个链表长度相等，且没有交点，两指针同时到达null，此时null==null为true
+         *      如果交点前的链表长度相等，且有交点，则一次遍历即可找到
+         *      如果交点前的链表长度不相等，且有交点，则指针curA到达链表A的尾部，就指向链表B的头部，同理对指针curB适用，直到找到交点
+         * 3 若相等就返回
+         *
+         *
+         *
+         * @param headA
+         * @param headB
+         * @return
+         */
         public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
             ListNode curA = headA;
             ListNode curB = headB;
@@ -104,7 +119,8 @@ public class P160IntersectionOfTwoLinkedLists {
              *
              */
             while (curA != curB) {
-                // 如果curA与curB没有交点，迭代完A和B后，还是会同时到达null，满足while条件的null==null，退出while循环，返回的是null
+                // 如果curA与curB没有交点，迭代完A和B后，还是会同时到达null，
+                // 满足while条件的null==null，退出while循环，返回的是null
                 if (curA != null) {
                     curA = curA.next;
                 } else {
