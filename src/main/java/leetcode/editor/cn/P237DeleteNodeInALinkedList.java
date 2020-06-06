@@ -67,6 +67,13 @@ public class P237DeleteNodeInALinkedList {
          * 解释题意
          * 1 没有头节点，只给了链表中的某个节点，此节点需要被删除
          *
+         * 设计算法
+         * 1 目标节点cur的下一个节点nextNode
+         * 2 nextNode的值赋值给cur节点
+         * 3 删除nextNode节点即可
+         * 4 如果cur是尾节点，将cur=null
+         *
+         *
          * @param node
          */
         public void deleteNode(ListNode node) {
