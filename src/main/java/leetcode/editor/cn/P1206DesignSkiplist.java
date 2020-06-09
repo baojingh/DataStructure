@@ -50,6 +50,7 @@
 
 package leetcode.editor.cn;
 
+import java.util.HashMap;
 import java.util.Random;
 
 //Java：设计跳表
@@ -60,6 +61,7 @@ public class P1206DesignSkiplist {
         skiplist.add(20);
         skiplist.add(40);
         skiplist.add(30);
+
 
         boolean search = skiplist.search(40);
         System.out.println(search);
