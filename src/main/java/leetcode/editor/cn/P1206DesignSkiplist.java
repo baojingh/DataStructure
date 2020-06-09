@@ -55,8 +55,14 @@ import java.util.Random;
 //Java：设计跳表
 public class P1206DesignSkiplist {
     public static void main(String[] args) {
-        Skiplist solution = new P1206DesignSkiplist().new Skiplist();
-        System.out.println();
+        Skiplist skiplist = new P1206DesignSkiplist().new Skiplist();
+        skiplist.add(10);
+        skiplist.add(20);
+        skiplist.add(40);
+        skiplist.add(30);
+
+        boolean search = skiplist.search(40);
+        System.out.println(search);
     }
 
 
@@ -116,11 +122,15 @@ public class P1206DesignSkiplist {
                 Node insert = stack[lv--];
                 insert.right = new Node(num, insert.right, downNode);
                 downNode = insert.right;
-                // 是否在在上一层插入此节点的索引
+                // 是否在在上一层插入此节点的索引，此处决定了插入的节点是否设置索引层，也就导致跳表的查找时间复杂度最差是O(n)的原因
                 isInsertUp = (random.nextInt() & 1) == 0;
             }
             if (isInsertUp) {
-                head = new Node(0, new Node(num, null, downNode), head);
+                // 创建索引层的节点
+                Node tmp = new Node(num, null, downNode);
+                Node tmp1 = new Node(0, tmp, head);
+                // 跳表的头节点保证在左上方
+                head = tmp1;
             }
         }
 
