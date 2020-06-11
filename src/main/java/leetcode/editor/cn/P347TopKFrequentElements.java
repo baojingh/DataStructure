@@ -37,8 +37,8 @@ import java.util.PriorityQueue;
 public class P347TopKFrequentElements {
     public static void main(String[] args) {
         Solution solution = new P347TopKFrequentElements().new Solution();
-        int[] nums = new int[]{};
-        int[] ints = solution.topKFrequent(nums, 3);
+        int[] nums = new int[]{1, 1, 1, 1, 3, 4, 4, 5, 2, 2, 2, 5};
+        int[] ints = solution.topKFrequent(nums, 2);
         System.out.println(Arrays.toString(ints));
     }
 
@@ -50,9 +50,10 @@ public class P347TopKFrequentElements {
          * <p>
          * 设计算法
          * 1 hashmap存储每个数字对应的出现次数
-         * 2 创建最大堆，存放频率是前k的数字，存放标准是比较这个数字出现的次数。
-         * 3 所有数字添加完成，最大堆也就创建完成
-         * 4 输出
+         * 2 创建小顶堆，小顶堆的长度是k，存放的顺序是比较这个数字出现的次数。
+         * 3 先添加元素【add】，如果堆长度大于k，就移除堆头部元素即出现次数最小的元素【remove/poll】；长度小于k，就继续循环。
+         * 4 所有数字添加完成，小顶堆也就创建完成
+         * 5 输出
          * <p>
          * 测试用例
          * 0 1，2，3，2，4，3
@@ -77,24 +78,26 @@ public class P347TopKFrequentElements {
                     map.put(num, tmp + 1);
                 }
             }
-            // 创建大顶堆
+            // 创建小顶堆
             // 底层基于链表，只能设置初始长度，不能设置固定大小的堆。
+            // 优先队列的作用是能保证每次取出的元素都是队列中权值最小的，Java的优先队列每次取最小元素
             PriorityQueue<Integer> heap = new PriorityQueue<Integer>(new Comparator<Integer>() {
                 @Override
                 public int compare(Integer o1, Integer o2) {
-                    int tmp = map.get(o2) - map.get(o1);
+                    int tmp = map.get(o1) - map.get(o2);
                     return tmp;
                 }
             });
             // 添加到堆中，完成堆化
             // 数组中有几个不同的key，堆中就有多少个元素，这些元素是按照其在map中的出现次数排序
             for (int num : map.keySet()) {
+                // 先添加，保证了堆的顺序，然后在做删除
+                // 堆中存放k个元素
                 heap.add(num);
-            }
-            // 转换成数组
-            // 此处最好返回列表
-            if (k > heap.size()) {
-                return null;
+                if (heap.size() > k) {
+                    // 移除队列头部元素
+                    heap.poll();
+                }
             }
             int[] res = new int[k];
             for (int i = 0; i < k; i++) {
