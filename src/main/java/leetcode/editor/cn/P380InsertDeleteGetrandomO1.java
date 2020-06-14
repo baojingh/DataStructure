@@ -45,48 +45,55 @@ public class P380InsertDeleteGetrandomO1 {
     public static void main(String[] args) {
         RandomizedSet solution = new P380InsertDeleteGetrandomO1().new RandomizedSet();
         System.out.println();
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.remove(1);
+
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class RandomizedSet {
 
-        Map<Integer, Integer> dict;
-        List<Integer> list;
-        Random rand = new Random();
+        private Map<Integer, Integer> map;
+        private List<Integer> list;
+        Random random;
+
 
         /**
          * Initialize your data structure here.
          */
         public RandomizedSet() {
-            dict = new HashMap();
-            list = new ArrayList();
+            list = new LinkedList<>();
+            map = new HashMap<>();
+            random = new Random();
         }
 
         /**
          * Inserts a value to the set. Returns true if the set did not already contain the specified element.
          */
         public boolean insert(int val) {
-            if (dict.containsKey(val)) return false;
-
-            dict.put(val, list.size());
-            list.add(list.size(), val);
-            return true;
+            if (!list.contains(val)) {
+                map.put(val, list.size());
+                list.add(val);
+                return true;
+            }
+            return false;
         }
 
         /**
          * Removes a value from the set. Returns true if the set contained the specified element.
          */
         public boolean remove(int val) {
-            if (!dict.containsKey(val)) return false;
-
-            // move the last element to the place idx of the element to delete
+            if (!list.contains(val)) {
+                return false;
+            }
+            int tmp = map.get(val);
             int lastElement = list.get(list.size() - 1);
-            int idx = dict.get(val);
-            list.set(idx, lastElement);
-            dict.put(lastElement, idx);
-            // delete the last element
+
+            list.set(tmp, lastElement);
+            map.put(lastElement, tmp);
+
             list.remove(list.size() - 1);
-            dict.remove(val);
+            map.remove(val);
             return true;
         }
 
@@ -94,7 +101,8 @@ public class P380InsertDeleteGetrandomO1 {
          * Get a random element from the set.
          */
         public int getRandom() {
-            return list.get(rand.nextInt(list.size()));
+            int i = random.nextInt(list.size());
+            return list.get(i);
         }
     }
 
