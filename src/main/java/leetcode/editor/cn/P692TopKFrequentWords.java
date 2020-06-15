@@ -53,7 +53,7 @@ public class P692TopKFrequentWords {
         String[] str = new String[]{"like", "i"};
         List<String> wordList = solution.topKFrequent(str, 1);
         System.out.println(wordList.toString());
-
+        System.out.println("ab".compareTo("ac"));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
@@ -67,10 +67,12 @@ public class P692TopKFrequentWords {
                     int tmp = map.get(o1) - map.get(o2);
                     if (tmp != 0) {
                         // 次数比较
+                        // 升序，从小到大
                         return tmp;
                     } else {
                         // 两个单词出现的次数相等，就比较单词中的字符顺序
                         // o2 - o1
+                        // 与次数一样，哪个小哪个在前面
                         return o2.compareTo(o1);
                     }
                 }
@@ -83,6 +85,7 @@ public class P692TopKFrequentWords {
             // 所有单词加入小顶堆
             // 优化点：向小顶堆添加k个元素即可
             for (String word : map.keySet()) {
+                // 先加元素在删除元素，可以保证小顶堆的最小元素在最前面
                 queue.add(word);
                 if (queue.size() > k) {
                     queue.poll();
