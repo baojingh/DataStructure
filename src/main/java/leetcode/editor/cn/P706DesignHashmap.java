@@ -54,6 +54,12 @@ public class P706DesignHashmap {
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
+
+    /**
+     * 比较基础的HashMap
+     * https://leetcode-cn.com/problems/design-hashmap/solution/xie-ge-cu-cao-de-javaban-hashmapshi-xian-shi-yong-/
+     *
+     */
     class MyHashMap {
 
         private int N = 100;
