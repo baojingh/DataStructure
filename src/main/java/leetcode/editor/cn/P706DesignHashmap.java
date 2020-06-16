@@ -140,6 +140,7 @@ public class P706DesignHashmap {
         }
 
         private int hash(int key) {
+            // 比较简单的映射计算
             return key % N;
         }
 
