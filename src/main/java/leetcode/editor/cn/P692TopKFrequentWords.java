@@ -58,7 +58,37 @@ public class P692TopKFrequentWords {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        /**
+         * 解释题意
+         * 1 字符串数组中，一个单词可能出现多次
+         * 2 计算频率最高的前k个单词
+         * 3 如果两个单词出现频率相等，就按照字符进行排序
+         * 4 数组可能为空null，数组长度可能是0
+         * <p>
+         * <p>
+         * 设计算法
+         * 1 使用map计算每个单词出现的次数
+         * 2 使用小顶堆存储字符串，按照其在map出现的次数【如果次数相等，就使用字符串的比较大小功能】。
+         * 3 小顶堆的长度限定在k【先增加然后删除堆顶元素，即可保证堆内是前k个大的字符串】
+         * 4 迭代小顶堆，将元素插入链表中【每次插入0位置，既可保证了逆序输出】
+         * 测试用例
+         * 1 null
+         * 2 []
+         * 3 ["", ""]
+         * 4 ["", " "]
+         * 6 ["aa", "aa", "b"]
+         * 5 ["aa","aa","bb","bb", "bc", "bc"]
+         *
+         * @param words
+         * @param k
+         * @return
+         */
         public List<String> topKFrequent(String[] words, int k) {
+            LinkedList<String> wordList = new LinkedList<>();
+            if (words == null || words.length == 0) {
+                return wordList;
+            }
+
             HashMap<String, Integer> map = new HashMap<>();
             // 小顶堆
             PriorityQueue<String> queue = new PriorityQueue<String>(new Comparator<String>() {
@@ -91,7 +121,6 @@ public class P692TopKFrequentWords {
                     queue.poll();
                 }
             }
-            LinkedList<String> wordList = new LinkedList<>();
             while (queue.size() > 0) {
                 String poll = queue.poll();
                 // 小顶堆的元素，倒序插入链表
