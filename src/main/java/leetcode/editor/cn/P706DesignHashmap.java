@@ -105,6 +105,7 @@ public class P706DesignHashmap {
             if (solder == null) {
                 return -1;
             }
+            // 在链表中迭代节点
             Node cur = solder.next;
             while (cur != null) {
                 if (cur.key == key) {
