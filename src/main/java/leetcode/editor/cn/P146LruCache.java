@@ -36,8 +36,23 @@ import java.util.HashMap;
 //Java：LRU缓存机制
 public class P146LruCache {
     public static void main(String[] args) {
-        LRUCache solution = new P146LruCache().new LRUCache(2);
-        System.out.println();
+        LRUCache lruCache = new P146LruCache().new LRUCache(2);
+        lruCache.put(2, 1);
+        lruCache.put(2, 2);
+        lruCache.printAll();
+
+        int i = lruCache.get(2);
+        lruCache.printAll();
+
+        lruCache.put(1, 1);
+        lruCache.put(4, 1);
+        lruCache.printAll();
+
+
+        lruCache.get(2);
+        lruCache.printAll();
+
+
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
@@ -45,60 +60,96 @@ public class P146LruCache {
     /**
      * 解释题意
      * 1 查询以及写入的时间复杂度是O(1)
-     * <p>
-     * <p>
-     * <p>
-     * 设计算法
-     * <p>
-     * <p>
-     * <p>
+     * 2 查询/写入功能可以使用哈希表；频繁使用的元素以及不频繁访问的元素，需要考虑使用链表【本场景需要频繁的调整元素顺序】
+     * 3 使用单链表还是双链表？调整节点到链表头或者移除节点时，单链表的时间复杂度是O(n)，不是O(1)，双链表可以满足这一点
      * 测试用例
      */
     class LRUCache {
 
-        // key -> Node(key, val)
-        private HashMap<Integer, Node> map;
-        // Node(k1, v1) <-> Node(k2, v2)...
-        private DoubleList cache;
-        // 最大容量
-        private int cap;
+        HashMap<Integer, Node> map;
+        DoubleLinkedList list;
+        int capacity;
+
+        public LRUCache() {
+        }
 
         public LRUCache(int capacity) {
-            this.cap = capacity;
+            this.capacity = capacity;
             map = new HashMap<>();
-            cache = new DoubleList();
+            list = new DoubleLinkedList();
         }
 
+        /**
+         * 设计算法
+         * 1 map中是否存在这个key，如果不存在，返回-1
+         * 2 如果存在key，获得对应的value【Node类型】
+         * 3 将此value移动到链表头部。【删除value，并且将其移动到链表头部
+         *
+         * @param key
+         * @return
+         */
         public int get(int key) {
-            if (!map.containsKey(key))
+            Node node = map.get(key);
+            if (node == null) {
+                // map中不存在这个key
                 return -1;
-            int val = map.get(key).val;
-            // 利用 put 方法把该数据提前
-            put(key, val);
-            return val;
-        }
-
-        public void put(int key, int val) {
-            // 先把新节点 x 做出来
-            Node x = new Node(key, val);
-
-            if (map.containsKey(key)) {
-                // 删除旧的节点，新的插到头部
-                cache.remove(map.get(key));
-                cache.addFirst(x);
-                // 更新 map 中对应的数据
-                map.put(key, x);
-            } else {
-                if (cap == cache.size()) {
-                    // 删除链表最后一个数据
-                    Node last = cache.removeLast();
-                    map.remove(last.key);
-                }
-                // 直接添加到头部
-                cache.addFirst(x);
-                map.put(key, x);
             }
+            // map中存在这个key
+            int tmp = node.value;
+            put(key, tmp);
+            return tmp;
         }
+
+        /**
+         * 设计算法
+         * 1 map中是否存在这个key
+         * 2 如果不存在
+         * 3 链表长度小于容量，map中存入key-value；链表中将此节点加入链表头部
+         * 4 链表长度大于容量，map中存入key-value，移除链表尾节点，链表中将此节点加入链表头部
+         * 5 如果存在
+         * 6 链表长度小于容量，map中替换key-value，链表中将此节点加入链表头部
+         * 7 链表长度大于容量，map中替换key-value，链表中将此节点加入链表头部
+         *
+         * @param key
+         * @param value
+         */
+        public void put(int key, int value) {
+            Node newNode = new Node(key, value);
+            Node node = map.get(key);
+            if (node != null) {
+                // map中存在这个key
+                list.deleteNode(node);
+                list.insertHead(newNode);
+                map.put(key, newNode);
+                return;
+            }
+            // map中不存在这个key
+            if (list.size == capacity) {
+                // 链表长度当前已经达到容量值
+                // 删除链表尾节点
+                // 删除map中的节点
+                Node tail = list.deleteLast();
+                map.remove(tail.key);
+            }
+            map.put(key, newNode);
+            // 链表长度当前未达到容量值
+            list.insertHead(newNode);
+        }
+
+        public void printAll() {
+            Node cur = this.list.head.next;
+            while (cur != null) {
+                if (cur == this.list.tail) {
+                    break;
+                }
+                System.out.println(cur.key + " " + cur.value);
+                cur = cur.next;
+            }
+            System.out.println("**********");
+
+        }
+
+
     }
 
     /**
@@ -110,96 +161,74 @@ public class P146LruCache {
         int size;
 
         public DoubleLinkedList() {
-        }
-
-        public DoubleLinkedList(Node head, Node tail, int size) {
-            this.head = head;
-            this.tail = tail;
+            this.head = new Node(-1, -1);
+            this.tail = new Node(-1, -1);
+            this.tail.prev = this.head;
+            this.head.next = this.tail;
             this.size = 0;
         }
-    }
 
-    class Node {
-        public int key, val;
-        public Node next, prev;
-
-        public Node(int k, int v) {
-            this.key = k;
-            this.val = v;
-        }
-    }
-
-    class DoubleList {
-        private Node head, tail; // 头尾虚节点
-        private int size; // 链表元素数
-
-        public DoubleList() {
-            head = new Node(0, 0);
-            tail = new Node(0, 0);
-            head.next = tail;
-            tail.prev = head;
-            size = 0;
+        public void deleteNode(Node node) {
+            if (node == null) {
+                return;
+            }
+            Node next = node.next;
+            Node prev = node.prev;
+            prev.next = next;
+            next.prev = prev;
+            size = size - 1;
         }
 
-        // 在链表头部添加节点 x
-        public void addFirst(Node x) {
-            x.next = head.next;
-            x.prev = head;
-            head.next.prev = x;
-            head.next = x;
+        public Node deleteLast() {
+            if (this.head == this.tail) {
+                return new Node(-1, -1);
+            }
+            Node node = this.tail.prev;
+            deleteNode(node);
+            return node;
+        }
+
+        /**
+         * 每个节点都会有一进一出两个指针
+         *
+         * @param node
+         */
+        public void insertHead(Node node) {
+            // 1. 插入节点的前驱 后继节点
+            // 2. 后节点的前驱
+            // 3. 前节点的后继
+            if (node == null) {
+                return;
+            }
+            node.prev = this.head;
+            node.next = this.head.next;
+            this.head.next.prev = node;
+            this.head.next = node;
             size++;
         }
-
-        // 删除链表中的 x 节点（x 一定存在）
-        public void remove(Node x) {
-            x.prev.next = x.next;
-            x.next.prev = x.prev;
-            size--;
-        }
-
-        // 删除链表中最后一个节点，并返回该节点
-        public Node removeLast() {
-            if (tail.prev == head)
-                return null;
-            Node last = tail.prev;
-            remove(last);
-            return last;
-        }
-
-        // 返回链表长度
-        public int size() {
-            return size;
-        }
     }
+
 
     /**
      * 节点，保存键值对
      * 保存前指针，后指针
-     *
      */
-//    class Node {
-//        private int key;
-//        private int value;
-//        private Node next;
-//        private Node prev;
-//
-//        public Node(int key, int value) {
-//            this.key = key;
-//            this.value = value;
-//        }
-//
-//        public Node() {
-//        }
-//
-//        private void deleteNode() {
-//
-//        }
-//
-//        private void insertNode(Node newNode) {
-//
-//        }
-//
-//    }
+    class Node {
+        int key;
+        int value;
+        Node prev;
+        Node next;
+
+        public Node(int key, int value) {
+            this.key = key;
+            this.value = value;
+            this.next = null;
+            this.prev = null;
+        }
+
+        public Node() {
+        }
+    }
 
 /**
  * Your LRUCache object will be instantiated and called as such:
