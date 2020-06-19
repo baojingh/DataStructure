@@ -78,6 +78,10 @@ public class P208ImplementTriePrefixTree {
          * 不存在链接。若已无键字符，且当前结点标记为 isEnd，则返回 true。否则有两种可能，均返回 false :
          * 还有键字符剩余，但无法跟随 Trie 树的键路径，找不到键。
          * 没有键字符剩余，但当前结点没有标记为 isEnd。也就是说，待查找键只是Trie树中另一个键的前缀。
+         *
+         * 2020-06-19没搞定搜索
+         *
+         *
          */
         public boolean search(String word) {
             TrieNode curNode = root;
