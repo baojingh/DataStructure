@@ -103,7 +103,7 @@ public class P146LruCache {
         /**
          * 设计算法
          * 1 map中是否存在这个key
-         * 2 如果不存在
+         * 2 如果不存在，做替换
          * 3 链表长度小于容量，map中存入key-value；链表中将此节点加入链表头部
          * 4 链表长度大于容量，map中存入key-value，移除链表尾节点，链表中将此节点加入链表头部
          * 5 如果存在
@@ -117,7 +117,7 @@ public class P146LruCache {
             Node newNode = new Node(key, value);
             Node node = map.get(key);
             if (node != null) {
-                // map中存在这个key
+                // map中存在这个key，value有可能不同，有可能相同
                 list.deleteNode(node);
                 list.insertHead(newNode);
                 map.put(key, newNode);
@@ -139,6 +139,7 @@ public class P146LruCache {
         public void printAll() {
             Node cur = this.list.head.next;
             while (cur != null) {
+                // 不要输出tail以及head
                 if (cur == this.list.tail) {
                     break;
                 }
@@ -160,6 +161,10 @@ public class P146LruCache {
         Node tail;
         int size;
 
+        /**
+         * 自动创建头节点/尾节点，做好头节点与尾节点的关系
+         * 方便增加/删除
+         */
         public DoubleLinkedList() {
             this.head = new Node(-1, -1);
             this.tail = new Node(-1, -1);
@@ -172,6 +177,7 @@ public class P146LruCache {
             if (node == null) {
                 return;
             }
+            // 分别获取删除节点的前节点，后节点
             Node next = node.next;
             Node prev = node.prev;
             prev.next = next;
@@ -179,11 +185,20 @@ public class P146LruCache {
             size = size - 1;
         }
 
+        /**
+         * 删除尾节点
+         * 当链表长度达到capacity，才会执行删除尾节点
+         * 只有链表中才知道尾节点，map中不知道谁是尾节点，因此这里需要返回尾节点，为map使用
+         *
+         * @return
+         */
         public Node deleteLast() {
             if (this.head == this.tail) {
                 return new Node(-1, -1);
             }
+            // 根据tail获得尾节点
             Node node = this.tail.prev;
+            // deleteNode方法内，及时对node=null，这里不会对node产生影响
             deleteNode(node);
             return node;
         }
