@@ -38,7 +38,7 @@ package leetcode.editor.cn;
 //Java：设计哈希集合
 public class P705DesignHashset {
     public static void main(String[] args) {
-        MyHashSet myHashSet = new P705DesignHashset().new MyHashSet(3);
+        MyHashSet myHashSet = new P705DesignHashset().new MyHashSet();
 
         myHashSet.remove(2);
 
