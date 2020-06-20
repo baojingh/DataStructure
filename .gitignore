@@ -1,6 +1,4 @@
 target/
-.idea/
 src/main/java/leetcode/editor/cn/all.json
 src/main/java/leetcode/editor/cn/translation.json
 .DS_Store
-*.iml
