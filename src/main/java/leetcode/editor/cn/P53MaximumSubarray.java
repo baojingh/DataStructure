@@ -30,6 +30,28 @@ public class P53MaximumSubarray {
             if (nums == null || nums.length == 0) {
                 return 0;
             }
+            int subMax = nums[0];
+            int max = nums[0];
+            int len = nums.length;
+            for (int i = 1; i < len; i++) {
+                if (subMax > 0) {
+                    subMax = subMax + nums[i];
+                } else {
+                    subMax = nums[i];
+                }
+                max = Math.max(max, subMax);
+            }
+            return max;
+        }
+
+        /**
+         * @param nums
+         * @return
+         */
+        public int maxSubArray_arr(int[] nums) {
+            if (nums == null || nums.length == 0) {
+                return 0;
+            }
             int len = nums.length;
             int[] dp = new int[len];
             dp[0] = nums[0];
