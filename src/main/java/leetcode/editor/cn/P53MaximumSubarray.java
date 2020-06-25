@@ -18,7 +18,7 @@ package leetcode.editor.cn;
 //Java：最大子序和
 public class P53MaximumSubarray {
     public static void main(String[] args) {
-        int[] nums = new int[]{4,-1,3};
+        int[] nums = new int[]{-2};
         Solution solution = new P53MaximumSubarray().new Solution();
         int sum = solution.maxSubArray(nums);
         System.out.println(sum);
@@ -26,27 +26,26 @@ public class P53MaximumSubarray {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
-        /**
-         * 1 sum是累加之和，ans是最大之和
-         * 2 sum先进行累加，如果sum<0，对于累加无益，将当前值赋值给sum，从当前位置开始重新计算累加和；反之sum累加num[i]
-         * 3 每次比较sum与ans，取出最大值
-         * @param nums
-         * @return
-         */
         public int maxSubArray(int[] nums) {
-            int sum = 0;
-            // 存储最大值
-            int ans = nums[0];
-            for (int i = 0; i < nums.length; i++) {
-                if (sum >= 0) {
-                    sum = sum + nums[i];
-                } else {
-                    // 当前值对于结果无增益
-                    sum = nums[i];
-                }
-                ans = Math.max(sum, ans);
+            if (nums == null || nums.length == 0) {
+                return 0;
             }
-            return ans;
+            int len = nums.length;
+            int[] dp = new int[len];
+            dp[0] = nums[0];
+            for (int i = 1; i < len; i++) {
+                if (dp[i - 1] > 0) {
+                    dp[i] = dp[i - 1] + nums[i];
+                } else {
+                    dp[i] = nums[i];
+                }
+            }
+
+            int max = dp[0];
+            for (int i = 0; i < dp.length; i++) {
+                max = Math.max(max, dp[i]);
+            }
+            return max;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
