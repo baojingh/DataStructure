@@ -26,6 +26,12 @@ public class P53MaximumSubarray {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        /**
+         * https://leetcode-cn.com/problems/maximum-subarray/solution/dong-tai-gui-hua-fen-zhi-fa-python-dai-ma-java-dai/
+         *
+         * @param nums
+         * @return
+         */
         public int maxSubArray(int[] nums) {
             if (nums == null || nums.length == 0) {
                 return 0;
