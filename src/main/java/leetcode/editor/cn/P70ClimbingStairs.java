@@ -38,25 +38,25 @@ public class P70ClimbingStairs {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         /**
-         * 动态规划问题
-         * nums[0] = 1
-         * nums[1] = 2
-         * nums[i] = nums[i-1] + nums[i-2]
+         * 看了很多题解，很多人说这个是动态规划，或者直接列出转移方程，也不做具体的解释，要么是解释的并不详细，后来看到标题为“爬楼梯？no，斐波那契数列？yes”的题解，才有点明白。
+         * 假设爬n阶楼梯的方法数为f(n)，因为每一步都有两种选择，如果第一步爬1阶，那么爬剩下的(n-1)阶台阶的方法数为f(n-1)，如果第一步爬2阶，那么爬剩下的(n-2)阶台阶的方法数为f(n-2)。因为这是两种不同的选择，所以f(n)=f(n-1)+f(n-2)。
+         * ---------------------我的误区----------------------------------------
+         * 我之前的误区在于，割裂了第一步与后面步骤的关系，以为第一步爬1阶后还剩下(n-1)阶，也就是f(n)=f(n-1)+1,以为第一步爬2阶后还剩下(n-2)阶，也就是f(n)=f(n-2)+2，但事实是第一步和后面步骤是一个整体，假设我们每次爬台阶只能爬1阶，现在有n阶台阶，那f(n)=f(n-1)，因为你第一步爬完了之后并不是方法数+1，第一步爬完了之后方法数是取决于后面爬(n-1)阶所用的方法数。
          *
          * @param n
          * @return
          */
         public int climbStairs(int n) {
             if (n <= 0) {
-                return n;
+                return 0;
             }
-            int[] nums = new int[n + 1];
-            nums[0] = 1;
-            nums[1] = 1;
-            for (int i = 2; i < nums.length; i++) {
-                nums[i] = nums[i - 1] + nums[i - 2];
+            int[] dp = new int[n + 2];
+            dp[1] = 1;
+            dp[2] = 2;
+            for (int i = 3; i <= n; i++) {
+                dp[i] = dp[i - 1] + dp[i - 2];
             }
-            return nums[n];
+            return dp[n];
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
