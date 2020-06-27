@@ -38,6 +38,8 @@ public class P121BestTimeToBuyAndSellStock {
     class Solution {
 
         /**
+         * https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/solution/gu-piao-wen-ti-python3-c-by-z1m/
+         * <p>
          * 状态方程：
          *
          * @param prices
@@ -48,11 +50,14 @@ public class P121BestTimeToBuyAndSellStock {
                 return 0;
             }
             int len = prices.length;
-            int max = 0;
-
-
-
-            return max;
+            // dp[i]代表前i天的最大利润
+            int[] dp = new int[len];
+            int min = prices[0];
+            for (int i = 1; i < len; i++) {
+                min = Math.min(min, prices[i]);
+                dp[i] = Math.max(dp[i - 1], prices[i] - min);
+            }
+            return dp[len - 1];
         }
 
         /**
