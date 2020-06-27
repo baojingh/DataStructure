@@ -55,9 +55,13 @@ public class P121BestTimeToBuyAndSellStock {
             int[] dp = new int[len];
             int min = prices[0];
             for (int i = 1; i < len; i++) {
+                // 统计数组中的最小值
                 min = Math.min(min, prices[i]);
+                // 当天的利润，存入数组
                 dp[i] = prices[i] - min;
             }
+
+            // dp中存储的是天对应的利润，在数组中找到最大值
             for (int i = 0; i < dp.length; i++) {
                 max = Math.max(dp[i], max);
             }
@@ -75,6 +79,7 @@ public class P121BestTimeToBuyAndSellStock {
             int min = prices[0];
             for (int i = 1; i < len; i++) {
                 min = Math.min(min, prices[i]);
+                // 最大利润=（当天的价格-最低值）或者是前一天的利润，取最大值
                 dp[i] = Math.max(dp[i - 1], prices[i] - min);
             }
             return dp[len - 1];
