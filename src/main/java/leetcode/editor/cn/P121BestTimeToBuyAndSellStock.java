@@ -36,25 +36,47 @@ public class P121BestTimeToBuyAndSellStock {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
         /**
-         * 贪心算法
-         * 1 遍历数组，获取到截止到当前位置的最小的值
-         * 2 计算当前值与最小值得差值
-         * 3 比较差值与最大利润，取最大值
+         * 状态方程：
          *
          * @param prices
          * @return
          */
         public int maxProfit(int[] prices) {
-            int minPrice = Integer.MAX_VALUE;
-            int maxPro = 0;
-            for (int i = 0; i < prices.length; i++) {
-                if (minPrice > prices[i]) {
-                    minPrice = prices[i];
-                }
-                maxPro = Math.max(maxPro, prices[i] - minPrice);
+            if (prices == null || prices.length == 0) {
+                return 0;
             }
-            return maxPro;
+            int len = prices.length;
+            int max = 0;
+
+
+
+            return max;
+        }
+
+        /**
+         * 状态方程：
+         *
+         * @param prices
+         * @return
+         */
+        public int maxProfit_1(int[] prices) {
+            if (prices == null || prices.length == 0) {
+                return 0;
+            }
+            int len = prices.length;
+            int max = 0;
+            int gap = 0;
+            for (int i = 0; i < len; i++) {
+                for (int j = i + 1; j < len; j++) {
+                    gap = prices[j] - prices[i];
+                    if (gap > 0) {
+                        max = Math.max(max, gap);
+                    }
+                }
+            }
+            return max;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
