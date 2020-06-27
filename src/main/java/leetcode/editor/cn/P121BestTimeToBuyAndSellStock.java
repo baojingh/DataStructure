@@ -49,6 +49,26 @@ public class P121BestTimeToBuyAndSellStock {
             if (prices == null || prices.length == 0) {
                 return 0;
             }
+            int max = 0;
+            int len = prices.length;
+            // dp[i]代表第i天的最大利润
+            int[] dp = new int[len];
+            int min = prices[0];
+            for (int i = 1; i < len; i++) {
+                min = Math.min(min, prices[i]);
+                dp[i] = prices[i] - min;
+            }
+            for (int i = 0; i < dp.length; i++) {
+                max = Math.max(dp[i], max);
+            }
+            return max;
+        }
+
+
+        public int maxProfit_2(int[] prices) {
+            if (prices == null || prices.length == 0) {
+                return 0;
+            }
             int len = prices.length;
             // dp[i]代表前i天的最大利润
             int[] dp = new int[len];
