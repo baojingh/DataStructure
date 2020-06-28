@@ -38,6 +38,12 @@ public class P714BestTimeToBuyAndSellStockWithTransactionFee {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        /**
+         * 基于P122题目
+         * @param prices
+         * @param fee
+         * @return
+         */
         public int maxProfit(int[] prices, int fee) {
             if (prices == null || prices.length == 0) {
                 return 0;
@@ -54,7 +60,7 @@ public class P714BestTimeToBuyAndSellStockWithTransactionFee {
                 //
                 //昨天我手上就没有股票，今天不做任何操作（rest）；
                 //昨天我手上有一只股票，今天按照时价卖掉了（sell），收获了一笔钱
-
+                // 卖出的时候考虑手续费即可
                 dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i] - fee);
                 // 未持有现金即持有股票时，最大收益
                 // Case 2，今天持有一只股票，有两种可能：
