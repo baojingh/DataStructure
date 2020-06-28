@@ -56,6 +56,7 @@ public class P122BestTimeToBuyAndSellStockIi {
 
         /**
          * https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/solution/tan-xin-suan-fa-by-liweiwei1419-2/
+         * https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/solution/gu-piao-jiao-yi-xi-lie-tan-xin-si-xiang-he-dong-2/
          *
          * @param nums
          * @return
@@ -72,10 +73,20 @@ public class P122BestTimeToBuyAndSellStockIi {
             dp[0][1] = -nums[0];
             for (int i = 1; i < len; i++) {
                 // 持有现金即没有买股票时，最大收益
+                // Case 1，今天我没有股票，有两种可能：
+                //
+                //昨天我手上就没有股票，今天不做任何操作（rest）；
+                //昨天我手上有一只股票，今天按照时价卖掉了（sell），收获了一笔钱
+
                 dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + nums[i]);
                 // 未持有现金即持有股票时，最大收益
+                // Case 2，今天持有一只股票，有两种可能：
+                //
+                //昨天我手上就有这只股票，今天不做任何操作（rest）；
+                //昨天我没有股票，今天按照时价买入一只（sell），花掉了一笔钱
                 dp[i][1] = Math.max(dp[i - 1][1], dp[i - 1][0] - nums[i]);
             }
+            // 手上没有股票才会计算收益
             return dp[len - 1][0];
 
         }
