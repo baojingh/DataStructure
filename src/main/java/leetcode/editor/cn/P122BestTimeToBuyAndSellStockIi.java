@@ -53,6 +53,34 @@ public class P122BestTimeToBuyAndSellStockIi {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        /**
+         * https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/solution/tan-xin-suan-fa-by-liweiwei1419-2/
+         *
+         * @param nums
+         * @return
+         */
+        public int maxProfit(int[] nums) {
+            if (nums == null || nums.length == 0) {
+                return 0;
+            }
+            int len = nums.length;
+            // dp[i][j]代表第i天，状态j即持有现金(0)，还是买入股票(1)
+            int[][] dp = new int[len][2];
+            // 第1天，先买股票，收益为负数
+            dp[0][0] = 0;
+            dp[0][1] = -nums[0];
+            for (int i = 1; i < len; i++) {
+                // 持有现金即没有买股票时，最大收益
+                dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + nums[i]);
+                // 未持有现金即持有股票时，最大收益
+                dp[i][1] = Math.max(dp[i - 1][1], dp[i - 1][0] - nums[i]);
+            }
+            return dp[len - 1][0];
+
+        }
+
+
         /**
          * 1 股票趋势上涨，第一天买入，最后一天卖出，就可以获得最大利润
          * 2 股票趋势下降，不买入
@@ -63,9 +91,10 @@ public class P122BestTimeToBuyAndSellStockIi {
          * @param nums
          * @return
          */
-        public int maxProfit(int[] nums) {
+        public int maxProfit_1(int[] nums) {
             int profit = 0;
             for (int i = 1; i < nums.length; i++) {
+                // 贪心算法
                 // 第二天的价格减去前一天的价格，如果差值为负，说明不能买入；如果是正值，可以进行利润累加
                 int tmp = nums[i] - nums[i - 1];
                 if (tmp > 0) {
