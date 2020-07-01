@@ -30,6 +30,15 @@ public class P213HouseRobberIi {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        /**
+         * https://leetcode-cn.com/problems/house-robber-ii/solution/213-da-jia-jie-she-iidong-tai-gui-hua-jie-gou-hua-/
+         *
+         * 2020.07.01没搞定
+         *
+         *
+         * @param nums
+         * @return
+         */
         public int rob(int[] nums) {
             if (nums == null || nums.length == 0) {
                 return 0;
