@@ -29,15 +29,47 @@ public class P64MinimumPathSum {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        public int minPathSum(int[][] grid) {
+            if (grid == null || grid.length == 0 || grid[0].length == 0) {
+                return 0;
+            }
+            int rowLen = grid.length;
+            int columnLen = grid[0].length;
+            // 一维数组
+            // 从上到下，从左到右遍历
+            int[] dp = new int[columnLen];
+            for (int i = 0; i < rowLen; i++) {
+                for (int j = 0; j < columnLen; j++) {
+                    if (i == 0 && j == 0) {
+                        dp[0] = grid[0][0];
+                    } else if (i == 0) {
+                        // 最上面一行
+                        dp[j] = dp[j - 1] + grid[i][j];
+                    } else if (j == 0) {
+                        //最左侧
+                        dp[j] = dp[j] + grid[i][j];
+                    } else if (i != 0 && j != 0) {
+                        dp[j] = Math.min(dp[j], dp[j - 1]) + grid[i][j];
+                    }
+                }
+            }
+            return dp[rowLen - 1];
+        }
+
+
         /**
          * 第一行是特殊情况，只有左右有值，上面没有值
          * 第一列是特殊情况，只有上下有值，左面没有值
          * 其他就可以按照正常情况处理
+         * <p>
+         * https://leetcode-cn.com/problems/minimum-path-sum/solution/ji-yi-hua-dong-tai-gui-hua-by-chuan-12/
+         * https://leetcode-cn.com/problems/minimum-path-sum/solution/zui-xiao-lu-jing-he-by-leetcode/
          *
          * @param grid
          * @return
          */
-        public int minPathSum(int[][] grid) {
+        public int minPathSum_1(int[][] grid) {
             if (grid == null || grid.length == 0 || grid[0].length == 0) {
                 return 0;
             }
@@ -60,12 +92,6 @@ public class P64MinimumPathSum {
                     dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j];
                 }
             }
-//            for (int i = 0; i < dp.length; i++) {
-//                for (int j = 0; j < dp[0].length; j++) {
-//                    System.out.print(dp[i][j] + " ");
-//                }
-//                System.out.println();
-//            }
             return dp[rowLen - 1][columnLen - 1];
         }
     }
