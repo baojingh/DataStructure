@@ -43,12 +43,58 @@ package leetcode.editor.cn;
 public class P62UniquePaths {
     public static void main(String[] args) {
         Solution solution = new P62UniquePaths().new Solution();
+        solution.uniquePaths(3, 2);
         System.out.println();
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        /**
+         * 推理一下：三行三列的框，走到右下角的方案是6，因为最上面以及最左的，路线方案均是1，
+         * 1 1 1
+         * 1 2 3
+         * 1 3 6
+         * <p>
+         * 状态方程：
+         * dp[0] = 1
+         * i > 0, j >0
+         * dp[i][j] = dp[i][j - 1] + dp[i -1][j]
+         * i = 0
+         * dp[0][j] = dp[0][j-1]
+         * <p>
+         * j = 0
+         * dp[i][0] = dp[i-1][0]
+         *
+         * @param m 行数
+         * @param n 列数
+         * @return
+         */
         public int uniquePaths(int m, int n) {
+            if (m < 1 || n < 1) {
+                return 0;
+            }
+            int[][] ints = new int[m][n];
+            ints[0][0] = 0;
+
+            // 初始化左
+            for (int i = 0; i < m; i++) {
+                ints[i][0] = 1;
+            }
+            // 初始化上
+            for (int i = 0; i < n; i++) {
+                ints[0][i] = 1;
+            }
+
+            for (int i = 1; i < m; i++) {
+                for (int j = 1; j < n; j++) {
+                    ints[i][j] = ints[i - 1][j] + ints[i][j - 1];
+                }
+            }
+            return ints[m - 1][n - 1];
+        }
+
+        public int uniquePaths_1(int m, int n) {
             int[][] dp = new int[m][n];
             for (int i = 0; i < m; i++) {
                 dp[i][0] = 1;
