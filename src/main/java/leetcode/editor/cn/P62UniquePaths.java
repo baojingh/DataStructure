@@ -50,7 +50,7 @@ public class P62UniquePaths {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
 
-        public int uniquePaths(int m, int n) {
+        public int uniquePaths_3(int m, int n) {
             if (m < 1 || n < 1) {
                 return 0;
             }
@@ -59,6 +59,7 @@ public class P62UniquePaths {
             int column = Math.max(m, n);
 
             int[] dp = new int[column];
+            // 此处为什么是1，解释为一个格子，到达本格子只有一个办法
             dp[0] = 1;
             for (int i = 1; i < column; i++) {
                 dp[i] = 1;
@@ -92,12 +93,13 @@ public class P62UniquePaths {
          * @param n 列数
          * @return
          */
-        public int uniquePaths_2(int m, int n) {
+        public int uniquePaths(int m, int n) {
             if (m < 1 || n < 1) {
                 return 0;
             }
             int[][] ints = new int[m][n];
-            ints[0][0] = 0;
+
+            // 只有一个格子，找到的路径个数是1
 
             // 初始化左
             for (int i = 0; i < m; i++) {
