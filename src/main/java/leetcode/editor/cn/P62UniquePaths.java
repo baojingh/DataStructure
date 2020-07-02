@@ -43,12 +43,34 @@ package leetcode.editor.cn;
 public class P62UniquePaths {
     public static void main(String[] args) {
         Solution solution = new P62UniquePaths().new Solution();
-        solution.uniquePaths(3, 2);
-        System.out.println();
+        int uniquePaths = solution.uniquePaths(4, 3);
+        System.out.println(uniquePaths);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        public int uniquePaths(int m, int n) {
+            if (m < 1 || n < 1) {
+                return 0;
+            }
+
+            int row = Math.min(m, n);
+            int column = Math.max(m, n);
+
+            int[] dp = new int[column];
+            dp[0] = 1;
+            for (int i = 1; i < column; i++) {
+                dp[i] = 1;
+            }
+            for (int i = 1; i < row; i++) {
+                for (int j = 1; j < column; j++) {
+                    dp[j] = dp[j] + dp[j - 1];
+                }
+            }
+            return dp[column - 1];
+        }
+
 
         /**
          * 推理一下：三行三列的框，走到右下角的方案是6，因为最上面以及最左的，路线方案均是1，
@@ -70,7 +92,7 @@ public class P62UniquePaths {
          * @param n 列数
          * @return
          */
-        public int uniquePaths(int m, int n) {
+        public int uniquePaths_2(int m, int n) {
             if (m < 1 || n < 1) {
                 return 0;
             }
