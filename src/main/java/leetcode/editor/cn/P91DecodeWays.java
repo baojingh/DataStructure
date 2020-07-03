@@ -30,17 +30,20 @@ package leetcode.editor.cn;
 public class P91DecodeWays {
     public static void main(String[] args) {
         Solution solution = new P91DecodeWays().new Solution();
-        int decodings = solution.numDecodings("226");
+        int decodings = solution.numDecodings("123");
         System.out.println(decodings);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         /**
+         * https://leetcode-cn.com/problems/decode-ways/solution/dong-tai-gui-hua-java-python-by-liweiwei1419/
+         * <p>
          * 状态方程
-         * <p>
-         * <p>
          * 初始化
+         *
+         * 2020.07.03没搞定
+         *
          *
          * @param s
          * @return
@@ -49,23 +52,29 @@ public class P91DecodeWays {
             if (s == null || s.length() == 0) {
                 return 0;
             }
-            int count = 0;
-            boolean flag = true;
 
-            for (int i = 0; i < s.length() - 1; i++) {
-                for (int j = i + 1; j < i + 3; j++) {
-                    String substring = s.substring(i, j);
-                    int anInt = Integer.parseInt(substring);
-                    if (anInt < 1 || anInt > 26) {
-                        flag = false;
-                        break;
+            char[] charArray = s.toCharArray();
+            int len = s.length();
+            if (charArray[0] == '0') {
+                return 0;
+            }
+            int[] dp = new int[len];
+            dp[0] = 1;
+
+            for (int i = 1; i < len; i++) {
+                if (charArray[i] != '0') {
+                    dp[i] = dp[i - 1];
+                }
+                int num = 10 * (charArray[i - 1] - '0') + (charArray[i] - '0');
+                if (num >= 10 && num <= 26) {
+                    if (i == 1) {
+                        dp[i] = dp[i] + 1;
+                    } else {
+                        dp[i] = dp[i] + dp[i - 2];
                     }
                 }
-                if (flag) {
-
-                }
             }
-            return count;
+            return dp[len - 1];
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
