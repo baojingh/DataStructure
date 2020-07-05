@@ -42,9 +42,6 @@ public class P343IntegerBreak {
          *  for (int j = 1; j <= i / 2; j++) {
          *   dp[i] = Math.max(dp[i], dp[j] * dp[i - j]);
          *  }
-         *
-         *
-         *
          * @param n
          * @return
          */
