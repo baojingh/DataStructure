@@ -69,9 +69,6 @@ public class P152MaximumProductSubarray {
                 tmpMax = Math.max(Math.max(tmpMax * nums[i], nums[i]), tmpMin * nums[i]);
                 tmpMin = Math.min(Math.min(preMax * nums[i], nums[i]), tmpMin * nums[i]);
                 max = Math.max(tmpMax, max);
-                min = Math.max(tmpMin, min);
-                System.out.print(max + " " + min);
-                System.out.println();
             }
             return max;
         }
