@@ -53,21 +53,16 @@ public class P509FibonacciNumber {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int fib(int N) {
-            int a = 0;
-            int b = 1;
-            if (N == 0) {
-                return a;
+            if (N < 2) {
+                return N;
             }
-            if (N == 1) {
-                return b;
-            }
-            int sum = 0;
+            int[] dp = new int[N + 1];
+            dp[0] = 0;
+            dp[1] = 1;
             for (int i = 2; i <= N; i++) {
-                sum = a + b;
-                a = b;
-                b = sum;
+                dp[i] = dp[i - 1] + dp[i - 2];
             }
-            return sum;
+            return dp[N];
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
