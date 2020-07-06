@@ -52,11 +52,18 @@ public class P509FibonacciNumber {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        /**
+         * 状态方程是dp[i] = dp[i-1] + dp[i-2], i >=2
+         *
+         * @param N
+         * @return
+         */
         public int fib(int N) {
             if (N < 2) {
                 return N;
             }
             int[] dp = new int[N + 1];
+            // 初始化
             dp[0] = 0;
             dp[1] = 1;
             for (int i = 2; i <= N; i++) {
