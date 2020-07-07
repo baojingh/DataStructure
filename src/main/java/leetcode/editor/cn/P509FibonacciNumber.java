@@ -46,13 +46,25 @@ public class P509FibonacciNumber {
     public static void main(String[] args) {
         int[] nums = new int[]{};
         Solution solution = new P509FibonacciNumber().new Solution();
-        int fib = solution.fib(7);
+        int fib = solution.fib(1000000);
         System.out.println(fib);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         /**
+         * 解释题意
+         * 1 斐波那契数列，每一个数字是前面两个数字之和
+         * 2 第一个数字是0，第二个数字是1，第三个数字是1，第四个数字是2
+         * <p>
+         * 设计算法
+         * 1 动态规划：dp[i] = dp[i-1] + dp[i-2], i >=2
+         * dp[i] = i, i < 2 && i > -1
+         *
+         * 测试用例
+         * <p>
+         * <p>
+         * <p>
          * 状态方程是dp[i] = dp[i-1] + dp[i-2], i >=2
          *
          * @param N
