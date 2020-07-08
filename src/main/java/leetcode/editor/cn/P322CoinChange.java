@@ -24,45 +24,57 @@
 
 package leetcode.editor.cn;
 
+import java.util.Arrays;
+
 //Java：零钱兑换
 public class P322CoinChange {
     public static void main(String[] args) {
         Solution solution = new P322CoinChange().new Solution();
-        System.out.println();
+        int change = solution.coinChange(new int[]{1, 2, 5}, 11);
+        System.out.println(change);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
 
-
         /**
+         * {1,2,5}, 11
+         * dp[11] = min(dp[1], dp[2],dp[5])
+         * <p>
+         * <p>
+         * dp[i]: 凑齐总和是i的最少硬币个数
+         * dp[i] = Math.min(dp[amount - coin[i]]+1, dp[amount - coin[i]]+1, dp[amount - coin[i]]+1)
+         * <p>
+         * <p>
+         * for(int coin:coins)
+         * {
+         * if(coin <= amount)
+         * dp[amount] = min(dp[amount-coin] + 1);
+         * }
+         * <p>
+         * https://leetcode-cn.com/problems/coin-change/solution/dong-tai-gui-hua-shi-yong-wan-quan-bei-bao-wen-ti-/
+         *
          * @param coins
          * @param amount
          * @return
          */
         public int coinChange(int[] coins, int amount) {
-            if (coins == null || coins.length == 0 || amount == 0) {
-                return 0;
-            }
-
-            // 给 0 占位
             int[] dp = new int[amount + 1];
-            // 注意：因为要比较的是最小值，这个不可能的值就得赋值成为一个最大值
-            for (int i = 0; i < dp.length; i++) {
-                dp[i] = amount + 1;
-            }
+            // 计算个数的最小值，需要
+            Arrays.fill(dp, Integer.MAX_VALUE);
             dp[0] = 0;
-
+            // 根据状态方程
             for (int i = 1; i <= amount; i++) {
                 for (int coin : coins) {
-                    if (i - coin >= 0 && dp[i - coin] != amount + 1) {
-                        dp[i] = Math.min(dp[i], 1 + dp[i - coin]);
+                    if (i >= coin && dp[i - coin] != Integer.MAX_VALUE) {
+                        dp[i] = Math.min(dp[i], dp[i - coin] + 1);
                     }
                 }
             }
-
-            if (dp[amount] == amount + 1) {
+            if (dp[amount] == Integer.MAX_VALUE) {
+                // 如果[2], 3，没有合适的硬币，就返回-1
                 dp[amount] = -1;
+                System.out.println(dp[amount]);
             }
             return dp[amount];
         }
