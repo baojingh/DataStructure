@@ -19,6 +19,8 @@
 
 package leetcode.editor.cn;
 
+import java.util.Arrays;
+
 //Java：最长上升子序列
 public class P300LongestIncreasingSubsequence {
     public static void main(String[] args) {
@@ -28,25 +30,43 @@ public class P300LongestIncreasingSubsequence {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        /**
+         * 设计算法
+         * 1 dp[i]代表以nums[i]结尾的子序列的最大长度
+         * 2 dp[0]=1,以num[0]结尾的子序列即元素本身，最大长度是1
+         * 3 例如：计算dp[5]，就需要计算dp[4]，即以4结尾的最大子序列长度
+         * 4 dp中存储各个数字对应的最大递增序列长度，需要遍历数组，获取最大长度
+         *
+         *
+         * @param nums
+         * @return
+         */
         public int lengthOfLIS(int[] nums) {
             if (nums == null || nums.length == 0) {
                 return 0;
             }
-            int res = 0;
-            int[] dp = new int[nums.length];
-            for (int i = 0; i < nums.length; i++) {
-                dp[i] = 1;
-            }
-            for (int i = 0; i < nums.length; i++) {
+            // dp[i]代表以nums[i]结尾的子序列的最大长度
+            int len = nums.length;
+            int[] dp = new int[len];
+            // 数组初始化成1
+            Arrays.fill(dp, 1);
+            // 以num[0]结尾的子序列即元素本身，最大长度是1，
+            dp[0] = 1;
+            // 存储最大值
+            int max = 0;
+            for (int i = 0; i < len; i++) {
                 for (int j = 0; j < i; j++) {
-                    if (nums[j] < nums[i]) {
+                    if (nums[i] > nums[j]) {
+                        // 计算比num[i]小的，这个需要遍历比num[i]小的数字
                         dp[i] = Math.max(dp[i], dp[j] + 1);
                     }
                 }
-                res = Math.max(res, dp[i]);
             }
-            return res;
-
+            // 遍历dp获取最大值
+            for (int i = 0; i < len; i++) {
+                max = Math.max(max, dp[i]);
+            }
+            return max;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
