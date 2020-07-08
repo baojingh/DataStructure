@@ -30,8 +30,10 @@ public class P674LongestContinuousIncreasingSubsequence {
 
         /**
          * 状态方程
-         * dp[i]=dp[i-1]+1
+         * dp[i]代表以nums[i]结尾的连续递增子序列的长度
+         *
          * dp[0]=1
+         * dp[i]=dp[i-1]+1
          *
          * @param nums
          * @return
