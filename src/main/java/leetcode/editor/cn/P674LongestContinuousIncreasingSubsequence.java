@@ -47,16 +47,16 @@ public class P674LongestContinuousIncreasingSubsequence {
             int[] dp = new int[len];
             Arrays.fill(dp, 1);
             dp[0] = 1;
-            int max = 0;
+            int max = 1;
             for (int i = 1; i < len; i++) {
                 // 1 3 5 4 7
                 // 以4结尾的连续递增子序列的最大长度是1，即他本身
                 if (nums[i - 1] < nums[i]) {
                     dp[i] = Math.max(dp[i], dp[i - 1] + 1);
+                    // dp[i] 比dp[i-1]每上升一次，就可以做一次比较，不需要额外放在for循环里计算最大值
+                    // 如果没有进入for循环或者if条件，返回的也是max=1
+                    max = Math.max(max, dp[i]);
                 }
-            }
-            for (int i = 0; i < len; i++) {
-                max = Math.max(max, dp[i]);
             }
             return max;
         }
