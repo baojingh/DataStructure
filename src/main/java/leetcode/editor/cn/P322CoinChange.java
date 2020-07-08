@@ -38,7 +38,9 @@ public class P322CoinChange {
     class Solution {
 
         /**
+         * https://leetcode-cn.com/problems/coin-change/solution/zi-di-xiang-shang-dong-tai-gui-hua-by-pendygg/
          * https://leetcode-cn.com/problems/coin-change/solution/322-ling-qian-dui-huan-by-ming-zhi-shan-you-m9rfkv/
+         * https://leetcode-cn.com/problems/coin-change/solution/js-xiang-jie-dong-tai-gui-hua-de-si-xiang-yi-bu-da/
          *
          * @param coins
          * @param amount
