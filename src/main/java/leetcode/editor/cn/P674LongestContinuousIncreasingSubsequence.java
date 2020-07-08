@@ -14,6 +14,8 @@
 
 package leetcode.editor.cn;
 
+import java.util.Arrays;
+
 //Java：最长连续递增序列
 public class P674LongestContinuousIncreasingSubsequence {
     public static void main(String[] args) {
@@ -25,7 +27,39 @@ public class P674LongestContinuousIncreasingSubsequence {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        /**
+         * 状态方程
+         * dp[i]=dp[i-1]+1
+         * dp[0]=1
+         *
+         * @param nums
+         * @return
+         */
         public int findLengthOfLCIS(int[] nums) {
+            if (nums == null || nums.length == 0) {
+                return 0;
+            }
+            int len = nums.length;
+            // dp[i]代表以nums[i]结尾的连续递增子序列的长度
+            int[] dp = new int[len];
+            Arrays.fill(dp, 1);
+            dp[0] = 1;
+            int max = 0;
+            for (int i = 1; i < len; i++) {
+                // 1 3 5 4 7
+                // 以4结尾的连续递增子序列的最大长度是1，即他本身
+                if (nums[i - 1] < nums[i]) {
+                    dp[i] = Math.max(dp[i], dp[i - 1] + 1);
+                }
+            }
+            for (int i = 0; i < len; i++) {
+                max = Math.max(max, dp[i]);
+            }
+            return max;
+        }
+
+        public int findLengthOfLCIS_1(int[] nums) {
             int max = 1;
             int count = 1;
             int len = nums.length;
