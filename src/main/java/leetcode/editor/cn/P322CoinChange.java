@@ -38,6 +38,18 @@ public class P322CoinChange {
     class Solution {
 
         /**
+         * https://leetcode-cn.com/problems/coin-change/solution/322-ling-qian-dui-huan-by-ming-zhi-shan-you-m9rfkv/
+         *
+         * @param coins
+         * @param amount
+         * @return
+         */
+        public int coinChange(int[] coins, int amount) {
+            // 类似下面的解法
+            return 0;
+        }
+
+        /**
          * {1,2,5}, 11
          * dp[11] = min(dp[1], dp[2],dp[5])
          * <p>
@@ -58,7 +70,7 @@ public class P322CoinChange {
          * @param amount
          * @return
          */
-        public int coinChange(int[] coins, int amount) {
+        public int coinChange_1(int[] coins, int amount) {
             int[] dp = new int[amount + 1];
             // 计算个数的最小值，需要
             Arrays.fill(dp, Integer.MAX_VALUE);
