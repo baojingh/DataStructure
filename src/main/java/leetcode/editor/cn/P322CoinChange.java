@@ -37,6 +37,13 @@ public class P322CoinChange {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
 
+        public int coinChange(int[] coins, int amount) {
+
+
+            return 0;
+        }
+
+
         /**
          * https://leetcode-cn.com/problems/coin-change/solution/zi-di-xiang-shang-dong-tai-gui-hua-by-pendygg/
          * https://leetcode-cn.com/problems/coin-change/solution/322-ling-qian-dui-huan-by-ming-zhi-shan-you-m9rfkv/
@@ -46,7 +53,7 @@ public class P322CoinChange {
          * @param amount
          * @return
          */
-        public int coinChange(int[] coins, int amount) {
+        public int coinChange_1(int[] coins, int amount) {
             // 类似下面的解法
             return 0;
         }
@@ -72,7 +79,7 @@ public class P322CoinChange {
          * @param amount
          * @return
          */
-        public int coinChange_1(int[] coins, int amount) {
+        public int coinChange_2(int[] coins, int amount) {
             int[] dp = new int[amount + 1];
             // 计算个数的最小值，需要
             Arrays.fill(dp, Integer.MAX_VALUE);
