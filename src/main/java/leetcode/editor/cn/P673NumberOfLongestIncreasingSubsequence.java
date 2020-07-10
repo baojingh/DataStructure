@@ -22,8 +22,6 @@
 
 package leetcode.editor.cn;
 
-import java.util.Arrays;
-
 //Java：最长递增子序列的个数
 public class P673NumberOfLongestIncreasingSubsequence {
     public static void main(String[] args) {
@@ -36,6 +34,8 @@ public class P673NumberOfLongestIncreasingSubsequence {
         /**
          * 解释题意
          * 1. dp[i]代表以nums[i]结尾的递增子序列的长度
+         * 2. counter[i]代表以nums[i]结尾的最长递增子序列的组合个数
+         * <p>
          * 2. 统计每个长度的个数，输出
          * <p>
          * <p>
@@ -45,34 +45,8 @@ public class P673NumberOfLongestIncreasingSubsequence {
          * @return
          */
         public int findNumberOfLIS(int[] nums) {
-            int N = nums.length;
-            if (N <= 1) return N;
-            int[] lengths = new int[N]; //lengths[i] = length of longest ending in nums[i]
-            int[] counts = new int[N]; //count[i] = number of longest ending in nums[i]
-            Arrays.fill(counts, 1);
 
-            for (int j = 0; j < N; ++j) {
-                for (int i = 0; i < j; ++i) if (nums[i] < nums[j]) {
-                    if (lengths[i] >= lengths[j]) {
-                        lengths[j] = lengths[i] + 1;
-                        counts[j] = counts[i];
-                    } else if (lengths[i] + 1 == lengths[j]) {
-                        counts[j] += counts[i];
-                    }
-                }
-            }
-
-            int longest = 0, ans = 0;
-            for (int length: lengths) {
-                longest = Math.max(longest, length);
-            }
-            for (int i = 0; i < N; ++i) {
-                if (lengths[i] == longest) {
-                    ans += counts[i];
-                }
-            }
-            return ans;
-
+            return 0;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
