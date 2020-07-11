@@ -38,6 +38,13 @@ public class P9PalindromeNumber {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        /**
+         * 将数字反转
+         * 即使反转出现溢出，说明此数也不是回文数
+         *
+         * @param x
+         * @return
+         */
         public boolean isPalindrome(int x) {
             if (x < 0) {
                 return false;
