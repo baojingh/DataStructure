@@ -71,6 +71,17 @@ public class P13RomanToInteger {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        /**
+         * 设计算法
+         * 1 罗马字符与数字之间的映射关系以及六种特殊情况的映射关系
+         * 2 从字符串头部先匹配两个字符串
+         * 3 如果匹配成功就累加对应的数字，并且指针向前移动2;如果两个字符串匹配不成功，就匹配一个
+         * 4 匹配一个如果成功就累加；不成功就跳过。
+         * 5 注意如果字符串没有对应的罗马字符，要如何处理？在for循环中设定i++,无论是否执行for中的条件，for循环都会继续前进
+         *
+         * @param s
+         * @return
+         */
         public int romanToInt(String s) {
             if (s == null || s.length() == 0) {
                 return 0;
@@ -93,14 +104,17 @@ public class P13RomanToInteger {
             // 存储累加和
             int res = 0;
             for (int i = 0; i < s.length(); i++) {
+                String tmp;
                 if ((i + 2 <= s.length()) && map.containsKey(s.substring(i, i + 2))) {
-                    Integer integer2 = map.get(s.substring(i, i + 2));
+                    tmp = s.substring(i, i + 2);
+                    Integer integer2 = map.get(tmp);
                     // 优先判断两个字符是否在map中，
                     res = res + integer2;
                     // 指针前进2
                     i = i + 1;
                 } else if (map.containsKey(s.substring(i, i + 1))) {
-                    res = res + map.get(s.substring(i, i + 1));
+                    tmp = s.substring(i, i + 1);
+                    res = res + map.get(tmp);
                     // 如果一个字符符合条件，就累加一个字符的值，指针前进1
                 }
             }
