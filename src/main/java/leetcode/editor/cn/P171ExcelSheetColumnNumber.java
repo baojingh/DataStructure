@@ -48,7 +48,22 @@ public class P171ExcelSheetColumnNumber {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
         public int titleToNumber(String s) {
+            if (s == null || s.length() == 0) {
+                return 0;
+            }
+            int sum = 0;
+            int tmp = 0;
+            for (char c : s.toCharArray()) {
+                tmp = c - 64;
+                sum = sum * 26 + tmp;
+            }
+            return sum;
+        }
+
+
+        public int titleToNumber_1(String s) {
             if (s == null || s.length() == 0) {
                 return 0;
             }
