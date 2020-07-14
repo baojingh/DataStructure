@@ -39,21 +39,38 @@ package leetcode.editor.cn;
 public class P168ExcelSheetColumnTitle {
     public static void main(String[] args) {
         Solution solution = new P168ExcelSheetColumnTitle().new Solution();
-        String convert = solution.convertToTitle(701);
+        String convert = solution.convertToTitle(1);
         System.out.println(convert);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public String convertToTitle(int n) {
+
+            StringBuilder builder = new StringBuilder();
+
+            String code = "ZABCDEFGHIJKLMNOPQRSTUVWXY";
+            while (n != 0) {
+                int tmp = n % 26;
+                n = n - 1;
+                char c = code.charAt(tmp);
+                builder.insert(0, c);
+                n = n / 26;
+            }
+            return builder.toString();
+        }
+
+
         /**
          * 设计算法
-         * 1
-         * 二十六进制
+         * 1 先熟悉进制的概念
+         * 2 本题目手从1开始，26结束。遇到27就进位，变成AA，而不是A0。遇到52，就变成AZ
+         * 3 如果数字是52，
          *
          * @param n
          * @return
          */
-        public String convertToTitle(int n) {
+        public String convertToTitle_1(int n) {
             if (n < 1) {
                 return "";
             }
@@ -64,8 +81,8 @@ public class P168ExcelSheetColumnTitle {
             while (n != 0) {
                 int tmp = n % 26;
                 char c = (char) (base + tmp);
-                // 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 ... 26 27 28 ... 51 52 53
-                // A B                                              Z  AA AB     ZY ZZ ZZA
+                // 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 ... 26 27 28 ... 51 52 53   ... 78
+                // A B                                              Z  AA AB     AY AZ BA       BZ
                 if (tmp == 0) {
                     c = 'Z';
                     n = n - 1;
