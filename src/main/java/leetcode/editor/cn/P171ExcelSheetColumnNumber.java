@@ -49,6 +49,11 @@ public class P171ExcelSheetColumnNumber {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
 
+        /**
+         * 二进制转换成十进制，算法
+         * @param s
+         * @return
+         */
         public int titleToNumber(String s) {
             if (s == null || s.length() == 0) {
                 return 0;
