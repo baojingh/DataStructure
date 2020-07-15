@@ -79,7 +79,32 @@ public class P1290ConvertBinaryNumberInALinkedListToInteger {
      * }
      */
     class Solution {
+
+        /**
+         * N进制求和
+         * 设计算法：
+         * 1 从左到右遍历每一位，即从高位累加，而非低位
+         * 2 累加和sum，sum = sum * N + val
+         * 3 原理介绍：
+         * 例如数字abc，十进制是a*100 + b * 10 + c
+         * 转换后变成： (a*10+b)*10+c
+         * 即可循环迭代每一位数字
+         *
+         * @param head
+         * @return
+         */
         public int getDecimalValue(ListNode head) {
+            int sum = 0;
+            ListNode cur = head;
+            while (cur != null) {
+                sum = sum * 2 + cur.val;
+                cur = cur.next;
+            }
+            return sum;
+        }
+
+
+        public int getDecimalValue_1(ListNode head) {
             int sum = 0;
             ListNode cur = head;
             while (cur != null) {
