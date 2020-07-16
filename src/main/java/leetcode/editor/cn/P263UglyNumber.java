@@ -43,10 +43,20 @@ public class P263UglyNumber {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         /**
+         * 设计算法
+         * 1 如果一个数是丑，则uglyNumber = i*2 + j*3 + k*5, i,j,k属于[0,无穷大]
+         * 2 先将此数循环除以2,最后得到的数不能整除2为止，进入3
+         * 3 先将2中的数循环除以3,最后得到的数不能整除3为止，进入4
+         * 4 先将4中的数循环除以4,最后得到的数不能整除5为止，进入5
+         * 5 最后判断这个数字是否是1，如果是1，则是丑数，否则非丑数
+         *
          * @param num
          * @return
          */
         public boolean isUgly(int num) {
+            if (num < 1) {
+                return false;
+            }
             int[] arr = {2, 3, 5};
             int tmp = 0;
             for (int i = 0; i < arr.length; i++) {
