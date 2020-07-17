@@ -38,7 +38,7 @@ public class P326PowerOfThree {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
-        public boolean isPowerOfThree(int n) {
+        public boolean isPowerOfThree_1(int n) {
             if (n < 1) {
                 return false;
             }
