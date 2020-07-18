@@ -39,13 +39,39 @@ public class P50PowxN {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
         /**
-         * 暴力法，超时
+         * https://leetcode-cn.com/problems/powx-n/solution/marvelzhong-deng-de-xue-xi-bi-ji-50-by-tyanyonecan/
+         * <p>
+         * 2020.07.18未搞定
+         *
          * @param x
          * @param n
          * @return
          */
         public double myPow(double x, int n) {
+            long N = Math.abs((long) n);//当n取范围的左边界时，此处取绝对值用int会溢出
+            double ans = 1;
+            while (N > 0) {
+                if ((N & 1) == 1)
+                    ans *= x;
+                x *= x;
+                N >>= 1;
+            }
+            if (n < 0)
+                ans = 1 / ans;
+            return ans;
+        }
+
+
+        /**
+         * 暴力法，超时
+         *
+         * @param x
+         * @param n
+         * @return
+         */
+        public double myPow_1(double x, int n) {
             double res = 1;
             for (int i = 1; i <= Math.abs(n); i++) {
                 res = res * x;
