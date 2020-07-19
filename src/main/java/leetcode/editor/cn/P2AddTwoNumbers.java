@@ -16,6 +16,10 @@
 
 package leetcode.editor.cn;
 
+import jdk.nashorn.internal.ir.CallNode;
+
+import java.util.List;
+
 //Java：两数相加
 public class P2AddTwoNumbers {
     public static void main(String[] args) {
@@ -64,6 +68,116 @@ public class P2AddTwoNumbers {
      * }
      */
     class Solution {
+
+        /**
+         * 解释题意
+         * 1 一个链表代表一个整数，链表的一个节点代表一位
+         * 2 链表头部-尾部，对应数字的低位-高位，这样就可以从链表头部迭代链表
+         * 3 链表头部不能是0，数字0除外
+         * 4 链表表示的数字只能是正数或者0
+         * 5 两数相加，考虑进位
+         * <p>
+         * 设计算法
+         * 1 分别获取两个链表的头节点
+         * 2 循环开始，循环结束条件是两个链表同时到达尾部
+         * 3 获取两个节点的值，累加两个节点值以及进位作为新的节点，保留进位，
+         * 4 如果链表长度不等，只累加有值
+         * 5 新的节点加入链表头部
+         *
+         * 测试用例
+         * 1 null, null
+         * 2 null, 1
+         * 3 0,0
+         * 4 1-2,2-5
+         * 5 7-8,1-1
+         * 6 1-2-3,6-7-8
+         * 7 1-2-3,2-3
+         *
+         * 时间复杂度
+         * 空间复杂度
+         *
+         * @param l1
+         * @param l2
+         * @return
+         */
+        public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+            int sum = 0;
+            int carry = 0;
+            ListNode cur1 = l1;
+            ListNode cur2 = l2;
+            ListNode solder = new ListNode(-1);
+            ListNode cur = solder;
+            while (cur1 != null || cur2 != null) {
+                int val1 = 0;
+                int val2 = 0;
+                if (cur1 != null) {
+                    val1 = cur1.val;
+                    cur1 = cur1.next;
+                }
+                if (cur2 != null) {
+                    val2 = cur2.val;
+                    cur2 = cur2.next;
+                }
+                sum = val1 + val2 + carry;
+                carry = sum / 10;
+                ListNode node = new ListNode(sum % 10);
+                cur.next = node;
+                cur = cur.next;
+            }
+            if (carry == 1) {
+                cur.next = new ListNode(carry);
+            }
+            return solder.next;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /**
          * 解题思路
          * 测试用例：
@@ -84,7 +198,7 @@ public class P2AddTwoNumbers {
          * @param l2
          * @return
          */
-        public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        public ListNode addTwoNumbers_1(ListNode l1, ListNode l2) {
             int carry = 0;
             int sum = 0;
             ListNode solder = new ListNode(0);
