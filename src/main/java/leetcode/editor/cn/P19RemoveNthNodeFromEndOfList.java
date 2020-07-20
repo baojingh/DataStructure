@@ -76,28 +76,39 @@ public class P19RemoveNthNodeFromEndOfList {
          * @return
          */
         public ListNode removeNthFromEnd(ListNode head, int n) {
+            // 方便删除头节点
             ListNode solder = new ListNode(-1);
             solder.next = head;
             if (n < 1) {
+                // 倒数的数字不可是0
                 return solder.next;
             }
             ListNode fast = solder;
             ListNode slow = solder;
+            // 快指针从solder开始走过的步数
             int fastCount = 0;
             while (fast != null) {
+                // 先判断fast是否到达尾部
+                // 防止出现n大于链表长度的情况
                 fast = fast.next;
                 fastCount = fastCount + 1;
                 if (fastCount == n) {
+                    // fast到达指定的节点
                     break;
                 }
             }
+            // while结束，分成两种情况：
+            // 1 fast为空，这个是异常情况
+            // 2 到达真实的节点，fast不为空
             if (fast == null) {
                 return solder.next;
             }
             while (fast.next != null) {
+                // 快慢指针同时向前走
                 slow = slow.next;
                 fast = fast.next;
             }
+            // 删除操作
             slow.next = slow.next.next;
             return solder.next;
         }
