@@ -23,7 +23,13 @@ package leetcode.editor.cn;
 public class P19RemoveNthNodeFromEndOfList {
     public static void main(String[] args) {
         Solution solution = new P19RemoveNthNodeFromEndOfList().new Solution();
-        System.out.println();
+        ListNode n1 = new ListNode(1);
+        ListNode n2 = new ListNode(2);
+        ListNode n3 = new ListNode(3);
+        n1.next = n2;
+        n2.next = n3;
+        ListNode listNode = solution.removeNthFromEnd(n1, 4);
+        System.out.println(listNode.val);
     }
 
     static class ListNode {
@@ -47,6 +53,56 @@ public class P19RemoveNthNodeFromEndOfList {
      * }
      */
     class Solution {
+
+
+        /**
+         * 设计算法
+         * 1 创建solder节点，连接原节点
+         * 1 设置同侧快慢指针，fast，slow
+         * 2 从solder节点开始，fast走n步后，slow开始走
+         * 3 循环终止条件是fast指针到达链表尾部
+         * 3 slow是目标节点的前一个节点
+         * 4 执行删除操作
+         * <p>
+         * 测试用例
+         * 1 null, 1
+         * 2 1, 0,1,2
+         * 3 1-2 1,2
+         * 4 1-2-3 1,2,3
+         * 5 1-2-3-4 1,2,3,4
+         *
+         * @param head
+         * @param n
+         * @return
+         */
+        public ListNode removeNthFromEnd(ListNode head, int n) {
+            ListNode solder = new ListNode(-1);
+            solder.next = head;
+            if (n < 1) {
+                return solder.next;
+            }
+            ListNode fast = solder;
+            ListNode slow = solder;
+            int fastCount = 0;
+            while (fast != null) {
+                fast = fast.next;
+                fastCount = fastCount + 1;
+                if (fastCount == n) {
+                    break;
+                }
+            }
+            if (fast == null) {
+                return solder.next;
+            }
+            while (fast.next != null) {
+                slow = slow.next;
+                fast = fast.next;
+            }
+            slow.next = slow.next.next;
+            return solder.next;
+        }
+
+
         /**
          * 解释题意
          * 1 删除倒数的第K个节点，返回链表头部
@@ -74,12 +130,11 @@ public class P19RemoveNthNodeFromEndOfList {
          * 复杂度分析
          * 时间复杂度O(L),L是n大的长度
          *
-         *
          * @param head
          * @param n
          * @return
          */
-        public ListNode removeNthFromEnd(ListNode head, int n) {
+        public ListNode removeNthFromEnd_1(ListNode head, int n) {
             // 空链表以及无效索引
             if (head == null || n < 1) {
                 return null;
