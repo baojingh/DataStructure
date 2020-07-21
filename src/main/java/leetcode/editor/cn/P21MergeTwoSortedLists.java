@@ -38,6 +38,77 @@ public class P21MergeTwoSortedLists {
      * }
      */
     class Solution {
+
+        /**
+         * 解释题意
+         * 1 两个原链表是升序的，合并后也要升序
+         * 2 合并后的链表是新的链表
+         * 3 节点值相同就按照正常程序拼接
+         * <p>
+         * 设计算法
+         * 1 创建新节点solder作为新链表的头节点，cur作为新链表的移动指针
+         * 2 迭代链表l1，l2，比较两个节点的值大小，cur连接指向较小的节点，小节点的指针向前移动，cur向前移动
+         * 3 继续比较节点值，循环退出条件是到达其中一个链表的尾部
+         * 4 循环结束，说明两个链表全部到达尾部，或者是其中一条链表已经到达尾部另一链表还未到说明剩余节点比另一条链表数值大，
+         * 继续将cur连接到这个链表剩余的节点
+         * 5 返回solder.next
+         * <p>
+         * 测试用例
+         * 1 1-4-9, 2-3-7
+         * 2 1-2-4，3-7-8-9
+         * 3 null,null
+         * 4 null, 1
+         * 5 1，2
+         * 时间复杂度
+         * 空间复杂度
+         * @param l1
+         * @param l2
+         * @return
+         */
+        public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+            ListNode solder = new ListNode(-1);
+            ListNode cur = solder;
+            int val = 0;
+            while (l1 != null && l2 != null) {
+                int v1 = l1.val;
+                int v2 = l2.val;
+                if (v1 > v2) {
+                    val = v2;
+                    l2 = l2.next;
+                } else {
+                    val = v1;
+                    l1 = l1.next;
+                }
+                ListNode tmp = new ListNode(val);
+                cur.next = tmp;
+                cur = cur.next;
+            }
+            // 程序执行到这里，肯定是：
+            // 两个链表全部到尾部；一个链表到尾部以及一个链表未到尾部
+            if (l1 != null) {
+                cur.next = l1;
+            }
+
+            if (l2 != null) {
+                cur.next = l2;
+            }
+            return solder.next;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /**
          * 解释题意
          * 1 链表1，链表2是单调递增的
@@ -68,7 +139,7 @@ public class P21MergeTwoSortedLists {
          * @param l2
          * @return
          */
-        public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        public ListNode mergeTwoLists_1(ListNode l1, ListNode l2) {
             ListNode solder = new ListNode(-1);
             ListNode cur = solder;
             ListNode cur1 = l1;
