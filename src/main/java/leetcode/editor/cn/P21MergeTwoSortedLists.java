@@ -60,7 +60,7 @@ public class P21MergeTwoSortedLists {
          * 4 null, 1
          * 5 1，2
          * 时间复杂度
-         * 空间复杂度
+         * 空间复杂度 O(1)
          * @param l1
          * @param l2
          * @return
@@ -68,19 +68,17 @@ public class P21MergeTwoSortedLists {
         public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
             ListNode solder = new ListNode(-1);
             ListNode cur = solder;
-            int val = 0;
             while (l1 != null && l2 != null) {
                 int v1 = l1.val;
                 int v2 = l2.val;
                 if (v1 > v2) {
-                    val = v2;
+                    //
+                    cur.next = l2;
                     l2 = l2.next;
                 } else {
-                    val = v1;
+                    cur.next = l1;
                     l1 = l1.next;
                 }
-                ListNode tmp = new ListNode(val);
-                cur.next = tmp;
                 cur = cur.next;
             }
             // 程序执行到这里，肯定是：
