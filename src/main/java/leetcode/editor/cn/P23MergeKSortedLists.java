@@ -15,6 +15,7 @@
 package leetcode.editor.cn;
 
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 //Java：合并K个排序链表
@@ -37,10 +38,12 @@ public class P23MergeKSortedLists {
         list[1] = l2;
         list[2] = l3;
         list[3] = null;
+//        solution.mergeKLists(list);
 
-        solution.mergeKLists(list);
 
-        System.out.println();
+        Integer[] integers = new Integer[10];
+        System.out.println(integers[0] = null);
+
     }
 
     static class ListNode {
@@ -64,6 +67,109 @@ public class P23MergeKSortedLists {
      * }
      */
     class Solution {
+
+
+        /**
+         * 解释题意
+         * 1 每个链表都是升序的
+         * 2 多个链表合并成一个链表，合并后链表也是升序的
+         * <p>
+         * 设计算法【两两合并法】
+         * 1 设计合并两个链表的算法
+         * 2 循环整个链表，两两合并
+         * 3 缺点是时间复杂度高，大部分链表的节点会被访问k-1次，时间复杂度O(l1+l2+...)
+         * 4 时间复杂度分析：https://blog.csdn.net/weixin_40633275/article/details/106675636
+         * 5 K条链表总的节点数是N，平均每个链表节点数是N/K，
+         * 第1次合并两条链表,节点数： N/K + N/K
+         * 第2次合并两条链表，节点数： 2*N/K + N/K
+         * ...
+         * 第K-1次合并两条链表，节点数： (k-1)*N/K + N/K
+         * 总的访问节点数是累加，得到K*K * (N/K)
+         * 时间复杂度是O(N*K)
+         * <p>
+         * 设计算法【堆】
+         * 0 创建solder以及移动指针cur
+         * 1 每个链表的首节点加入小顶堆，堆顶自动是最小元素
+         * 2 cur指向最小元素；最小元素在所在链表向前移动；节点加入小顶堆；cur向前移动
+         * 3 循环结束条件是小顶堆中的元素个数是0
+         *
+         * 测试用例
+         * 1 null,null,null
+         * 2 null,1
+         * 3 1,2,3
+         * 4 1
+         * 5 1-3-4, 2-3-4-5, 2-3-7
+         *
+         *
+         * @param lists
+         * @return
+         */
+        public ListNode mergeKLists(ListNode[] lists) {
+            if (lists == null || lists.length == 0) {
+                return null;
+            }
+            // 小顶堆
+            PriorityQueue<ListNode> queue = new PriorityQueue<>(new Comparator<ListNode>() {
+                @Override
+                public int compare(ListNode o1, ListNode o2) {
+                    return o1.val - o2.val;
+                }
+            });
+            ListNode solder = new ListNode(-1);
+            ListNode cur = solder;
+            for (ListNode list : lists) {
+                if (list != null) {
+                    // 链表头加入小顶堆
+                    // 防止数组出现null
+                    queue.offer(list);
+                }
+            }
+            while (queue.size() > 0) {
+                // 取出最小值的元素
+                ListNode node = queue.poll();
+                // 添加到链表中
+                cur.next = node;
+                ListNode tmp = node.next;
+                if (tmp != null) {
+                    // 链表中节点不为空
+                    // 此处是判断是否到达链表尾部
+                    queue.offer(tmp);
+                }
+                cur = cur.next;
+            }
+            return solder.next;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /**
          * 解释题意
          * 1 多条链表，每条链表都是有序的
@@ -91,7 +197,7 @@ public class P23MergeKSortedLists {
          * @param lists
          * @return
          */
-        public ListNode mergeKLists(ListNode[] lists) {
+        public ListNode mergeKLists_1(ListNode[] lists) {
             ListNode solder = new ListNode(-1);
             ListNode cur = solder;
             PriorityQueue<ListNode> queue = new PriorityQueue<>(new Comparator<ListNode>() {
