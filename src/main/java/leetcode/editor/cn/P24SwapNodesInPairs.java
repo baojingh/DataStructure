@@ -55,9 +55,70 @@ public class P24SwapNodesInPairs {
     class Solution {
         /**
          * 解释题意
+         * 1 链表的两个相邻节点，俩俩交换
+         * 2 偶数节点俩俩交换；奇数个节点时最后一个节点不交换
+         * <p>
+         * 设计算法
+         * 1 如果不使用solder，如何处理头节点与第二个节点？因此使用solder节点
+         * 2 cur指针后面的两个节点交换，交换完毕，cur移动两步，继续交换其后面的两个
+         * 3 循环结束条件是后面两个节点其中一个是null
+         * 4 返回solder.next
+         *
+         * 测试用例
+         * 1 null
+         * 2 1
+         * 3 1-2
+         * 4 1-2-3
+         *
+         *
+         * @param head
+         * @return
+         */
+        public ListNode swapPairs(ListNode head) {
+            ListNode solder = new ListNode(-1);
+            solder.next = head;
+            ListNode cur = solder;
+            while (cur.next != null && cur.next.next != null) {
+                ListNode tmp1 = cur.next;
+                ListNode tmp2 = cur.next.next;
+                ListNode n = tmp2.next;
+                // 交换tmp1,tmp2
+                tmp1.next = n;
+                tmp2.next = tmp1;
+                cur.next = tmp2;
+                // 移动两步
+                cur = cur.next.next;
+            }
+            return solder.next;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /**
+         * 解释题意
          * 1 两两交换的意思是相邻两个元素交换，但是如果这个元素已经交换过，就不参与交换
          * 2
-         *
+         * <p>
          * 设计算法
          * 测试用例
          * 1 空链表，-1-null
@@ -69,7 +130,7 @@ public class P24SwapNodesInPairs {
          * @param head
          * @return
          */
-        public ListNode swapPairs(ListNode head) {
+        public ListNode swapPairs_1(ListNode head) {
             ListNode solder = new ListNode(-1);
             solder.next = head;
             ListNode cur = solder;
