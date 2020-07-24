@@ -27,6 +27,11 @@ package leetcode.editor.cn;
 public class P61RotateList {
     public static void main(String[] args) {
         Solution solution = new P61RotateList().new Solution();
+        ListNode head = new ListNode(1);
+        head.next = new ListNode(2);
+        head.next.next = new ListNode(3);
+        head.next.next.next = new ListNode(4);
+        ListNode listNode = solution.rotateRight(head, 1);
         System.out.println();
     }
 
@@ -51,6 +56,101 @@ public class P61RotateList {
      * }
      */
     class Solution {
+
+        /**
+         * 解释题意
+         * 1 所谓的反转，其实就是逐个移动链表最后的节点到链表头
+         * 2 移动的个数是整数或者是0
+         * 3 如果移动的个数是0或者是链表长度的整数倍，则移动后与移动前一致，可以保持不变。
+         * 4 移动的次数取余就可以得到实际移动的次数
+         * 设计算法
+         * 1 计算链表长度，移动位置取余获得实际移动的次数，如果余数是0。则不移动；不是0，就移动
+         * 2 创建solder节点，以及快慢指针fast，slow，他们的初始位置是solder
+         * 3 循环：fast先走k步，然后slow与fast再继续向前走
+         * 4 循环结束条件是fast是null
+         * 5 slow节点是需要移动的节点的前置节点，slow后面的一串节点直接与链表首节点拼接
+         * 6 solder节点的next置成slow的next
+         * <p>
+         * 测试用例
+         * 1 null
+         * 2 1， 1 2
+         * 3 1-2，0，1，2
+         * 4 1-2-3，0，1，2，3，4
+         * <p>
+         * <p>
+         * 时间复杂度
+         * 空间复杂度
+         *
+         * @param head
+         * @param k
+         * @return
+         */
+        public ListNode rotateRight(ListNode head, int k) {
+            if (head == null || k <= 0) {
+                return head;
+            }
+
+            int len = 0;
+            ListNode fast = head;
+            while (fast != null) {
+                // 计算链表长度
+                len = len + 1;
+                fast = fast.next;
+            }
+
+            // 实际需要移动的次数
+            int realStep = k % len;
+            if ( realStep == 0) {
+                // 余数是0或者移动次数是0，不用移动链表
+                return head;
+            }
+
+            ListNode solder = new ListNode(-1);
+            solder.next = head;
+            // 慢指针
+            ListNode slow = solder;
+            // 快指针
+            fast = solder;
+            // fast指针移动的次数
+            int fastStep = 0;
+            while (fast.next != null) {
+                fast = fast.next;
+                fastStep = fastStep + 1;
+                if (fastStep == realStep) {
+                    break;
+                }
+            }
+            // fast指针已经走了realStep步，接下来slow与fast一起走
+            while (fast.next != null) {
+                fast = fast.next;
+                slow = slow.next;
+            }
+            // fast到达链表尾部，slow就是要移动节点的前置节点
+            fast.next = solder.next;
+            solder.next = slow.next;
+            // 否则出现环
+            slow.next = null;
+            return solder.next;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /**
          * 解释题意
          * 1 循环右移尾节点，并且添加到头节点，移动次数是k
@@ -73,7 +173,7 @@ public class P61RotateList {
          * @param k
          * @return
          */
-        public ListNode rotateRight(ListNode head, int k) {
+        public ListNode rotateRight_1(ListNode head, int k) {
             int len = 0;
             ListNode solder = new ListNode(-1);
             solder.next = head;
