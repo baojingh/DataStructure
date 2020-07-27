@@ -65,7 +65,9 @@ public class P86PartitionList {
          * 1 需要创建两个链表，minSolder/minCur，maxSolder/maxCur
          * 2 迭代原链表，与给定值比较，插入到相关的链表
          * 3 迭代条件是原链表到达尾部
-         * 4 min链表于max链表的尾部要指向null
+         * 4 min链表要指向max链表的头部，因此min链表尾节点不需特殊处理
+         *      但是原链表迭代完成，max链表有可能会指向别的元素，例如1-4-7-2-8-5，4
+         *      这就需要max链表的尾节点要指向null
          * 4 minCur指向maxSolder.next
          * 5 返回minSolder.next
          * <p>
@@ -108,7 +110,6 @@ public class P86PartitionList {
             // 原链表的倒数第一个与倒数第二个，他们一个大于给定值一个小于给定值，就需要将min以及max链表的尾部指向null，否则出现环
             // 例如 1-4-7-2-3-6，4
             // 例如 1-4-7-2-8-5，4
-
 
             // 优化：min链表一定要拼接max链表，因此只需要考虑max链表尾部即可
             // 即这种情况：1-4-7-2-8-5，4
