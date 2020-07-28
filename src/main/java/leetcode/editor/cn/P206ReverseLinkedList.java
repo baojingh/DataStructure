@@ -40,6 +40,57 @@ public class P206ReverseLinkedList {
      * }
      */
     class Solution {
+
+
+        /**
+         * 解释题意
+         * <p>
+         * <p>
+         * 设计算法
+         * 1 声明三个指针prev，cur以及next
+         * 2 保存cur的下一个节点next，当前指针cur指向prev
+         * 3 cur节点命名成prev
+         * 4 next节点命名成cur
+         * 5 3与4的顺序不能变
+         *
+         *
+         * 测试用例
+         * 1 null
+         * 2 1
+         * 3 1-2
+         * 4 1-2-3
+         * 5 1-2-3-4
+         *
+         * @param head
+         * @return
+         */
+        public ListNode reverseList(ListNode head) {
+            ListNode prev = null;
+            ListNode cur = head;
+            while (cur != null) {
+                // 保存节点
+                ListNode n = cur.next;
+                cur.next = prev;
+                // 以下顺序不能变
+                prev = cur;
+                cur = n;
+            }
+            return prev;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /**
          * 解释题意
          * 1 链表反转，
@@ -60,7 +111,7 @@ public class P206ReverseLinkedList {
          * @param head
          * @return
          */
-        public ListNode reverseList(ListNode head) {
+        public ListNode reverseList_1(ListNode head) {
             ListNode solder = new ListNode(-1);
             solder.next = head;
 
