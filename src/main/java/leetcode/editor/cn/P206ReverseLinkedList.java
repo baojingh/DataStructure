@@ -80,17 +80,6 @@ public class P206ReverseLinkedList {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
         /**
          * 解释题意
          * 1 链表反转，
@@ -111,7 +100,7 @@ public class P206ReverseLinkedList {
          * @param head
          * @return
          */
-        public ListNode reverseList_1(ListNode head) {
+        public ListNode reverseList1(ListNode head) {
             ListNode solder = new ListNode(-1);
             solder.next = head;
 
