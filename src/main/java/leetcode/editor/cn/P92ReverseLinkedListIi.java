@@ -77,6 +77,10 @@ public class P92ReverseLinkedListIi {
             ListNode prevCur = solder;
             ListNode next = null;
             for (int i = 1; i < m; i++) {
+                if (prevCur.next == null) {
+                    // 眼反转得链表是尾部之后的节点即null
+                    return head;
+                }
                 // 到达目标节点的前一个节点
                 prevCur = prevCur.next;
             }
@@ -87,6 +91,10 @@ public class P92ReverseLinkedListIi {
             ListNode cur = tail;
             ListNode prev = null;
             for (int i = m; i <= n; i++) {
+                if (cur == null) {
+                    // cur指针已经到达尾部，n超过范围
+                    return head;
+                }
                 // 反转指定区间链表
                 // 保存反转节点的下一个节点
                 next = cur.next;
