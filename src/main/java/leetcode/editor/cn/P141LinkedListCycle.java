@@ -66,6 +66,100 @@ public class P141LinkedListCycle {
      */
 
     public class Solution {
+
+
+        /**
+         * 解释题意
+         * 1 链表有环，指的是一个节点肯定是两进一出
+         * 2 一旦一个指针进入环内，他就会一直在环里
+         * 3 本题中的环是指链表尾部的节点与链表中的某个节点连接，即环在链表尾部
+         * <p>
+         * 设计算法
+         * 1 创建快慢指针，从同一起点开始前进
+         * 2 慢指针每次前进一步，快指针前进两步
+         * 3 循环结束条件是fast与slow相等
+         * <p>
+         * <p>
+         * 测试用例
+         * 1
+         *       6
+         *     /   \
+         * 1-2-3-4-5
+         *
+         * 2
+         *
+         *    4
+         *  /  \
+         * 1-2-3
+         *
+         * 3
+         * 1-2-3
+         *
+         * 4
+         * 1-2
+         *
+         * 5
+         * 1
+         *
+         * 6 null
+         *
+         *
+         *
+         * @param head
+         * @return
+         */
+        public boolean hasCycle(ListNode head) {
+            ListNode fast = head;
+            ListNode slow = head;
+            while (fast != null && fast.next != null) {
+                slow = slow.next;
+                fast = fast.next.next;
+                if (fast == slow) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /**
          * 解释题意：
          * 1 链表
@@ -96,21 +190,21 @@ public class P141LinkedListCycle {
          * /\
          * 2 -3
          * 6 链表只有两个节点，但是相互指向对方
-         *  1=2
-         *
+         * 1=2
+         * <p>
          * 复杂度分析：
          * 空间复杂度：只用了快慢指针两个变量，O(1)
          * 时间复杂度：
          * 1）没有环：快指针走到链表尾部，就退出循环，慢指针访问了链表一半的数据，快指针访问了所有的数据，
-         *          O(n/2) + O(n)，时间复杂度是O(n)
+         * O(n/2) + O(n)，时间复杂度是O(n)
          * 2）有环：慢指针进入环之前，走过的长度是M，快指针在环中迭代的次数是M，即非环长度是M
-         *         慢指针进入环之后，快慢指针经过多长时间会相遇（经过多少次迭代）：快慢指针的距离(最大是环的长度N)/快慢指针差即1
-         *         遍历迭代次数O(M + N), 即最大是O(链表长度)
+         * 慢指针进入环之后，快慢指针经过多长时间会相遇（经过多少次迭代）：快慢指针的距离(最大是环的长度N)/快慢指针差即1
+         * 遍历迭代次数O(M + N), 即最大是O(链表长度)
          *
          * @param head
          * @return
          */
-        public boolean hasCycle(ListNode head) {
+        public boolean hasCycle_1(ListNode head) {
             ListNode fast = head;
             ListNode slow = head;
             while (fast != null && fast.next != null) {
