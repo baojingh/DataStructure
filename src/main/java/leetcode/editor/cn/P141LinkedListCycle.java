@@ -77,7 +77,10 @@ public class P141LinkedListCycle {
          * 设计算法
          * 1 创建快慢指针，从同一起点开始前进
          * 2 慢指针每次前进一步，快指针前进两步
-         * 3 循环结束条件是fast与slow相等
+         * 3 判断fast与slow是否相等，相等就返回true，不相等就继续
+         * 4 循环结束条件是fast以及其next不为null
+         * 5 循环结束，说明快指针到达链表尾部，没有环
+         *
          * <p>
          * <p>
          * 测试用例
@@ -103,6 +106,9 @@ public class P141LinkedListCycle {
          *
          * 6 null
          *
+         *
+         *
+         * 2020.07.30没搞定数学证明部分
          *
          *
          * @param head
