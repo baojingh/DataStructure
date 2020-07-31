@@ -73,6 +73,59 @@ public class P142LinkedListCycleIi {
      * }
      */
     public class Solution {
+
+        /**
+         * 解释题意
+         * 1 链表如果没有环，就返回null
+         * 2 如果链表有环，肯定有一个环的入口点，即交点
+         * <p>
+         * 设计算法
+         * 1 快慢指针fast，slow从链表头部开始
+         * 2 fast每次走两步；slow每次走一步
+         * 3 如果fast==slow说明有环
+         * 4 循环结束条件fast以及fast.next不为空
+         * 5 循环结束，需要判断一下是否有环
+         * 如果没有环就返回null
+         * 如果有环，就将fast指针指向链表头节点，slow与fast迭代向前走一步
+         * 两个指针相遇处，就是链表的入口
+         * <p>
+         * 测试用例
+         *
+         * @param head
+         * @return
+         */
+        public ListNode detectCycle(ListNode head) {
+            ListNode fast = head;
+            ListNode slow = head;
+            while (fast != null && fast.next != null) {
+                slow = slow.next;
+                fast = fast.next.next;
+                if (slow == fast) {
+                    // 链表有环，fast不是null，fast.next也不是null
+                    break;
+                }
+            }
+            if (fast == null || fast.next == null) {
+                // 没有环
+                return null;
+            }
+            // 链表有环
+            fast = head;
+            while (fast != slow) {
+                // fast与slow一定不是null
+                slow = slow.next;
+                fast = fast.next;
+            }
+            return fast;
+        }
+
+
+
+
+
+
+
+
         /**
          * https://leetcode-cn.com/problems/linked-list-cycle-ii/solution/linked-list-cycle-ii-kuai-man-zhi-zhen-shuang-zhi-/
          * <p>
@@ -146,7 +199,7 @@ public class P142LinkedListCycleIi {
          * @param head
          * @return
          */
-        public ListNode detectCycle(ListNode head) {
+        public ListNode detectCycle_1(ListNode head) {
             ListNode fast = head;
             ListNode slow = head;
             while (fast != null && fast.next != null) {
