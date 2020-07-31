@@ -83,11 +83,12 @@ public class P142LinkedListCycleIi {
          * 1 快慢指针fast，slow从链表头部开始
          * 2 fast每次走两步；slow每次走一步
          * 3 如果fast==slow说明有环
-         * 4 循环结束条件fast以及fast.next不为空
+         * 4 循环结束条件fast或者fast.next为空
          * 5 循环结束，需要判断一下是否有环
-         * 如果没有环就返回null
-         * 如果有环，就将fast指针指向链表头节点，slow与fast迭代向前走一步
-         * 两个指针相遇处，就是链表的入口
+         *      如果没有环(条件是fast或者fast.next是null)就返回null
+         *      如果有环，就将fast指针指向链表头节点，slow与fast迭代向前走一步
+         *      循环结束条件是fast==slow
+         * 6. 两个指针相遇处，就是链表的入口
          * <p>
          * 测试用例
          *
