@@ -79,7 +79,7 @@ public class P237DeleteNodeInALinkedList {
          *
          * @param node
          */
-        public void deleteNode(ListNode node) {
+        public void deleteNode1(ListNode node) {
             if (node == null || node.next == null) {
                 return;
             }
@@ -112,7 +112,7 @@ public class P237DeleteNodeInALinkedList {
              *
              * @param node
              */
-        public void deleteNode_1(ListNode node) {
+        public void deleteNode(ListNode node) {
             if (node == null) {
                 return;
             }
