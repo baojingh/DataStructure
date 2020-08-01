@@ -118,6 +118,7 @@ public class P237DeleteNodeInALinkedList {
             }
             if (node.next == null) {
                 // 如果删除最后一个节点，即当前节点是最后一个节点，就null
+                // 此处的删除链表尾部节点无效
                 node = null;
                 return;
             }
