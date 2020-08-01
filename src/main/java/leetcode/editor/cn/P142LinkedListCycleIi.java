@@ -95,7 +95,7 @@ public class P142LinkedListCycleIi {
          * @param head
          * @return
          */
-        public ListNode detectCycle(ListNode head) {
+        public ListNode detectCycle_1(ListNode head) {
             ListNode fast = head;
             ListNode slow = head;
             while (fast != null && fast.next != null) {
@@ -200,7 +200,7 @@ public class P142LinkedListCycleIi {
          * @param head
          * @return
          */
-        public ListNode detectCycle_1(ListNode head) {
+        public ListNode detectCycle(ListNode head) {
             ListNode fast = head;
             ListNode slow = head;
             while (fast != null && fast.next != null) {

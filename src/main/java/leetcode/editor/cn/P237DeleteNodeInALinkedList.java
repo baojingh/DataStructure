@@ -63,20 +63,56 @@ public class P237DeleteNodeInALinkedList {
      * }
      */
     class Solution {
+
         /**
-         * 解释题意
-         * 1 没有头节点，只给了链表中的某个节点，此节点需要被删除
-         *
          * 设计算法
-         * 1 目标节点cur的下一个节点nextNode
-         * 2 nextNode的值赋值给cur节点
-         * 3 删除nextNode节点即可
-         * 4 如果cur是尾节点，将cur=null
-         *
+         * 1 迭代给定节点之后的节点
+         * 2 后面的节点值向前覆盖到前一个节点上，删除后一个节点即可，不需要循环覆盖
+         * <p>
+         * 测试用例
+         * 1 1-2-3，2
+         * 2 1-2，1
+         * 2 1-2，2
+         * 3 1-2，3
+         * 4 1，1
+         * 5 null
          *
          * @param node
          */
         public void deleteNode(ListNode node) {
+            if (node == null || node.next == null) {
+                return;
+            }
+            ListNode cur = node;
+            cur.val = cur.next.val;
+            cur.next = cur.next.next;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+            /**
+             * 解释题意
+             * 1 没有头节点，只给了链表中的某个节点，此节点需要被删除
+             *
+             * 设计算法
+             * 1 目标节点cur的下一个节点nextNode
+             * 2 nextNode的值赋值给cur节点
+             * 3 删除nextNode节点即可
+             * 4 如果cur是尾节点，将cur=null
+             *
+             *
+             * @param node
+             */
+        public void deleteNode_1(ListNode node) {
             if (node == null) {
                 return;
             }
