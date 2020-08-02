@@ -15,6 +15,9 @@
 
 package leetcode.editor.cn;
 
+import javax.sound.sampled.LineListener;
+import java.util.List;
+
 //Java：重排链表
 public class P143ReorderList {
     public static void main(String[] args) {
@@ -62,17 +65,98 @@ public class P143ReorderList {
      * }
      */
     class Solution {
+
+
         /**
-         * 设计算法
-         * 1 计算链表的中间节点：
-         *      链表长度是奇数，slow是链表中间节点
-         *      链表长度是偶数，slow是链表中间位置偏右侧的节点
-         * 2 链表的后半部分反转，得到反转后的链表头部
-         * 3 链表前半部分与反转后的链表穿插串联节点
+         * 无论是奇数个节点还是偶数个节点，均是从中间节点的next开始计算。
+         * 即1-2-3-4-5-6-7-8，5是中间节点，计算是从6开始
+         * 即1-2-3-4-5-6-7-8-9，6是中间节点，计算是从7开始
          *
          * @param head
          */
         public void reorderList(ListNode head) {
+            if (head == null) {
+                return;
+            }
+            ListNode cur = head;
+            ListNode fast = head;
+            ListNode slow = head;
+            while (fast != null && fast.next != null) {
+                slow = slow.next;
+                fast = fast.next.next;
+            }
+            ListNode n = slow.next;
+            slow.next = null;
+            ListNode reverse = reverseLinkedlist(n);
+            head = mergeLinkedlist(cur, reverse);
+        }
+
+
+        /**
+         * 按照奇偶位置，合并两个链表
+         * @param head1
+         * @param head2
+         * @return
+         */
+        private ListNode mergeLinkedlist(ListNode head1, ListNode head2) {
+            ListNode solder = new ListNode(-1);
+            ListNode cur1 = head1;
+            ListNode cur2 = head2;
+            ListNode cur = solder;
+            while (cur1 != null && cur2 != null) {
+                if (cur1 != null) {
+                    cur.next = cur1;
+                    cur1 = cur1.next;
+                    cur = cur.next;
+                }
+                if (cur2 != null) {
+                    cur.next = cur2;
+                    cur2 = cur2.next;
+                    cur = cur.next;
+                }
+            }
+            if (cur1 == null) {
+                cur.next = cur2;
+            } else {
+                cur.next = cur1;
+            }
+            return solder.next;
+        }
+
+        /**
+         * 反转链表
+         *
+         * @return
+         */
+        private ListNode reverseLinkedlist(ListNode head) {
+            ListNode prev = null;
+            ListNode cur = head;
+            ListNode n = null;
+            while (cur != null) {
+                n = cur.next;
+                cur.next = prev;
+                prev = cur;
+                cur = n;
+            }
+            return prev;
+        }
+
+
+
+
+
+
+            /**
+             * 设计算法
+             * 1 计算链表的中间节点：
+             *      链表长度是奇数，slow是链表中间节点
+             *      链表长度是偶数，slow是链表中间位置偏右侧的节点
+             * 2 链表的后半部分反转，得到反转后的链表头部
+             * 3 链表前半部分与反转后的链表穿插串联节点
+             *
+             * @param head
+             */
+        public void reorderList_1(ListNode head) {
             if (head == null) {
                 return;
             }
@@ -116,7 +200,7 @@ public class P143ReorderList {
          * @param head
          * @return
          */
-        private ListNode reverseLinkedlist(ListNode head) {
+        private ListNode reverseLinkedlist_1(ListNode head) {
             ListNode cur = head;
             ListNode prev = null;
             ListNode next = null;
