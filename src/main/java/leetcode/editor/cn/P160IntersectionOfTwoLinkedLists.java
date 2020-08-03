@@ -114,7 +114,7 @@ public class P160IntersectionOfTwoLinkedLists {
             ListNode curA = headA;
             ListNode curB = headB;
 
-            // null!= null
+            // 没有交点，两个指针同时到达链表的null，即null!= null
             while (curA != curB ) {
                 if (curA != null) {
                     curA = curA.next;
