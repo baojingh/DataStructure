@@ -38,6 +38,71 @@ public class P203RemoveLinkedListElements {
      * }
      */
     class Solution {
+
+
+        /**
+         * 设计算法
+         * 1 创建solder节点，从solder节点开始迭代基于指针cur
+         * 2 cur.next不为空，判断是否是目标节点
+         *      如果不是，cur指针前进一步；
+         *      如果是，则创建临时指针tmp，tmp如果是目标节点，tmp前进，直到tmp不是目标节点，cur指向tmp
+         *
+         *
+         * <p>
+         * 测试用例
+         * 1 1-2-3-4-5-3-6，3
+         * 2 1-2-3-3-5-3-6，3
+         * 3 3-3-4-5-6，3
+         * 4 4-5-6-3-3，3
+         * 5 1-2-3,4
+         * 6 null
+         * 7 1-1,1
+         * 8 1,1
+         *
+         * @param head
+         * @param val
+         * @return
+         */
+        public ListNode removeElements(ListNode head, int val) {
+            ListNode solder = new ListNode(-1);
+            solder.next = head;
+            // 从solder节点开始迭代
+            ListNode cur = solder;
+            // 当1-2-3，3这种情况，cur可能会是null
+            while (cur != null && cur.next != null) {
+                if (cur.next.val == val) {
+                    // 如果和目标节点相等，就跳过这些节点
+                    ListNode tmp = cur.next;
+                    while (tmp != null && tmp.val == val) {
+                        tmp = tmp.next;
+                    }
+                    cur.next = tmp;
+                }
+                // 无论是否找到目标节点，cur指针都会前进
+                cur = cur.next;
+            }
+            return solder.next;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /**
          * 解释题意
          * 1 删除指定元素
@@ -66,7 +131,7 @@ public class P203RemoveLinkedListElements {
          * @param val
          * @return
          */
-        public ListNode removeElements(ListNode head, int val) {
+        public ListNode removeElements_1(ListNode head, int val) {
             ListNode solder = new ListNode(-1);
             solder.next = head;
             ListNode cur = solder;
