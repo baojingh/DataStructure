@@ -63,7 +63,7 @@ public class P203RemoveLinkedListElements {
          * @param val
          * @return
          */
-        public ListNode removeElements(ListNode head, int val) {
+        public ListNode removeElements_1(ListNode head, int val) {
             ListNode solder = new ListNode(-1);
             solder.next = head;
             // 从solder节点开始迭代
@@ -131,7 +131,7 @@ public class P203RemoveLinkedListElements {
          * @param val
          * @return
          */
-        public ListNode removeElements_1(ListNode head, int val) {
+        public ListNode removeElements(ListNode head, int val) {
             ListNode solder = new ListNode(-1);
             solder.next = head;
             ListNode cur = solder;
