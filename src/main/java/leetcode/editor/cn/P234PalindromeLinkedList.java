@@ -68,7 +68,7 @@ public class P234PalindromeLinkedList {
          * @param head
          * @return
          */
-        public boolean isPalindrome(ListNode head) {
+        public boolean isPalindrome1(ListNode head) {
             ListNode fast = head;
             ListNode slow = head;
             while (fast != null && fast.next != null) {
@@ -155,7 +155,7 @@ public class P234PalindromeLinkedList {
          * @param head
          * @return
          */
-        public boolean isPalindrome_1(ListNode head) {
+        public boolean isPalindrome(ListNode head) {
             if (head == null || head.next == null) {
                 return true;
             }
