@@ -18,6 +18,8 @@
 
 package leetcode.editor.cn;
 
+import java.util.LinkedList;
+
 //Java：回文链表
 public class P234PalindromeLinkedList {
     public static void main(String[] args) {
@@ -46,17 +48,98 @@ public class P234PalindromeLinkedList {
      * }
      */
     class Solution {
+
+        /**
+         * 设计算法
+         * 1 快慢指针法，到达链表中间节点slow
+         * 2 反转以slow未链表头的链表，得到新链表newLinkedlist
+         * 3 对比新旧链表
+         *
+         * 测试用例
+         * 1 1-2-3-4-4-3-2-1
+         * 2 1-2-3-4-3-2-1
+         * 3 1-1-1
+         * 3 1-1 理论：true
+         * 5 1 理论：true
+         * 4 1-2-3，
+         * 6 null，理论：true
+         *
+         *
+         * @param head
+         * @return
+         */
+        public boolean isPalindrome(ListNode head) {
+            ListNode fast = head;
+            ListNode slow = head;
+            while (fast != null && fast.next != null) {
+                // 1-2-3, 如果fast指针到达2，再继续迭代就会空指针异常，因此加上fast!=null
+                fast = fast.next.next;
+                slow = slow.next;
+            }
+            // slow就是中间节点,slow的前一个节点prev，也会指向反转链表后的最后一个节点，但是不用考虑这个问题，下看
+            // 1-2-3-4-4-3-2-1，slow在第二个4
+            // 1-2-3-4-3-2-1，slow在4
+            ListNode reverseCur = reverseLinkedlist(slow);
+            slow = head;
+            while (slow != null && reverseCur != null) {
+                if (slow.val != reverseCur.val) {
+                    return false;
+                }
+                slow = slow.next;
+                reverseCur = reverseCur.next;
+            }
+            return true;
+        }
+
+        /**
+         * 链表反转
+         * @param head
+         * @return
+         */
+        private ListNode reverseLinkedlist(ListNode head) {
+            ListNode prev = null;
+            ListNode next = null;
+            ListNode cur = head;
+            while (cur != null) {
+                next = cur.next;
+                cur.next = prev;
+                prev = cur;
+                cur = next;
+            }
+            return prev;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /**
          * 解释题意
          * 1 回文指的是两边的数据是对称的
          * <p>
          * 设计算法
          * 1 找到链表的中间节点
-         *       链表长度是奇数，slow是链表中间节点，1-2-2-1
-         *       链表长度是偶数，slow是链表中间位置偏右侧的节点，1-2-3-2-1
+         * 链表长度是奇数，slow是链表中间节点，1-2-2-1
+         * 链表长度是偶数，slow是链表中间位置偏右侧的节点，1-2-3-2-1
          * 2 反转链表的后半部分
-         *  1-2 2-1
-         *  1-2 ，1-2-3，最后一个元素是中间节点，不用比较
+         * 1-2 2-1
+         * 1-2 ，1-2-3，最后一个元素是中间节点，不用比较
          * 3 两个链表逐个比较节点是否有相等
          *
          * <p>
@@ -72,7 +155,7 @@ public class P234PalindromeLinkedList {
          * @param head
          * @return
          */
-        public boolean isPalindrome(ListNode head) {
+        public boolean isPalindrome_1(ListNode head) {
             if (head == null || head.next == null) {
                 return true;
             }
