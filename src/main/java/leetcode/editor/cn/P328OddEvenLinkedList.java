@@ -54,6 +54,66 @@ public class P328OddEvenLinkedList {
      * }
      */
     class Solution {
+
+        /**
+         *
+         * 设计算法
+         *
+         *
+         * 测试用例
+         * 1 2-1-3-5-6-4-7
+         * 2 2-1-3-5-6-4
+         * 3 1-2-3
+         * 4 1-2
+         * 5 1
+         * 6 null
+         *
+         * @param head
+         * @return
+         */
+        public ListNode oddEvenList(ListNode head) {
+            if (head == null) {
+                return head;
+            }
+            ListNode odd = head;
+            ListNode even = head.next;
+            ListNode even_head = even;
+            while (even != null && even.next != null) {
+                // 连接奇数链表
+                odd.next = even.next;
+                odd = odd.next;
+                // 连接偶数链表
+                even.next = odd.next;
+                even = even.next;
+            }
+            // 奇偶链表拼接
+            odd.next = even_head;
+            return head;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /**
          * 解释题意
          * 1 按照奇偶位置对链表分割
@@ -83,7 +143,7 @@ public class P328OddEvenLinkedList {
          * @param head
          * @return
          */
-        public ListNode oddEvenList(ListNode head) {
+        public ListNode oddEvenList_1(ListNode head) {
             if (head == null) {
                 return head;
             }
