@@ -71,7 +71,7 @@ public class P328OddEvenLinkedList {
          * @param head
          * @return
          */
-        public ListNode oddEvenList(ListNode head) {
+        public ListNode oddEvenList1(ListNode head) {
             if (head == null) {
                 return head;
             }
@@ -143,7 +143,7 @@ public class P328OddEvenLinkedList {
          * @param head
          * @return
          */
-        public ListNode oddEvenList_1(ListNode head) {
+        public ListNode oddEvenList(ListNode head) {
             if (head == null) {
                 return head;
             }
