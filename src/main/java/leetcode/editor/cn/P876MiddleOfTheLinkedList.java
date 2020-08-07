@@ -33,6 +33,8 @@
 
 package leetcode.editor.cn;
 
+import java.util.List;
+
 //Java：链表的中间结点
 public class P876MiddleOfTheLinkedList {
     public static void main(String[] args) {
@@ -61,14 +63,63 @@ public class P876MiddleOfTheLinkedList {
      * }
      */
     class Solution {
+
+
+        public ListNode middleNode(ListNode head) {
+            ListNode fast = head;
+            ListNode slow = head;
+            while (fast != null && fast.next != null) {
+                fast = fast.next.next;
+                slow = slow.next;
+            }
+            return slow;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /**
          * 1 null
          * 2 1-null
          * 3 1-2-null
+         *
          * @param head
          * @return
          */
-        public ListNode middleNode(ListNode head) {
+        public ListNode middleNode1(ListNode head) {
             ListNode fast = head;
             ListNode slow = head;
             while (fast != null && fast.next != null) {
