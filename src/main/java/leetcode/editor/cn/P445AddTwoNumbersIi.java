@@ -1,4 +1,5 @@
-//给你两个 非空 链表来代表两个非负整数。数字最高位位于链表开始位置。它们的每个节点只存储一位数字。将这两数相加会返回一个新的链表。 
+//给你两个 非空 链表来代表两个非负整数。数字最高位位于链表开始位置。
+// 它们的每个节点只存储一位数字。将这两数相加会返回一个新的链表。
 //
 // 你可以假设除了数字 0 之外，这两个数字都不会以零开头。 
 //
@@ -20,6 +21,7 @@
 
 package leetcode.editor.cn;
 
+import java.util.List;
 import java.util.Stack;
 
 //Java：两数相加 II
@@ -69,6 +71,94 @@ public class P445AddTwoNumbersIi {
      * }
      */
     class Solution {
+
+
+        /**
+         * 设计算法
+         * 1 题目不允许反转链表，因此可以使用栈来处理链表逆序问题
+         * 2 两个链表数据保存到栈中
+         * 3 两个栈分别出栈，元素相加【注意栈元素数量，注意出栈异常问题】，保留进位。
+         * 4 循环结束条件是两个栈元素数量是0
+         * 5 注意最后一位是否有进位，如果有，还需要加上进位
+         *
+         * 测试用例
+         * 1 1-2，3-4
+         * 2 1-2-3，5-6
+         * 3 8-9，6-7
+         * 4 1，2
+         * 5 null，null
+         *
+         * @param l1
+         * @param l2
+         * @return
+         */
+        public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+            ListNode solder = new ListNode(-1);
+            ListNode cur = solder;
+            Stack<Integer> stack1 = new Stack<>();
+            Stack<Integer> stack2 = new Stack<>();
+            int carry = 0;
+            while (l1 != null) {
+                stack1.push(l1.val);
+                l1 = l1.next;
+            }
+            while (l2 != null) {
+                stack2.push(l2.val);
+                l2 = l2.next;
+            }
+            while (stack1.size() > 0 || stack2.size() > 0) {
+                int sum = 0;
+                if (stack1.size() > 0) {
+                    sum = sum + stack1.pop();
+                }
+                if (stack2.size() > 0) {
+                    sum = sum + stack2.pop();
+                }
+                // 当前两数之和还要加上进位
+                sum = sum + carry;
+                carry = sum / 10;
+                sum = sum % 10;
+
+                // 插入链表头部
+                ListNode next = solder.next;
+                ListNode node = new ListNode(sum);
+                node.next = next;
+                solder.next = node;
+            }
+            if (carry == 1) {
+                // 加上进位，同样插入链表头部
+                ListNode next = solder.next;
+                ListNode node = new ListNode(1);
+                node.next = next;
+                solder.next = node;
+            }
+            return solder.next;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /**
          * 解释题意
          * 1 链表从头到尾 代表 数字的高位到低位
@@ -94,7 +184,7 @@ public class P445AddTwoNumbersIi {
          * @param l2
          * @return
          */
-        public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        public ListNode addTwoNumbers_1(ListNode l1, ListNode l2) {
             Stack<Integer> stack1 = new Stack<>();
             Stack<Integer> stack2 = new Stack<>();
             // 头节点
