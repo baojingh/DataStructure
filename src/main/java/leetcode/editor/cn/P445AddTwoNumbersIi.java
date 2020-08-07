@@ -92,7 +92,7 @@ public class P445AddTwoNumbersIi {
          * @param l2
          * @return
          */
-        public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        public ListNode addTwoNumbers1(ListNode l1, ListNode l2) {
             ListNode solder = new ListNode(-1);
             ListNode cur = solder;
             Stack<Integer> stack1 = new Stack<>();
@@ -184,7 +184,7 @@ public class P445AddTwoNumbersIi {
          * @param l2
          * @return
          */
-        public ListNode addTwoNumbers_1(ListNode l1, ListNode l2) {
+        public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
             Stack<Integer> stack1 = new Stack<>();
             Stack<Integer> stack2 = new Stack<>();
             // 头节点
