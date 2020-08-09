@@ -1,5 +1,9 @@
 package mathDemo;
 
+import sun.tools.java.BinaryCode;
+
+import java.util.function.BinaryOperator;
+
 /**
  * @Author: hebj
  * @Date: 2020/8/8 17:05
@@ -13,12 +17,18 @@ public class MathDemo {
      * @param args
      */
     public static void main(String[] args) {
-        int add = add(14, 29);
+        int add = minus(0, 17);
         System.out.println(add);
 
     }
 
 
+    /**
+     * 两数相加
+     * @param num1
+     * @param num2
+     * @return
+     */
     private static int add(int num1, int num2) {
         while (num2 != 0) {
             int tmp1 = num1 ^ num2;
@@ -28,5 +38,22 @@ public class MathDemo {
         }
         return num1;
     }
+
+    /**
+     * 两数相减
+     *
+     * @param num1
+     * @param num2
+     * @return
+     */
+    private static int minus(int num1, int num2) {
+        /**
+         * 一个负数如何使用位运算得到两个数相加，例如-5，～(-5)+1
+         */
+        int add = add(num1, ~(num2 - 1));
+        return add;
+    }
+
+
 
 }
