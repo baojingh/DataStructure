@@ -41,6 +41,7 @@
 package leetcode.editor.cn;
 
 import java.util.HashMap;
+import java.util.Map;
 
 //Java：从链表中删去总和值为零的连续节点
 public class P1171RemoveZeroSumConsecutiveNodesFromLinkedList {
@@ -70,6 +71,87 @@ public class P1171RemoveZeroSumConsecutiveNodesFromLinkedList {
      * }
      */
     class Solution {
+
+        /**
+         * @param head
+         * @return
+         */
+        public ListNode removeZeroSumSublists(ListNode head) {
+            ListNode solder = new ListNode(0);
+            solder.next = head;
+            ListNode cur = solder;
+            HashMap<Integer, ListNode> map = new HashMap<>();
+            int sum = 0;
+            while (cur != null) {
+                sum = sum + cur.val;
+                // 覆盖前面的，保留后面的
+                map.put(sum, cur);
+                cur = cur.next;
+            }
+            // 重新从头节点开始
+            cur = solder;
+            sum = 0;
+            while (cur != null) {
+                sum = sum + cur.val;
+                ListNode node = map.get(sum);
+                if (node != null) {
+                    // 删除符合条件的节点
+                    // 从外侧处理，不用处理嵌套情况，嵌套的都已经在外侧处理了
+                    cur.next = node.next;
+                }
+                // 处理下一个，不处理器嵌套
+                cur = cur.next;
+            }
+            return solder.next;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /**
          * 解释题意
          * <p>
@@ -92,7 +174,7 @@ public class P1171RemoveZeroSumConsecutiveNodesFromLinkedList {
          * @param head
          * @return
          */
-        public ListNode removeZeroSumSublists(ListNode head) {
+        public ListNode removeZeroSumSublists_1(ListNode head) {
             HashMap<Integer, ListNode> map = new HashMap<>();
             // 0不会对累加和造成影响
             ListNode solder = new ListNode(0);

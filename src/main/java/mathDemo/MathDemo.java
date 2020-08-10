@@ -48,7 +48,7 @@ public class MathDemo {
         /**
          * 一个负数如何使用位运算得到两个数相加，例如-5=～(5)+1 =~(5-1)
          */
-        int add = add(num1, ~(num2 - 1));
+        int add = add(num1, add(~num2, 1));
         return add;
     }
 
@@ -62,6 +62,23 @@ public class MathDemo {
             num2 = num2 >> 1;
         }
         return res;
+    }
+
+    /**
+     * 除法运算，没看懂
+     * 2020-08-10
+     *
+     * @param num1
+     * @param num2
+     * @return
+     */
+    private static int divide(int num1, int num2) {
+        if (num1 == 0) {
+            return 0;
+        }
+
+
+        return 0;
     }
 
 
