@@ -38,6 +38,10 @@ public class JianZhiLianBiaoZhongDaoShuDiKgeJieDianLcof {
      */
     class Solution {
         /**
+         * 设计算法
+         * 1 题目没有说明k是否有效，要判断其有效性
+         *
+         *
          * 测试用例
          * 1 1-2-3-4-5，2
          * 2 null，1
@@ -55,6 +59,7 @@ public class JianZhiLianBiaoZhongDaoShuDiKgeJieDianLcof {
             if (k < 1) {
                 return head;
             }
+            // 防止head为null的情况，不用额外判断
             ListNode solder = new ListNode(-1);
             solder.next = head;
             ListNode fast = solder;
@@ -64,17 +69,23 @@ public class JianZhiLianBiaoZhongDaoShuDiKgeJieDianLcof {
                 if (i == k) {
                     break;
                 }
+                // 如果fast不是null，就向前进
+                // 两种可能性：
+                // 1 fast指针前进k步，顺利达到k位置
+                // 2 fast指针达到null
                 fast = fast.next;
                 i = i + 1;
             }
             if (fast == null) {
+                // fast是null，说明k是无效的，立即退出
                 return head;
             }
-
+            // fast与slow指针同时前进
             while (fast.next != null) {
                 fast = fast.next;
                 slow = slow.next;
             }
+            // 断开链表
             ListNode tmp = slow.next;
             slow.next = null;
             return tmp;
