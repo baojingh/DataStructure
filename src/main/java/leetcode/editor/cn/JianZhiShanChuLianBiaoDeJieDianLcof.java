@@ -36,35 +36,38 @@ import entity.ListNode;
 
 //Java：删除链表的节点
 //public class P剑指 Offer 18ShanChuLianBiaoDeJieDianLcof{
-public class JianZhiShanChuLianBiaoDeJieDianLcof{
+public class JianZhiShanChuLianBiaoDeJieDianLcof {
     public static void main(String[] args) {
         Solution solution = new JianZhiShanChuLianBiaoDeJieDianLcof().new Solution();
         System.out.println();
     }
-    
+
     //leetcode submit region begin(Prohibit modification and deletion)
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) { val = x; }
- * }
- */
-class Solution {
-    public ListNode deleteNode(ListNode head, int val) {
-        ListNode solder = new ListNode(-1);
-        solder.next = head;
-        ListNode cur = solder;
-        while (cur.next != null) {
-            if (cur.next.val == val) {
-                cur.next = cur.next.next;
+
+    /**
+     * Definition for singly-linked list.
+     * public class ListNode {
+     * int val;
+     * ListNode next;
+     * ListNode(int x) { val = x; }
+     * }
+     */
+    class Solution {
+        public ListNode deleteNode(ListNode head, int val) {
+            ListNode solder = new ListNode(-1);
+            solder.next = head;
+            ListNode cur = solder;
+            while (cur.next != null) {
+                if (cur.next.val == val) {
+                    cur.next = cur.next.next;
+                } else {
+                    // 题目说节点值互不相同，因此只会删除一个节点
+                    cur = cur.next;
+                }
             }
-            cur = cur.next;
+            return solder.next;
         }
-        return solder.next;
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
 }
