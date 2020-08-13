@@ -59,69 +59,87 @@ import entity.ListNode;
 
 //Java：两个链表的第一个公共节点
 //public class P剑指 Offer 52LiangGeLianBiaoDeDiYiGeGongGongJieDianLcof{
-public class JianZhiLiangGeLianBiaoDeDiYiGeGongGongJieDianLcof{
+public class JianZhiLiangGeLianBiaoDeDiYiGeGongGongJieDianLcof {
     public static void main(String[] args) {
         Solution solution = new JianZhiLiangGeLianBiaoDeDiYiGeGongGongJieDianLcof().new Solution();
-        System.out.println();
+        ListNode n1 = new ListNode(1);
+        ListNode n2 = new ListNode(2);
+        ListNode n3 = new ListNode(3);
+        ListNode n4 = new ListNode(4);
+        ListNode n5 = new ListNode(5);
+
+        n1.next = n2;
+        n2.next = n3;
+        n3.next = n4;
+        n4.next = n5;
+        ListNode intersectionNode = solution.getIntersectionNode(n1, n3);
+        System.out.println(intersectionNode.val);
     }
-    
+
     //leetcode submit region begin(Prohibit modification and deletion)
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) {
- *         val = x;
- *         next = null;
- *     }
- * }
- */
-public class Solution {
+
     /**
-     * 设计算法
-     * 1 双指针分别指向两个链表的头节点
-     * 2 判断两个节点是否相等，若不相等则两个指针向后迭代；
-     *          如果两个链表长度相等，且没有交点，两指针同时到达null，此时null==null为true
-     *          如果交点前的链表长度相等，且有交点，则一次遍历即可找到
-     *          如果交点前的链表长度不相等，且有交点，则指针curA到达链表A的尾部，就指向链表B的头部，同理对指针curB适用，直到找到交点
-     * 3 若相等就返回
-     *
-     *
-     *
-     * 测试用例
-     * 1 1-2-3-4-8-9，6-5-4-8-9
-     * 2 4-8-9
-     * 3 1-2-3-4-5，6-7-3-4-5
-     * 4 1-2-3，4-5-6
-     * 5 null，null
-     * 6 null, 1-2-3
-     *
-     * @param headA
-     * @param headB
-     * @return
+     * Definition for singly-linked list.
+     * public class ListNode {
+     * int val;
+     * ListNode next;
+     * ListNode(int x) {
+     * val = x;
+     * next = null;
+     * }
+     * }
      */
-    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        if (headA == null || headB == null) {
-            return null;
-        }
-        ListNode curA = headA;
-        ListNode curB = headB;
-        // null==null true
-        while (curA != curB) {
-            if (curA == null) {
-                curA = headB;
+    public class Solution {
+        /**
+         * 设计算法
+         * 1 双指针分别指向两个链表的头节点
+         * 2 判断两个节点是否相等，若不相等则两个指针向后迭代；
+         * 如果两个链表长度相等，且没有交点，两指针同时到达null，此时null==null为true
+         * 如果交点前的链表长度相等，且有交点，则一次遍历即可找到
+         * 如果交点前的链表长度不相等，且有交点，则指针curA到达链表A的尾部，就指向链表B的头部，同理对指针curB适用，直到找到交点
+         * 3 若相等就返回
+         * <p>
+         * <p>
+         * <p>
+         * 测试用例
+         * 1 1-2-3-4-8-9，6-5-4-8-9
+         * 2 4-8-9
+         * 3 1-2-3-4-5，6-7-3-4-5
+         * 4 1-2-3，4-5-6
+         * 5 null，null
+         * 6 null, 1-2-3
+         * 7 1-2-3,4-5
+         * 8 2-3-4-5-6, 4-5-6
+         *
+         * @param headA
+         * @param headB
+         * @return
+         */
+        public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+            if (headA == null || headB == null) {
+                return null;
             }
-            if (curB == null) {
-                curB = headA;
+            ListNode curA = headA;
+            ListNode curB = headB;
+            // null==null true
+            while (curA != curB) {
+                // 如果指针遇到了null，则本次只对其赋值，不前进
+                // 考虑1-2-3-4-5，3-4-5的情况
+                if (curA == null) {
+                    curA = headB;
+                } else {
+                    curA = curA.next;
+                }
+                if (curB == null) {
+                    curB = headA;
+                } else {
+                    curB = curB.next;
+                }
             }
-            curA = curA.next;
-            curB = curB.next;
+            // 两个指针分别遍历了两个链表，没有交点
+            return curA;
         }
-        // 两个指针分别遍历了两个链表，没有交点
-        return curA;
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
 }
