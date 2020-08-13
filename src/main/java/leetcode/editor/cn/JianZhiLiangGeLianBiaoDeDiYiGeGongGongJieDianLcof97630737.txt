@@ -1,0 +1,55 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    /**
+     * 设计算法
+     * <p>
+     * 测试用例
+     * 1 1-2-3-4-8-9，6-5-4-8-9
+     * 2 4-8-9
+     * 3 1-2-3-4-5，6-7-3-4-5
+     * 4 1-2-3，4-5-6
+     * 5 null，null
+     * 6 null, 1-2-3
+     *
+     * @param headA
+     * @param headB
+     * @return
+     */
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) {
+            return null;
+        }
+
+        ListNode curA = headA;
+        ListNode curB = headB;
+        // null==null true
+        while (curA != curB) {
+            if (curA == null) {
+                curA = headB;
+            }
+            if (curB == null) {
+                curB = headA;
+            }
+            curA = curA.next;
+            curB = curB.next;
+        }
+        // 两个指针分别遍历了两个链表，没有交点
+        return curA;
+    }
+}
+
+//total_testcases:45
+//total_correct:33
+//input_formatted:3, [3], [2,3], 0, 1
+//expected_output:Intersected at '3'
+//code_output:No intersection
