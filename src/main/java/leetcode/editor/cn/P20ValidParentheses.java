@@ -68,7 +68,7 @@ public class P20ValidParentheses {
         n1.left = n2;
         n1.right = n3;
         Solution solution = new P20ValidParentheses().new Solution();
-        boolean valid = solution.isValid(")]");
+        boolean valid = solution.isValid("( ) ");
         System.out.println(valid);
     }
 
@@ -84,6 +84,67 @@ public class P20ValidParentheses {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+
+        /**
+         * 测试用例
+         * 1 ()[]{}
+         * 2 ([{}])
+         * 3 [{
+         * 4 [
+         * 5 ]
+         * 6 ]}
+         * 7 (})
+         * 8 ""
+         * 8 " "
+         *
+         * @param s
+         * @return
+         */
+        public boolean isValid(String s) {
+            HashMap<Character, Character> map = new HashMap<>();
+            map.put('(', ')');
+            map.put('[', ']');
+            map.put('{', '}');
+            Stack<Character> stack = new Stack<>();
+
+            for (int i = 0; i < s.length(); i++) {
+                char c = s.charAt(i);
+                if (c == ' ') {
+                    // 过滤' '
+                    continue;
+                }
+                if (map.containsKey(c)) {
+                    stack.push(map.get(c));
+                } else {
+                    if (stack.size() == 0) {
+                        return false;
+                    }
+                    if (c != stack.pop()) {
+                        return false;
+                    }
+                }
+            }
+            if (stack.size() > 0) {
+                return false;
+            }
+            return true;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /**
          * 1 遇到左括号，将其对应的右括号入栈
          * 2 遇到了右括号，出栈
@@ -97,7 +158,7 @@ public class P20ValidParentheses {
          * @param s
          * @return
          */
-        public boolean isValid(String s) {
+        public boolean isValid_1(String s) {
             int len = s.length();
             if ((len & 1) == 1) {
                 return false;
