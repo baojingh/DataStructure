@@ -117,10 +117,7 @@ public class P20ValidParentheses {
                 if (map.containsKey(c)) {
                     stack.push(map.get(c));
                 } else {
-                    if (stack.size() == 0) {
-                        return false;
-                    }
-                    if (c != stack.pop()) {
+                    if ((stack.size() == 0) || (c != stack.pop())) {
                         return false;
                     }
                 }
