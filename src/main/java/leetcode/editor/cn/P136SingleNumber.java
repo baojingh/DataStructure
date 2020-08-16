@@ -19,6 +19,9 @@
 
 package leetcode.editor.cn;
 
+import java.util.HashMap;
+import java.util.Map;
+
 //Java：只出现一次的数字
 public class P136SingleNumber {
     public static void main(String[] args) {
@@ -28,6 +31,46 @@ public class P136SingleNumber {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public int singleNumber(int[] nums) {
+            HashMap<Integer, Integer> map = new HashMap<>();
+            for (int i = 0; i < nums.length; i++) {
+                Integer integer = map.get(nums[i]);
+                if (integer == null) {
+                    map.put(nums[i], 1);
+                } else {
+                    map.put(nums[i], integer + 1);
+                }
+            }
+
+            for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+                if (entry.getValue() == 1) {
+                    return entry.getKey();
+                }
+            }
+            return Integer.MIN_VALUE;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /**
          * 解释题意
          * 1 整型数组
@@ -59,7 +102,7 @@ public class P136SingleNumber {
          * @param nums
          * @return
          */
-        public int singleNumber(int[] nums) {
+        public int singleNumber_1(int[] nums) {
             if (nums == null || nums.length == 0) {
                 return 0;
             }
