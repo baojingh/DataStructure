@@ -31,23 +31,13 @@ public class P136SingleNumber {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
-        public int singleNumber(int[] nums) {
-            HashMap<Integer, Integer> map = new HashMap<>();
-            for (int i = 0; i < nums.length; i++) {
-                Integer integer = map.get(nums[i]);
-                if (integer == null) {
-                    map.put(nums[i], 1);
-                } else {
-                    map.put(nums[i], integer + 1);
-                }
-            }
 
-            for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-                if (entry.getValue() == 1) {
-                    return entry.getKey();
-                }
+        public int singleNumber(int[] nums) {
+            int n = 0;
+            for (int num : nums) {
+                n = n ^ num;
             }
-            return Integer.MIN_VALUE;
+            return n;
         }
 
 
@@ -69,6 +59,43 @@ public class P136SingleNumber {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public int singleNumber_2(int[] nums) {
+            HashMap<Integer, Integer> map = new HashMap<>();
+            for (int i = 0; i < nums.length; i++) {
+                Integer integer = map.get(nums[i]);
+                if (integer == null) {
+                    map.put(nums[i], 1);
+                } else {
+                    map.put(nums[i], integer + 1);
+                }
+            }
+
+            for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+                if (entry.getValue() == 1) {
+                    return entry.getKey();
+                }
+            }
+            return Integer.MIN_VALUE;
+        }
 
 
         /**
