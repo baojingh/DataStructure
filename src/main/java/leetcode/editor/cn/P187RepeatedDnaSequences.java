@@ -41,6 +41,10 @@ public class P187RepeatedDnaSequences {
          * 4 A
          * 5 null
          *
+         *
+         * 2020-08-17 没搞定位运算的解法
+         *
+         *
          * @param s
          * @return
          */
