@@ -1,6 +1,7 @@
 //编写一个算法来判断一个数 n 是不是快乐数。 
 //
-// 「快乐数」定义为：对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和，然后重复这个过程直到这个数变为 1，也可能是 无限循环 但始终变不到 1。
+// 「快乐数」定义为：对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和，然后重复这个过程直到这个数变为 1，
+// 也可能是 无限循环 但始终变不到 1。
 //如果 可以变为 1，那么这个数就是快乐数。 
 //
 // 如果 n 是快乐数就返回 True ；不是，则返回 False 。 
@@ -22,7 +23,10 @@
 
 package leetcode.editor.cn;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 //Java：快乐数
 public class P202HappyNumber {
@@ -34,6 +38,105 @@ public class P202HappyNumber {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+
+        /**
+         * 设计算法
+         * 1 循环结束条件是什么？
+         *      map是否出现过
+         *
+         * @param n
+         * @return
+         */
+        public boolean isHappy(int n) {
+            HashMap<Integer, Integer> map = new HashMap<>();
+            boolean flag = false;
+            while (true) {
+                Integer integer = map.get(n);
+                if (integer == null) {
+                    int sum = sum(n);
+                    map.put(sum, 1);
+                } else if (integer == 1) {
+                    return true;
+                } else {
+                    flag = true;
+                    break;
+                }
+            }
+            if (flag) {
+                return false;
+            }
+            return true;
+        }
+
+
+
+        /**
+         * 将整数拆分到列表中
+         * @param n
+         * @return
+         */
+        private List<Integer> decompose(int n) {
+            ArrayList<Integer> list = new ArrayList<>();
+            while (n > 0) {
+                int low1 = n % 10;
+                list.add(low1);
+                n = n / 10;
+            }
+            return list;
+        }
+
+        /**
+         * 计算拆分后的各位数字之和
+         * 如果某个数字是Integer.MAX_VAL - 1,其各位数字平方之和一定会溢出
+         *
+         * @param n
+         * @return
+         */
+        private int sum(int n) {
+            List<Integer> list = decompose(n);
+            int sum = 0;
+            for (int ele : list) {
+                sum = sum + ele * ele;
+            }
+            return sum;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /***
          * 解释题意
          * 1 一个数字是不是快乐数，返回true/false
@@ -105,7 +208,7 @@ public class P202HappyNumber {
          * @param n
          * @return
          */
-        public boolean isHappy(int n) {
+        public boolean isHappy_1(int n) {
             return false;
         }
 
