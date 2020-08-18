@@ -50,23 +50,17 @@ public class P202HappyNumber {
          */
         public boolean isHappy(int n) {
             HashMap<Integer, Integer> map = new HashMap<>();
-            boolean flag = false;
+            int sum = n;
             while (true) {
-                Integer integer = map.get(n);
-                if (integer == null) {
-                    int sum = sum(n);
-                    map.put(sum, 1);
-                } else if (integer == 1) {
-                    return true;
-                } else {
-                    flag = true;
-                    break;
+                if (map.containsKey(sum)) {
+                    return false;
                 }
+                if (sum == 1) {
+                    return true;
+                }
+                map.put(sum, 1);
+                sum = sum(sum);
             }
-            if (flag) {
-                return false;
-            }
-            return true;
         }
 
 
@@ -94,6 +88,16 @@ public class P202HappyNumber {
          * @return
          */
         private int sum(int n) {
+            int sum = 0;
+            while (n > 0) {
+                int low1 = n % 10;
+                sum = sum + low1 * low1;
+                n = n / 10;
+            }
+            return sum;
+        }
+
+        private int sum_1(int n) {
             List<Integer> list = decompose(n);
             int sum = 0;
             for (int ele : list) {
@@ -111,7 +115,7 @@ public class P202HappyNumber {
 
 
 
-
+/*****************************************/
 
 
 
@@ -170,7 +174,7 @@ public class P202HappyNumber {
          * @param n
          * @return
          */
-        public boolean isHappySet(int n) {
+        public boolean isHappy_1(int n) {
             HashSet<Integer> seenSet = new HashSet<>();
             int remainder = 0;
             int sum = 0;
@@ -208,7 +212,7 @@ public class P202HappyNumber {
          * @param n
          * @return
          */
-        public boolean isHappy_1(int n) {
+        public boolean isHappy_2(int n) {
             return false;
         }
 
