@@ -52,13 +52,18 @@ public class P202HappyNumber {
             HashMap<Integer, Integer> map = new HashMap<>();
             int sum = n;
             while (true) {
+                // 把第一个数字也做处理
                 if (map.containsKey(sum)) {
+                    // 如果已经出现过这个数字，就说明已经死循环
                     return false;
                 }
                 if (sum == 1) {
+                    // 没出现过，还要验证是否是满足需求的数字
                     return true;
                 }
+                // 添加到map
                 map.put(sum, 1);
+                // 计算下一轮数据
                 sum = sum(sum);
             }
         }
