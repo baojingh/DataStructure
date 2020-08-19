@@ -42,7 +42,7 @@ public class P204CountPrimes {
             boolean[] flag = new boolean[n];
             for (int i = 2; i < Math.sqrt(n); i++) {
                 if (!flag[i]) {
-                    for (int j = 2 * i; j < n; j = j + i) {
+                    for (int j = i * i; j < n; j = j + i) {
                         flag[j] = true;
                     }
                 }
