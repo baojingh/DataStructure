@@ -33,6 +33,9 @@ public class P204CountPrimes {
          * n=3,结果是2
          * n=2,结果是0个
          *
+         *
+         *
+         * https://leetcode-cn.com/problems/count-primes/solution/ru-he-gao-xiao-pan-ding-shai-xuan-su-shu-by-labula/
          * @param n
          * @return
          */
