@@ -40,7 +40,7 @@ public class P204CountPrimes {
             int count = 0;
             // 默认是false
             boolean[] flag = new boolean[n];
-            for (int i = 2; i < n; i++) {
+            for (int i = 2; i < Math.sqrt(n); i++) {
                 if (!flag[i]) {
                     for (int j = 2 * i; j < n; j = j + i) {
                         flag[j] = true;
