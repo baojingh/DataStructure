@@ -17,21 +17,67 @@ import java.util.Arrays;
 public class P204CountPrimes {
     public static void main(String[] args) {
         Solution solution = new P204CountPrimes().new Solution();
-        int countPrimes = solution.countPrimes_my(10);
+        int countPrimes = solution.countPrimes(10);
         System.out.println(countPrimes);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
 
+
         /**
-         *
-         * 2020-06-11没搞定
+         * 统计的是<n
+         * 1不计算在内
+         * n=5,结果是2，3
+         * n=4,结果是2，3
+         * n=3,结果是2
+         * n=2,结果是0个
          *
          * @param n
          * @return
          */
         public int countPrimes(int n) {
+            int count = 0;
+            // 默认是false
+            boolean[] flag = new boolean[n];
+            for (int i = 2; i < n; i++) {
+                if (!flag[i]) {
+                    for (int j = 2 * i; j < n; j = j + i) {
+                        flag[j] = true;
+                    }
+                }
+            }
+            for (int i = 2; i < n; i++) {
+                if (!flag[i]) {
+                    count = count + 1;
+                }
+            }
+            return count;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /**
+         * 2020-06-11没搞定
+         *
+         * @param n
+         * @return
+         */
+        public int countPrimes_1(int n) {
             boolean[] isPrim = new boolean[n];
             // 将数组都初始化为 true
             Arrays.fill(isPrim, true);
