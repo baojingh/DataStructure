@@ -45,6 +45,7 @@ public class P217ContainsDuplicate {
          * @return
          */
         public boolean containsDuplicate(int[] nums) {
+
             if (nums == null) {
                 return false;
             }
