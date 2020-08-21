@@ -19,9 +19,9 @@ import java.util.Set;
 //Java：存在重复元素 II
 public class P219ContainsDuplicateIi {
     public static void main(String[] args) {
-        int[] nums = new int[]{1, 2, 3, 3, 1};
+        int[] nums = new int[]{1, 0,1,1};
         Solution solution = new P219ContainsDuplicateIi().new Solution();
-        boolean b = solution.containsNearbyDuplicate(nums, 2);
+        boolean b = solution.containsNearbyDuplicate_1(nums, 1);
         System.out.println(b);
     }
 
@@ -34,7 +34,7 @@ public class P219ContainsDuplicateIi {
          * 2 判断元素是否在map中，如果不在就加入map
          * 3 如果存在
          * 判断其索引值差值<=k，return true
-         * 判断其索引值差值>k，return false
+         * 判断其索引值差值>k，将现在的index索引值保存，继续迭代
          * 4 迭代结束条件是遍历完数组元素
          * <p>
          * 测试用例
@@ -62,9 +62,10 @@ public class P219ContainsDuplicateIi {
                     map.put(nums[i], i);
                 } else {
                     if (Math.abs(i - integer) <= k) {
+                        // 只要存在即可
                         return true;
                     }
-                    return false;
+                    map.put(nums[i], i);
                 }
             }
             return false;
@@ -106,6 +107,9 @@ public class P219ContainsDuplicateIi {
          * <p>
          * 优化点：
          * 可将集合换成长度是k的队列
+         *
+         * 窗口长度是k，
+         *
          *
          * @param nums
          * @param k
