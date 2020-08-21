@@ -12,6 +12,7 @@
 // Related Topics 数组 哈希表
 package leetcode.editor.cn;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,6 +27,77 @@ public class P219ContainsDuplicateIi {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        /**
+         * 设计算法
+         * 1 迭代数组，存入map，key是元素值，value是其索引值
+         * 2 判断元素是否在map中，如果不在就加入map
+         * 3 如果存在
+         * 判断其索引值差值<=k，return true
+         * 判断其索引值差值>k，return false
+         * 4 迭代结束条件是遍历完数组元素
+         * <p>
+         * 测试用例
+         * 1 1,2,3,4,5,6 1
+         * 2 1,2,1,4,5,6 1
+         * 3 1,2,1,4,5,6 2
+         * 4 1,2,1,4,5,6 3
+         * 5 1,2,1,1,5,6 3
+         * 6 1,1,1,1,1,1 1
+         * 6 1,1,1,1,1,1 0
+         * 6 1 0
+         *
+         * @param nums
+         * @param k
+         * @return
+         */
+        public boolean containsNearbyDuplicate(int[] nums, int k) {
+            if (nums == null || k < 1) {
+                return false;
+            }
+            HashMap<Integer, Integer> map = new HashMap<>();
+            for (int i = 0; i < nums.length; i++) {
+                Integer integer = map.get(nums[i]);
+                if (integer == null) {
+                    map.put(nums[i], i);
+                } else {
+                    if (Math.abs(i - integer) <= k) {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            return false;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /**
          * 题目意思：长度是k的数组中，是否存在相同的元素
          * 1 判断集合中是否存在此元素，不存在就添加此元素
@@ -39,7 +111,7 @@ public class P219ContainsDuplicateIi {
          * @param k
          * @return
          */
-        public boolean containsNearbyDuplicate(int[] nums, int k) {
+        public boolean containsNearbyDuplicate_1(int[] nums, int k) {
             Set<Integer> set = new HashSet<Integer>();
             for (int i = 0; i < nums.length; i++) {
                 if (set.contains(nums[i])) {
