@@ -73,6 +73,7 @@ public class P347TopKFrequentElements {
                 map.put(ele, orDefault + 1);
             }
             for (int key : map.keySet()) {
+                // 堆的长度是k，也是一个优化点，不需要把所有的元素都存入堆中
                 // 现添加，后移除就可以确保堆中元素是k个
                 heap.offer(key);
                 // 确保堆中有k个元素
