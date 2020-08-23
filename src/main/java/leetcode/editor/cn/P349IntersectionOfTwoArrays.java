@@ -28,24 +28,64 @@ import java.util.HashSet;
 //Java：两个数组的交集
 public class P349IntersectionOfTwoArrays {
     public static void main(String[] args) {
-        int[] nums1 = new int[]{1, 22, 24, 3};
+        int[] nums1 = new int[]{1, 2};
         int[] nums2 = new int[]{3, 13};
         Solution solution = new P349IntersectionOfTwoArrays().new Solution();
-        int[] intersection = solution.intersection(nums1, nums2);
-        System.out.println(Arrays.toString(intersection));
+        boolean res = solution.isExists(nums1, 2);
+        System.out.println(res);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        public int[] intersection(int[] nums1, int[] nums2) {
+            if (nums1 == null || nums2 == null) {
+                return new int[0];
+            }
+            Arrays.sort(nums1);
+            HashSet<Integer> list = new HashSet<>();
+            for (int ele : nums2) {
+                if (isExist(nums1, ele)) {
+                    list.add(ele);
+                }
+            }
+            int[] arr = new int[list.size()];
+            int i = 0;
+            for (int ele : list) {
+                arr[i++] = ele;
+            }
+            list = null;
+            return arr;
+        }
+
+        private boolean isExist(int[] nums, int target) {
+            int low = 0;
+            int high = nums.length - 1;
+            // "="可以处理[1,2], 2的情况
+            while (low <= high) {
+                int mid = low + ((high - low) / 2);
+                if (nums[mid] < target) {
+                    low = mid + 1;
+                } else if (nums[mid] > target) {
+                    high = mid - 1;
+                } else {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
         /**
          * 对数组排序
          * 二分查找获取某个元素是否在数组内
          * 时间复杂度n*log(n)
+         *
          * @param nums1
          * @param nums2
          * @return
          */
-        public int[] intersection(int[] nums1, int[] nums2) {
+        public int[] intersection_1(int[] nums1, int[] nums2) {
             Arrays.sort(nums1);
             HashSet<Integer> set = new HashSet<Integer>();
             for (int i = 0; i < nums2.length; i++) {
