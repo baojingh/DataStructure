@@ -30,9 +30,7 @@
 
 package leetcode.editor.cn;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
 
 //Java：两个数组的交集 II
 public class P350IntersectionOfTwoArraysIi {
@@ -46,6 +44,50 @@ public class P350IntersectionOfTwoArraysIi {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+
+        //https://leetcode-cn.com/problems/intersection-of-two-arrays-ii/solution/marveljian-dan-de-xue-xi-bi-ji-350-by-marvel_ty/
+
+        /**
+         * 设计算法
+         * 1 对两个数组升序排序
+         * 2 从索引0开始比较，如果数据相等就加入结果集，大小指针同时前进一步
+         * 2 如果num1处对应的元素值大，就将小值的索引前进一步；
+         * 3 迭代结束条件是大小指针又一个到达数组尾部
+         *
+         * @param nums1
+         * @param nums2
+         * @return
+         */
+        public int[] intersect(int[] nums1, int[] nums2) {
+            if (nums1 == null || nums2 == null) {
+                return new int[0];
+            }
+            // 升序排列
+            Arrays.sort(nums1);
+            Arrays.sort(nums2);
+            int i = 0;
+            int j = 0;
+            ArrayList<Integer> list = new ArrayList<>();
+            while (i < nums1.length && j < nums2.length) {
+                if (nums1[i] == nums2[j]) {
+                    list.add(nums1[i]);
+                    i = i + 1;
+                    j = j + 1;
+                } else if (nums1[i] > nums2[j]) {
+                    j = j + 1;
+                } else {
+                    i = i + 1;
+                }
+            }
+            int[] arr = new int[list.size()];
+            for (int k = 0; k < list.size(); k++) {
+                arr[k] = list.get(k);
+            }
+            return arr;
+        }
+
+
         /**
          * 解释题意
          * 1 两个数组中，每个数组中可能包含重复元素
@@ -70,7 +112,7 @@ public class P350IntersectionOfTwoArraysIi {
          * @param nums2
          * @return
          */
-        public int[] intersect(int[] nums1, int[] nums2) {
+        public int[] intersect_1(int[] nums1, int[] nums2) {
             HashMap<Integer, Integer> map = new HashMap<>();
             // 计算每个数字出现的次数，如果供哦你个元素是重复的，可以使用次数判断是否输出完成
             int val = 1;
