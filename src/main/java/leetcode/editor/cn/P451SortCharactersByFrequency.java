@@ -61,6 +61,70 @@ public class P451SortCharactersByFrequency {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public String frequencySort(String s) {
+            if (s == null) {
+                return "";
+            }
+            HashMap<Character, Integer> map = new HashMap<>();
+            PriorityQueue<Character> heap = new PriorityQueue<>(new Comparator<Character>() {
+                @Override
+                public int compare(Character o1, Character o2) {
+                    // 大顶堆
+                    return map.get(o2) - map.get(o1);
+                }
+            });
+            int len = s.length();
+            for (int i = 0; i < len; i++) {
+                Character c = s.charAt(i);
+                Integer integer = map.getOrDefault(c, 0);
+                // 不可用这个，如果c已经在map存在，就不再执行put操作
+                // map.putIfAbsent(c, integer + 1);
+                map.put(c, integer + 1);
+            }
+
+            for (Character key : map.keySet()) {
+                heap.offer(key);
+            }
+
+            StringBuilder builder = new StringBuilder();
+            while (heap.size() > 0) {
+                Character character = heap.poll();
+                Integer count = map.get(character);
+                for (int i = 0; i < count; i++) {
+                    builder.append(character);
+                }
+            }
+            return builder.toString();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /**
          * 解释题意
          * 1 字符串中每个字符出现的次数
@@ -88,7 +152,7 @@ public class P451SortCharactersByFrequency {
          * @param s
          * @return
          */
-        public String frequencySort(String s) {
+        public String frequencySort_1(String s) {
             // 每个字符出现的次数
             HashMap<Character, Integer> map = new HashMap<>();
             // 拼接后的字符串
