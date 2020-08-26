@@ -34,6 +34,47 @@ public class P387FirstUniqueCharacterInAString {
 
         /**
          * 解释题意
+         * 输入：字符串
+         * 输入解释：一串字符串，可能有重复字母；可能没有重复字母；只有字母且小写；可能为null或者长度是0
+         * <p>
+         * 输出：索引值
+         * 输出解释：字符串中第一个不重复的字母索引
+         * <p>
+         * 设计算法
+         * 1 迭代字符串，基于map记录每个字母出现的次数
+         * 2 第二次迭代字符串，获取这个字母出现的次数，如果是1，则找到目标；如果不是1，就继续迭代，直到找到1
+         *
+         * @param s
+         * @return
+         */
+        public int firstUniqChar(String s) {
+            if (s == null) {
+                return -1;
+            }
+            // 记录每个字母出现的次数
+            HashMap<Character, Integer> map = new HashMap<>();
+            for (int i = 0; i < s.length(); i++) {
+                char c = s.charAt(i);
+                Integer integer = map.getOrDefault(c, 0);
+                map.put(c, integer + 1);
+            }
+            // 重新迭代字符串
+            for (int i = 0; i < s.length(); i++) {
+                char c = s.charAt(i);
+                // 获取字母对应的出现次数
+                Integer integer = map.get(c);
+                if (integer == 1) {
+                    // 输出索引值
+                    return i;
+                }
+            }
+            // 未找到
+            return -1;
+        }
+
+
+        /**
+         * 解释题意
          * <p>
          * 设计算法
          * 1 使用哈希表存储每个字符在字符串中的出现次数
@@ -55,7 +96,7 @@ public class P387FirstUniqueCharacterInAString {
          * @param s
          * @return
          */
-        public int firstUniqChar(String s) {
+        public int firstUniqChar_1(String s) {
             if (s == null) {
                 return -1;
             }
