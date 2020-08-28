@@ -23,9 +23,9 @@ import java.util.LinkedList;
 public class P500KeyboardRow {
     public static void main(String[] args) {
         Solution solution = new P500KeyboardRow().new Solution();
-        String[] arr = new String[]{"Hello", "Alaska", "Dad", "Peace"};
-        String[] words = solution.findWords(arr);
-        System.out.println(Arrays.toString(words));
+//        String[] arr = new String[]{"Hello", "Alaska", "Dad", "Peace"};
+//        String[] words = solution.findWords(arr);
+//        System.out.println(Arrays.toString(words));
 
 
         ArrayList<String> arrayList = new ArrayList<>();
@@ -35,6 +35,8 @@ public class P500KeyboardRow {
 
 
         System.out.println("****************");
+        // null null
+        // hello world bob
         // res1数组长度小于集合长度，因此数组元素全部设置成null
         String[] res1 = new String[arrayList.size() - 1];
         String[] strings1 = arrayList.toArray(res1);
@@ -49,6 +51,8 @@ public class P500KeyboardRow {
 
         System.out.println();
         System.out.println("****************");
+        //hello world bob
+        //hello world bob
         String[] res2 = new String[arrayList.size()];
         String[] strings2 = arrayList.toArray(res2);
         for (String ele : res2) {
@@ -62,7 +66,9 @@ public class P500KeyboardRow {
 
         System.out.println();
         System.out.println("****************");
-        String[] res3 = new String[arrayList.size() + 1];
+        // hello world bob null null null
+        // hello world bob null null null
+        String[] res3 = new String[arrayList.size() + 3];
         String[] strings3 = arrayList.toArray(res3);
         for (String ele : res3) {
             System.out.print(ele + " ");
