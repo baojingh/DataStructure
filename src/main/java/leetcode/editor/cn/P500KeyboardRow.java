@@ -14,6 +14,7 @@
 
 package leetcode.editor.cn;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -25,10 +26,161 @@ public class P500KeyboardRow {
         String[] arr = new String[]{"Hello", "Alaska", "Dad", "Peace"};
         String[] words = solution.findWords(arr);
         System.out.println(Arrays.toString(words));
+
+
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("hello");
+        arrayList.add("world");
+        arrayList.add("bob");
+
+
+        System.out.println("****************");
+        // res1数组长度小于集合长度，因此数组元素全部设置成null
+        String[] res1 = new String[arrayList.size() - 1];
+        String[] strings1 = arrayList.toArray(res1);
+        for (String ele : res1) {
+            System.out.print(ele + " ");
+        }
+        System.out.println();
+        for (String ele : strings1) {
+            System.out.print(ele + " ");
+        }
+
+
+        System.out.println();
+        System.out.println("****************");
+        String[] res2 = new String[arrayList.size()];
+        String[] strings2 = arrayList.toArray(res2);
+        for (String ele : res2) {
+            System.out.print(ele + " ");
+        }
+        System.out.println();
+        for (String ele : strings2) {
+            System.out.print(ele + " ");
+        }
+
+
+        System.out.println();
+        System.out.println("****************");
+        String[] res3 = new String[arrayList.size() + 1];
+        String[] strings3 = arrayList.toArray(res3);
+        for (String ele : res3) {
+            System.out.print(ele + " ");
+        }
+        System.out.println();
+        for (String ele : strings3) {
+            System.out.print(ele + " ");
+        }
+
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        private HashMap<Character, Integer> map = null;
+
+
+        /**
+         * 设计算法
+         * 1 迭代数组的每一个元素，判断其字母是否是键盘的同一行
+         * 是同一行，就添加到集合中；
+         * 不是同一行就继续
+         * 2 如何判断单词的字母是否在同一键盘行
+         * 设定标识，迭代每一个字母
+         * 如果当前字母的行数与前一字母行数不一致，就false
+         * 如果当前字母的行数与前一字母行数一致，就继续迭代
+         *
+         * @param words
+         * @return
+         */
+        public String[] findWords(String[] words) {
+            if (words == null) {
+                return new String[0];
+            }
+
+            map = new HashMap<>();
+            map.put('z', 3);
+            map.put('x', 3);
+            map.put('c', 3);
+            map.put('v', 3);
+            map.put('b', 3);
+            map.put('n', 3);
+            map.put('m', 3);
+            map.put('a', 2);
+            map.put('s', 2);
+            map.put('d', 2);
+            map.put('f', 2);
+            map.put('g', 2);
+            map.put('h', 2);
+            map.put('j', 2);
+            map.put('k', 2);
+            map.put('l', 2);
+            map.put('q', 1);
+            map.put('w', 1);
+            map.put('e', 1);
+            map.put('r', 1);
+            map.put('t', 1);
+            map.put('y', 1);
+            map.put('u', 1);
+            map.put('i', 1);
+            map.put('o', 1);
+            map.put('p', 1);
+            ArrayList<String> arrayList = new ArrayList<>();
+            for (String ele : words) {
+                boolean sameLine = isSameLine(ele);
+                if (sameLine) {
+                    arrayList.add(ele);
+                }
+            }
+            String[] res = new String[arrayList.size()];
+            String[] strings = arrayList.toArray(res);
+            return strings;
+        }
+
+        private boolean isSameLine(String str) {
+            if (str == null || str.trim().length() == 0 || str.length() == 0) {
+                return false;
+            }
+            str = str.toLowerCase();
+            int lineNumber = map.get(str.charAt(0));
+            for (int i = 1; i < str.length(); i++) {
+                char c = str.charAt(i);
+                int tmp = map.get(c);
+                if (tmp != lineNumber) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /**
          * 解释题意
          * 1 字符串数组中，字符串是否在键盘的同一行
@@ -48,7 +200,7 @@ public class P500KeyboardRow {
          * @param words
          * @return
          */
-        public String[] findWords(String[] words) {
+        public String[] findWords_1(String[] words) {
             if (words == null || words.length == 0) {
                 return new String[]{};
             }
