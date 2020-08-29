@@ -1,4 +1,5 @@
-//给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和
+//给定一个包括 n 个整数的数组 nums 和 一个目标值 target。
+// 找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和
 //。假定每组输入只存在唯一答案。 
 //
 // 例如，给定数组 nums = [-1，2，1，-4], 和 target = 1.
@@ -16,13 +17,69 @@ import java.util.Arrays;
 public class P16ThreeSumClosest {
     public static void main(String[] args) {
         Solution solution = new P16ThreeSumClosest().new Solution();
-        int[] nums = new int[]{-1, 1, 2, -4};
-        int i = solution.threeSumClosest(nums, 1);
+        int[] nums = new int[]{1,2,3,4,5,6};
+        int i = solution.threeSumClosest(nums, 12);
         System.out.println(i);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        /**
+         * 设计算法
+         * 1 控制变量法，迭代数组中的元素
+         * 1.1 选择第一个元素，设置left，right指针分别指向i+1,len-1
+         * 1.2 分别计算他们三数之和
+         * 1.3 如果偏大，right左移；如果偏小，left右移；如果相等，就返回，记录这次的三数之和，和下一次做比较。结束条件是left==right
+         * 1.4 结束条件是迭代完成数组元素
+         *
+         * @param nums
+         * @param target
+         * @return
+         */
+        public int threeSumClosest(int[] nums, int target) {
+            if (nums == null || nums.length < 3) {
+                return Integer.MAX_VALUE;
+            }
+            Arrays.sort(nums);
+            int len = nums.length;
+            int sumResult = nums[0] + nums[1] + nums[2];
+            for (int i = 0; i < len - 2; i++) {
+                int base = nums[i];
+                int left = i + 1;
+                int right = len - 1;
+                while (left < right) {
+                    int tmp = base + nums[right] + nums[left];
+                    if (tmp == target) {
+                        return tmp;
+                    } else if (tmp > target) {
+                        right = right - 1;
+                    } else if (tmp < target) {
+                        left = left + 1;
+                    }
+                    if (Math.abs(tmp - target) <= Math.abs(sumResult - target)) {
+                        sumResult = tmp;
+                    }
+                }
+            }
+            return sumResult;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /**
          * 三指针法：
          * 类似求解三数之和
@@ -36,7 +93,7 @@ public class P16ThreeSumClosest {
          * @param target
          * @return
          */
-        public int threeSumClosest(int[] nums, int target) {
+        public int threeSumClosest_1(int[] nums, int target) {
             Arrays.sort(nums);
             int len = nums.length;
             // 选基准值
