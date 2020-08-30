@@ -37,6 +37,75 @@ public class P26RemoveDuplicatesFromSortedArray {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+
+        /**
+         * 设计算法
+         * 1 快慢指针slow，fast分别指向0，1位置元素
+         * 2 fast与slow是否相等
+         * 相等，fast前进，过滤掉相等元素
+         * 不相等，fast指向的元素移动到slow+1位置，slow与fast同时前进一步
+         * slow所在位置就是新数组的索引，新数组长度是slow+1
+         * 3 循环结束条件是fast到达数组尾部
+         *
+         * @param nums
+         * @return
+         */
+        public int removeDuplicates(int[] nums) {
+            int slow = 0;
+            for (int fast = 1; fast < nums.length;) {
+                if (nums[slow] == nums[fast]) {
+                    fast = fast + 1;
+                } else {
+                    nums[slow + 1] = nums[fast];
+                    // 两个指针同时前进一步
+                    fast = fast + 1;
+                    slow = slow + 1;
+                }
+            }
+            return slow + 1;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /**
          * 快慢指针
          * 快指针与慢指针比较是否相等，相等快指针就向前移动，
@@ -44,7 +113,7 @@ public class P26RemoveDuplicatesFromSortedArray {
          * @param nums
          * @return
          */
-        public int removeDuplicates(int[] nums) {
+        public int removeDuplicates_1(int[] nums) {
             int slow = 0;
             int fast = 1;
             while (fast < nums.length) {
