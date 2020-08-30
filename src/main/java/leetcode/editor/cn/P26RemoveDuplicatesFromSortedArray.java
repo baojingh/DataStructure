@@ -54,14 +54,12 @@ public class P26RemoveDuplicatesFromSortedArray {
         public int removeDuplicates(int[] nums) {
             int slow = 0;
             for (int fast = 1; fast < nums.length;) {
-                if (nums[slow] == nums[fast]) {
-                    fast = fast + 1;
-                } else {
+                if (nums[slow] != nums[fast]) {
                     nums[slow + 1] = nums[fast];
-                    // 两个指针同时前进一步
-                    fast = fast + 1;
                     slow = slow + 1;
                 }
+                // 两个指针同时前进一步
+                fast = fast + 1;
             }
             return slow + 1;
         }
