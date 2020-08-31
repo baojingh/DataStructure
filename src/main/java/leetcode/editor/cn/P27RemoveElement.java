@@ -44,7 +44,7 @@ import java.util.Arrays;
 //Java：移除元素
 public class P27RemoveElement {
     public static void main(String[] args) {
-        int[] nums = new int[]{0,1,2,2,3,0,4,2};
+        int[] nums = new int[]{0, 1, 2, 2, 3, 0, 4, 2};
         Solution solution = new P27RemoveElement().new Solution();
         int element = solution.removeElement(nums, 2);
         for (int i = 0; i < element; i++) {
@@ -54,6 +54,22 @@ public class P27RemoveElement {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        public int removeElement(int[] nums, int val) {
+            int index = 0;
+            for (int i = 0; i < nums.length; i++) {
+                if (nums[i] != val) {
+                    nums[index] = nums[i];
+                    index = index + 1;
+                }
+            }
+            return index;
+        }
+
+
+
+
+
         /**
          * 设计算法
          * 1 迭代数组元素，slow指针
@@ -62,7 +78,7 @@ public class P27RemoveElement {
          * 4 slow与fast同时前进一步
          * 5 内层fast循环结束条件是fast与slow位置的元素不相等
          * 6 外层循环结束条件是slow或者fast到达数组最后
-         *
+         * <p>
          * 测试用例
          * 1 1,2,3 4
          * 2 1,1,2,3 1
@@ -72,10 +88,11 @@ public class P27RemoveElement {
          * 解答失败: 测试用例:[0,1,2,2,3,0,4,2] 2 测试结果:[0,0,1,3,3,3,4] 期望结果:[0,1,4,0,3] stdout
          * 0,0,1,2,2,2,3,4
          * 0 1 2 3 4 5 6 7
+         *
          * @param val
          * @return
          */
-        public int removeElement(int[] nums, int val) {
+        public int removeElement2(int[] nums, int val) {
             Arrays.sort(nums);
             int fast = 0;
             int slow = 0;
@@ -97,24 +114,6 @@ public class P27RemoveElement {
             }
             return slow;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         /**
