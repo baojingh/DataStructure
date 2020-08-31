@@ -39,10 +39,12 @@
 
 package leetcode.editor.cn;
 
+import java.util.Arrays;
+
 //Java：移除元素
 public class P27RemoveElement {
     public static void main(String[] args) {
-        int[] nums = new int[]{0, 1, 2, 2, 3, 0, 4, 2};
+        int[] nums = new int[]{0,1,2,2,3,0,4,2};
         Solution solution = new P27RemoveElement().new Solution();
         int element = solution.removeElement(nums, 2);
         for (int i = 0; i < element; i++) {
@@ -53,19 +55,82 @@ public class P27RemoveElement {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         /**
+         * 设计算法
+         * 1 迭代数组元素，slow指针
+         * 2 如果当前元素等于目标值，创建fast指针指向slow+1，判断是否也等于目标值
+         * 3 如果等于目标值就fast继续前进一步;如果不等于目标值，就将fast的元素覆盖到slow位置
+         * 4 slow与fast同时前进一步
+         * 5 内层fast循环结束条件是fast与slow位置的元素不相等
+         * 6 外层循环结束条件是slow或者fast到达数组最后
+         *
+         * 测试用例
+         * 1 1,2,3 4
+         * 2 1,1,2,3 1
+         * 3 1,2,3,3 3
+         * 4 1,1,1 1
+         * 5 1,2,2,3,4 2
+         * 解答失败: 测试用例:[0,1,2,2,3,0,4,2] 2 测试结果:[0,0,1,3,3,3,4] 期望结果:[0,1,4,0,3] stdout
+         * 0,0,1,2,2,2,3,4
+         * 0 1 2 3 4 5 6 7
+         * @param val
+         * @return
+         */
+        public int removeElement(int[] nums, int val) {
+            Arrays.sort(nums);
+            int fast = 0;
+            int slow = 0;
+            while (fast < nums.length) {
+                if (nums[slow] == val) {
+                    fast = slow + 1;
+                    while (fast < nums.length && val == nums[fast]) {
+                        // fast < nums.length 防止1，1，1的情况
+                        fast = fast + 1;
+                    }
+                }
+                if (fast >= nums.length) {
+                    // 处理1，2，3，3 3的情况
+                    return slow;
+                }
+                nums[slow] = nums[fast];
+                slow = slow + 1;
+                fast = fast + 1;
+            }
+            return slow;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /**
          * 拷贝覆盖
          * 1 设置动态指针index=0，用于指向最终数组的下标。遍历数组，判断元素是否与目标元素相等
          * 2 如果不相等，就将nums[i]赋值给num[index++]
          * 3 如果相等，继续遍历，直到数组结束
          * 4 目标数组长度就是index
-         *
+         * <p>
          * 时间复杂度O(n)，空间复杂度是O(1)
          *
          * @param nums
          * @param val
          * @return
          */
-        public int removeElement(int[] nums, int val) {
+        public int removeElement_1(int[] nums, int val) {
             // 设置动态指针，指向非目标元素值
             int index = 0;
             for (int i = 0; i < nums.length; i++) {
