@@ -31,7 +31,93 @@ public class P34FindFirstAndLastPositionOfElementInSortedArray {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        /**
+         *
+         * 测试用例
+         *
+         * 1,2 1
+         * 1,2 2
+         * 1 1
+         * 1,1 1
+         *
+         * 1 1,2,3,4 6
+         * 2 3,4,5 2
+         * 3 1,2,3 1
+         * 4 1,2,3 3
+         * 5 1,1,1,2,3 1
+         * 6 1,2,3,3,3 3
+         * 7 1,2,3,3,4,4,5 4
+         * 8 1,2,3,4 3
+         *
+         *
+         *
+         * @param nums
+         * @param target
+         * @return
+         */
         public int[] searchRange(int[] nums, int target) {
+            int[] arr = {-1, -1};
+            int low = 0;
+            int high = nums.length - 1;
+            int res = -1;
+            // 寻找左边界
+            while (low <= high) {
+                // 处理[1,2] 2的情况
+                int mid = low + (high - low) / 2;
+                if (nums[mid] < target) {
+                    low = mid + 1;
+                } else if (nums[mid] > target) {
+                    high = high - 1;
+                } else {
+                    // 5，7，7，8，8 7的情况
+                    // 保存上一个
+                    res = high;
+                    // 收缩左侧的
+                    high = high - 1;
+                }
+            }
+            arr[0] = res;
+            low = 0;
+            high = nums.length - 1;
+            // 寻找右边界
+            while (low <= high) {
+                // 处理[1,2] 2的情况
+                int mid = low + (high - low) / 2;
+                if (nums[mid] < target) {
+                    low = mid + 1;
+                } else if (nums[mid] > target) {
+                    high = high - 1;
+                } else {
+                    // 5，7，8，8，8 8的情况
+                    // 保存上一个
+                    res = low;
+                    // 收缩左侧的
+                    low = low + 1;
+                }
+            }
+            arr[1] = res;
+            return arr;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public int[] searchRange1(int[] nums, int target) {
             if (nums.length < 1) {
                 return new int[]{-1, -1};
             }

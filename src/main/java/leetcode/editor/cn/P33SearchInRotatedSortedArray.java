@@ -34,6 +34,52 @@ public class P33SearchInRotatedSortedArray {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        /**
+         *
+         * 设计算法
+         * 1
+         *
+         * @param nums
+         * @param target
+         * @return
+         */
+        public int search1(int[] nums, int target) {
+
+            return -1;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /**
          * 三种情况
          * 1 旋转点在中间位置
