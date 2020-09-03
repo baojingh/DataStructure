@@ -26,13 +26,50 @@ public class P53MaximumSubarray {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        /**
+         * 设计算法
+         * 1 dp[i]的长度等同于原数组长度，记录以原数组索引i以及之前的连续数组之和最大值
+         * 2 初始值是num[0]表示索引0以及之前的连续之和的最大值是nums[0]
+         * 3 迭代开始位置是1
+         * 4 如果dp[i-1]是负值，说明之前的先保存起来，要从nums[i]开始从新计算
+         * 5 如果dp[i-1]是正值，说明nums[i-1]有增益，就做累加
+         * 6 计算dp中的最大值
+         *
+         *
+         *
+         * @param nums
+         * @return
+         */
+        public int maxSubArray(int[] nums) {
+            // 以i结尾的序列中，连续数组的最大和
+            int[] dp = new int[nums.length];
+            // 初始值
+            dp[0] = nums[0];
+            int max = nums[0];
+            for (int i = 1; i < nums.length; i++) {
+                if (dp[i - 1] < 0) {
+                    // 如果前一个元素是负数，对连续数组和没有增益，就舍弃，从当前元素重新开始
+                    dp[i] = nums[i];
+                } else {
+                    // 如果前一个元素是整数，对连续数组和有增益，可以将当前值累加起来
+                    dp[i] = dp[i - 1] + nums[i];
+                }
+            }
+            for (int num : dp) {
+                max = Math.max(max, num);
+            }
+            return max;
+        }
+
+
         /**
          * https://leetcode-cn.com/problems/maximum-subarray/solution/dong-tai-gui-hua-fen-zhi-fa-python-dai-ma-java-dai/
          *
          * @param nums
          * @return
          */
-        public int maxSubArray(int[] nums) {
+        public int maxSubArray1(int[] nums) {
             if (nums == null || nums.length == 0) {
                 return 0;
             }
