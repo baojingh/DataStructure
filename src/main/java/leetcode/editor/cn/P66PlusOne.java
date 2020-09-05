@@ -36,13 +36,59 @@ public class P66PlusOne {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         /**
-         * 1 没有进位情况，例如1，2，3
-         * 2 中间有进位，119，199
-         * 3 最高位有进位， 999，99，需要扩充数组
+         *
+         * 设计算法
+         * 0 创建ArrayList，存储
+         * 1 循环累加
+         * 2 获取数组的最后一位，加一，获取进位
+         * 3 下一位加上进位，获取新的进位
+         * 4 循环结束条件是进位是0
+         *
+         * 测试用例
+         * 0 1
+         * 1 1,9
+         * 2 1,2
+         * 3 8,9,9
+         * 4 9,9,9
+         *
+         *
          *
          * @param digits
          * @return
          */
+        public int[] plusOne1(int[] digits) {
+
+            return null;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            /**
+             * 1 没有进位情况，例如1，2，3
+             * 2 中间有进位，119，199
+             * 3 最高位有进位， 999，99，需要扩充数组
+             *
+             * @param digits
+             * @return
+             */
         public int[] plusOne(int[] digits) {
             int len = digits.length;
             for (int i = len - 1; i >= 0; i--) {
