@@ -22,6 +22,9 @@
 
 package leetcode.editor.cn;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 //Java：加一
 public class P66PlusOne {
     public static void main(String[] args) {
@@ -36,14 +39,15 @@ public class P66PlusOne {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         /**
-         *
          * 设计算法
-         * 0 创建ArrayList，存储
+         * 0 创建ArrayList，存储结果的每一位
          * 1 循环累加
          * 2 获取数组的最后一位，加一，获取进位
          * 3 下一位加上进位，获取新的进位
          * 4 循环结束条件是进位是0
+         * 5 将列表转换成数组
          *
+         * <p>
          * 测试用例
          * 0 1
          * 1 1,9
@@ -51,14 +55,32 @@ public class P66PlusOne {
          * 3 8,9,9
          * 4 9,9,9
          *
-         *
-         *
          * @param digits
          * @return
          */
-        public int[] plusOne1(int[] digits) {
-
-            return null;
+        public int[] plusOne(int[] digits) {
+            ArrayList<Integer> list = new ArrayList<>();
+            int carry = 0;
+            for (int i = digits.length - 1; i > -1; i--) {
+                int sum = 0;
+                if (i == digits.length - 1) {
+                    sum = digits[i] + 1 + carry;
+                } else {
+                    sum = digits[i] + carry;
+                }
+                carry = sum / 10;
+                sum = sum % 10;
+                // 保持高位在前，低位在后
+                list.add(0, sum);
+            }
+            if (carry == 1) {
+                list.add(0, carry);
+            }
+            int[] arr = new int[list.size()];
+            for (int i = 0; i < list.size(); i++) {
+                arr[i] = list.get(i);
+            }
+            return arr;
         }
 
 
@@ -89,7 +111,7 @@ public class P66PlusOne {
              * @param digits
              * @return
              */
-        public int[] plusOne(int[] digits) {
+        public int[] plusOne2(int[] digits) {
             int len = digits.length;
             for (int i = len - 1; i >= 0; i--) {
                 digits[i] = digits[i] + 1;
