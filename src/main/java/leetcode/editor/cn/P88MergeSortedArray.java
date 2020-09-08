@@ -30,11 +30,42 @@ public class P88MergeSortedArray {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
-        public void merge1(int[] nums1, int m, int[] nums2, int n) {
-
-
+        /**
+         * 设计算法
+         * 1 计算两个数组长度m+n，从m+n-1位置开始从后向前存放两个数组的最大值
+         * 2 p1,p2分别指向两个数组的末尾
+         * 3 比较两个数字的大小，将大的数字放到num1的后面，并且对应的数组的指针向左移动一步，另一指针不动
+         * 4 循环结束条件是指针p1,p2都遍历完了数组
+         *
+         *
+         * 测试用例
+         * 1
+         *
+         * @param nums1
+         * @param m
+         * @param nums2
+         * @param n
+         */
+        public void merge(int[] nums1, int m, int[] nums2, int n) {
 
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         /**
@@ -50,7 +81,7 @@ public class P88MergeSortedArray {
          * @param nums2
          * @param n
          */
-        public void merge(int[] nums1, int m, int[] nums2, int n) {
+        public void merge1(int[] nums1, int m, int[] nums2, int n) {
             int len1 = m - 1;
             int len2 = n - 1;
             int len = len1 + len2 + 1;
