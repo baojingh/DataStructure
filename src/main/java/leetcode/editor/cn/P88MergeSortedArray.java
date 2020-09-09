@@ -17,8 +17,8 @@ package leetcode.editor.cn;
 //Java：合并两个有序数组
 public class P88MergeSortedArray {
     public static void main(String[] args) {
-        int[] nums1 = new int[]{1, 2, 3, 0, 0, 0, 0, 0, 0, 0};
-        int[] nums2 = new int[]{2, 5, 6};
+        int[] nums1 = new int[]{7, 8,9, 0, 0, 0};
+        int[] nums2 = new int[]{1,2,3};
         int m = 3;
         int n = 3;
         Solution solution = new P88MergeSortedArray().new Solution();
@@ -36,10 +36,16 @@ public class P88MergeSortedArray {
          * 2 p1,p2分别指向两个数组的末尾
          * 3 比较两个数字的大小，将大的数字放到num1的后面，并且对应的数组的指针向左移动一步，另一指针不动
          * 4 循环结束条件是指针p1,p2都遍历完了数组
-         *
-         *
+         * <p>
+         * <p>
          * 测试用例
-         * 1
+         * 1 1,2,3     7,8,9
+         * 2 7,8,9      1,2,3
+         * 3 1,3,6      2,4,5
+         * 4 1,2,7,8        3,6,8
+         * 5 3,6,9      1,2,5
+         * 6 1      2
+         * 6 2      1
          *
          * @param nums1
          * @param m
@@ -47,15 +53,27 @@ public class P88MergeSortedArray {
          * @param n
          */
         public void merge(int[] nums1, int m, int[] nums2, int n) {
-
+            int p1 = m - 1;
+            int p2 = n - 1;
+            int p = m + n - 1;
+            while (p1 > -1 && p2 > -1) {
+                if (nums1[p1] > nums2[p2]) {
+                    nums1[p] = nums1[p1];
+                    p1 = p1 - 1;
+                } else {
+                    nums1[p] = nums2[p2];
+                    p2 = p2 - 1;
+                }
+                p = p - 1;
+            }
+            if (p1 == -1) {
+                // 数组1已经遍历完成，nums2可能还有元素，可能没有元素
+                for (; p2 > -1; p2--) {
+                    nums1[p] = nums2[p2];
+                    p = p - 1;
+                }
+            }
         }
-
-
-
-
-
-
-
 
 
 
