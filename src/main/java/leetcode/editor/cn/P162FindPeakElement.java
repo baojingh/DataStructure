@@ -39,6 +39,68 @@ public class P162FindPeakElement {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+
+        /**
+         * 设计算法
+         * 1 基于二分查找思想，获取数组中间节点mid
+         * 2 num[mid] < num[mid+1] 升序，峰值在右侧low = mid+1
+         * 3 num[mid] > num[mid+1] 这部分是降序，峰值在左侧 high = mid - 1
+         * 4 最终可以返回low/high索引
+         *
+         *
+         *
+         * 测试用例
+         * 1 1,2,3,1
+         * 2 1,2,3
+         * 3 3,2,1
+         * 4 1,2,3,4,3,4,3,2,1
+         * 5 1
+         * 6 []
+         * 1,1,1,1
+         *
+         *
+         *
+         * @param nums
+         * @return
+         */
+        public int findPeakElement1(int[] nums) {
+
+            int low = 0;
+            int high = nums.length - 1;
+            while (low <= high) {
+                int mid = low + (high - low) / 2;
+                if (nums[mid] < nums[mid + 1]) {
+                    low = mid + 1;
+                } else if (nums[mid] > nums[mid + 1]) {
+                    high = mid - 1;
+                } else {
+                    return low;
+                }
+            }
+            return 0;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /**
          * 1 找到序列中点位置
          * 2 如果中点元素<下一个元素，峰值在右侧，low=mid+1，有可能mid+1位置就是峰值点
