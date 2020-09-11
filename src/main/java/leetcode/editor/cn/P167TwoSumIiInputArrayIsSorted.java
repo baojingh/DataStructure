@@ -22,7 +22,7 @@ package leetcode.editor.cn;
 //Java：两数之和 II - 输入有序数组
 public class P167TwoSumIiInputArrayIsSorted {
     public static void main(String[] args) {
-        int[] nums = new int[]{1,3,5,7,8};
+        int[] nums = new int[]{1, 3, 5, 7, 8};
         Solution solution = new P167TwoSumIiInputArrayIsSorted().new Solution();
         int[] ints = solution.twoSum(nums, 108);
         for (int i = 0; i < ints.length; i++) {
@@ -32,6 +32,11 @@ public class P167TwoSumIiInputArrayIsSorted {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public int[] twoSum1(int[] numbers, int target) {
+            return null;
+        }
+
+
         public int[] twoSum(int[] numbers, int target) {
             int[] indexArray = new int[2];
             int len = numbers.length;
