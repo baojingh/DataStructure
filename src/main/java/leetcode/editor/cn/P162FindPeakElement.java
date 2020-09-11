@@ -44,11 +44,10 @@ public class P162FindPeakElement {
         /**
          * 设计算法
          * 1 基于二分查找思想，获取数组中间节点mid
-         * 2 num[mid] < num[mid+1] 升序，峰值在右侧，low = mid+1
-         * 3 num[mid] > num[mid+1] 这部分是降序，峰值在左侧 high = mid - 1
-         * 4 最终可以返回low/high索引
-         *
-         *
+         * 2 num[mid] < num[mid+1] 升序，峰值在右侧，mid肯定不是峰值，low = mid+1
+         * 3 num[mid] > num[mid+1] 这部分是降序，峰值在左侧，有可能mid就是峰值，high = mid - 1
+         * 4 不会出现相邻元素相等的情况，代码中可以处理这个情况
+         * 5 最终可以返回low/high索引
          *
          * 测试用例
          * 1 1,2,3,1
@@ -58,8 +57,6 @@ public class P162FindPeakElement {
          * 5 1
          * 6 []
          * 1,1,1,1
-         *
-         *
          *
          * @param nums
          * @return
@@ -75,10 +72,14 @@ public class P162FindPeakElement {
                     low = mid + 1;
                 } else if (nums[mid] > nums[mid + 1]) {
                     high = mid;
+                } else {
+                    // 不处理相邻元素相等的情况
+                    return -1;
                 }
                 // 不会出现相邻元素相等的情况
             }
-            return low;
+            // low, high相等，均是峰值点
+            return high;
         }
 
 
