@@ -44,7 +44,7 @@ public class P162FindPeakElement {
         /**
          * 设计算法
          * 1 基于二分查找思想，获取数组中间节点mid
-         * 2 num[mid] < num[mid+1] 升序，峰值在右侧low = mid+1
+         * 2 num[mid] < num[mid+1] 升序，峰值在右侧，low = mid+1
          * 3 num[mid] > num[mid+1] 这部分是降序，峰值在左侧 high = mid - 1
          * 4 最终可以返回low/high索引
          *
@@ -64,21 +64,21 @@ public class P162FindPeakElement {
          * @param nums
          * @return
          */
-        public int findPeakElement1(int[] nums) {
+        public int findPeakElement(int[] nums) {
 
             int low = 0;
             int high = nums.length - 1;
-            while (low <= high) {
+            while (low < high) {
+                // 不能是"="，无法处理[1]以及[1,2]的情况
                 int mid = low + (high - low) / 2;
                 if (nums[mid] < nums[mid + 1]) {
                     low = mid + 1;
                 } else if (nums[mid] > nums[mid + 1]) {
-                    high = mid - 1;
-                } else {
-                    return low;
+                    high = mid;
                 }
+                // 不会出现相邻元素相等的情况
             }
-            return 0;
+            return low;
         }
 
 
@@ -113,7 +113,7 @@ public class P162FindPeakElement {
          * @param nums
          * @return
          */
-        public int findPeakElement(int[] nums) {
+        public int findPeakElement1(int[] nums) {
             if (nums.length < 1) {
                 return -1;
             }
