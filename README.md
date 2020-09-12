@@ -1,2 +1,2 @@
 # DataStructure
-data structure for Project1975
+data structure for Program1975
