@@ -32,12 +32,38 @@ public class P167TwoSumIiInputArrayIsSorted {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
-        public int[] twoSum1(int[] numbers, int target) {
+        /**
+         * 设计算法
+         * 1 数组已经排序，设置前后指针low=0，high=nums.length-1
+         * 2 计算两个指针之和是否是目标值，如果是则返回
+         * 3 如果和大于target，说明high左移可以让和变小（数组有序），high左移
+         * 4 如果和小于target，说明low右移可以让和变大（数组有序），low右移
+         * 5 循环存在条件是low < high
+         * 6 返回low+1,high+1
+         *
+         *
+         * 测试用例
+         * 1,3,5,7,10 10
+         * 2 1,3,4,5,6 4
+         * 3 1 2
+         * 4 1 1
+         * 5 1,3,5,7,9 20
+         * 6 7,9,13,16,18 2
+         * 7 1,2 3
+         * 8 3,5 2
+         * 9 3,5 9
+         *
+         *
+         * @param numbers
+         * @param target
+         * @return
+         */
+        public int[] twoSum(int[] numbers, int target) {
             return null;
         }
 
 
-        public int[] twoSum(int[] numbers, int target) {
+        public int[] twoSum1(int[] numbers, int target) {
             int[] indexArray = new int[2];
             int len = numbers.length;
             int low = 0;
