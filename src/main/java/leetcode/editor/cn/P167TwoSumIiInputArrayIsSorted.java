@@ -40,8 +40,8 @@ public class P167TwoSumIiInputArrayIsSorted {
          * 4 如果和小于target，说明low右移可以让和变大（数组有序），low右移
          * 5 循环存在条件是low < high
          * 6 返回low+1,high+1
-         *
-         *
+         * <p>
+         * <p>
          * 测试用例
          * 1,3,5,7,10 10
          * 2 1,3,4,5,6 4
@@ -53,12 +53,24 @@ public class P167TwoSumIiInputArrayIsSorted {
          * 8 3,5 2
          * 9 3,5 9
          *
-         *
          * @param numbers
          * @param target
          * @return
          */
         public int[] twoSum(int[] numbers, int target) {
+
+            int low = 0;
+            int high = numbers.length - 1;
+            while (low < high) {
+                int sum = numbers[low] + numbers[high];
+                if (sum > target) {
+                    high = high - 1;
+                } else if (sum < target) {
+                    low = low + 1;
+                } else {
+                    return new int[]{low + 1, high +1};
+                }
+            }
             return null;
         }
 
