@@ -1,10 +1,7 @@
 //给定一个大小为 n 的数组，找到其中的多数元素。多数元素是指在数组中出现次数大于 ⌊ n/2 ⌋ 的元素。 
 //
 // 你可以假设数组是非空的，并且给定的数组总是存在多数元素。 
-//
-// 
-//
-// 示例 1: 
+// 示例 1:
 //
 // 输入: [3,2,3]
 //输出: 3 
@@ -30,6 +27,53 @@ public class P169MajorityElement {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        /**
+         * 设计算法
+         * 0 使用map存储每个元素出现的次数，遍历val，判断哪个元素的出现次数超过半数。
+         * 0 排序数组，使用双指针统计每个元素出现的次数以及对应的元素
+         *
+         *
+         * 1 题目要求一定存在这样一个元素；只会有一个元素是多数元素
+         * 2
+         *
+         *
+         * 测试用例
+         *
+         *
+         *
+         *
+         * @param nums
+         * @return
+         */
+        public int majorityElement(int[] nums) {
+
+            return -1;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /**
          * 摩尔投票法：寻找数组中超过半数的数字，此数字出现的次数一定大于其余数字出现的次数之和，两部分相加之和大于0。
          * candidate数字与之前的数字比较：
@@ -41,7 +85,7 @@ public class P169MajorityElement {
          * @param nums
          * @return
          */
-        public int majorityElement(int[] nums) {
+        public int majorityElement1(int[] nums) {
             int cadidate = nums[0];
             int count = 1;
             for (int i = 1; i < nums.length; i++) {
