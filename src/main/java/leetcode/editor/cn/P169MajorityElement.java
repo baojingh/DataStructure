@@ -38,7 +38,8 @@ public class P169MajorityElement {
          * <p>
          * <p>
          * 1 题目要求一定存在这样一个元素；只会有一个元素是多数元素
-         * 2
+         * 2 摩尔投票法https://leetcode-cn.com/problems/majority-element/solution/tu-jie-mo-er-tou-piao-fa-python-go-by-jalan/
+         * 3
          * <p>
          * <p>
          * 测试用例
@@ -47,6 +48,14 @@ public class P169MajorityElement {
          * @return
          */
         public int majorityElement(int[] nums) {
+
+
+            return -1;
+        }
+
+
+
+        public int majorityElement2(int[] nums) {
             Arrays.sort(nums);
             return nums[(nums.length >> 1)];
         }
