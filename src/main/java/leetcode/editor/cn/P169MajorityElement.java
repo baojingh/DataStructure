@@ -16,6 +16,8 @@
 
 package leetcode.editor.cn;
 
+import java.util.Arrays;
+
 //Java：多数元素
 public class P169MajorityElement {
     public static void main(String[] args) {
@@ -32,23 +34,21 @@ public class P169MajorityElement {
          * 设计算法
          * 0 使用map存储每个元素出现的次数，遍历val，判断哪个元素的出现次数超过半数。
          * 0 排序数组，使用双指针统计每个元素出现的次数以及对应的元素
-         *
-         *
+         * 0 将数组排序，一个元素出现次数大于一半，说明这个数组中间位置的数字一定是目标元素
+         * <p>
+         * <p>
          * 1 题目要求一定存在这样一个元素；只会有一个元素是多数元素
          * 2
-         *
-         *
+         * <p>
+         * <p>
          * 测试用例
-         *
-         *
-         *
          *
          * @param nums
          * @return
          */
         public int majorityElement(int[] nums) {
-
-            return -1;
+            Arrays.sort(nums);
+            return nums[(nums.length >> 1)];
         }
 
 
