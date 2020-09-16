@@ -39,7 +39,18 @@ public class P169MajorityElement {
          * <p>
          * 1 题目要求一定存在这样一个元素；只会有一个元素是多数元素
          * 2 摩尔投票法https://leetcode-cn.com/problems/majority-element/solution/tu-jie-mo-er-tou-piao-fa-python-go-by-jalan/
-         * 3
+         * 3 设定第一个元素num出现次数count是1
+         * 4 如果上一个元素不同于当前元素,count--
+         * 5 如果count=0，当前元素作为基准元素，count=1
+         * 6 迭代结束，基准元素就是多数元素
+         *
+         * 测试用例
+         * 1 1,1,1,2,3
+         * 2 1,2,2
+         * 3 1,2,3
+         * 4 1,1
+         * 5 1
+         *
          * <p>
          * <p>
          * 测试用例
@@ -48,9 +59,20 @@ public class P169MajorityElement {
          * @return
          */
         public int majorityElement(int[] nums) {
-
-
-            return -1;
+            int base = nums[0];
+            int count = 1;
+            for (int i = 1; i < nums.length; i++) {
+                if (base != nums[i]) {
+                    count = count - 1;
+                }else {
+                    count = count + 1;
+                }
+                if (count == 0) {
+                    base = nums[i];
+                    count = 1;
+                }
+            }
+            return base;
         }
 
 
