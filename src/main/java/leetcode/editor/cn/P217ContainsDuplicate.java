@@ -36,6 +36,29 @@ public class P217ContainsDuplicate {
 
         /**
          * 设计算法
+         *
+         * 测试用例
+         *
+         *
+         * @param nums
+         * @return
+         */
+        public boolean containsDuplicate1(int[] nums) {
+            return false;
+        }
+
+
+
+
+
+
+
+
+
+
+
+        /**
+         * 设计算法
          * 1 创建哈希集合
          * 2 迭代数组元素
          * 3 集合中是否存在，已经存在则在重复元素；不存在就添加这个元素，继续迭代
@@ -58,33 +81,6 @@ public class P217ContainsDuplicate {
             }
             return false;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         public boolean containsDuplicate_1(int[] nums) {

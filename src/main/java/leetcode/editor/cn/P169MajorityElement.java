@@ -77,6 +77,7 @@ public class P169MajorityElement {
 
 
 
+
         public int majorityElement2(int[] nums) {
             Arrays.sort(nums);
             return nums[(nums.length >> 1)];
