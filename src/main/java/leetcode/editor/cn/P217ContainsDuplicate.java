@@ -36,14 +36,27 @@ public class P217ContainsDuplicate {
 
         /**
          * 设计算法
-         *
+         * 1 迭代数组元素
+         * 2 判断当前元素是否存在集合中，如果存在就返回true
+         * 3 如果不存在，就继续迭代
+         * <p>
          * 测试用例
-         *
+         * 1 1,2,3
+         * 2 1,2,3,3
+         * 4 1
+         * 5 1,1
          *
          * @param nums
          * @return
          */
         public boolean containsDuplicate1(int[] nums) {
+            HashSet<Integer> set = new HashSet<>();
+            for (int ele : nums) {
+                if (set.contains(ele)) {
+                    return true;
+                }
+                set.add(ele);
+            }
             return false;
         }
 
