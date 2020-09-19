@@ -19,7 +19,7 @@ import java.util.Set;
 //Java：存在重复元素 II
 public class P219ContainsDuplicateIi {
     public static void main(String[] args) {
-        int[] nums = new int[]{1, 0,1,1};
+        int[] nums = new int[]{1, 0, 1, 1};
         Solution solution = new P219ContainsDuplicateIi().new Solution();
         boolean b = solution.containsNearbyDuplicate_1(nums, 1);
         System.out.println(b);
@@ -27,6 +27,63 @@ public class P219ContainsDuplicateIi {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        /**
+         *
+         * 设计算法
+         * 1 使用hash表存储数组元素以及相应的索引
+         * 2 如果元素已存在，比较两个索引是否满足条件
+         * 3 迭代结束条件是元素是否已迭代完成
+         *
+         * 测试用例
+         * 1 1,2,3 2
+         * 2 1,1 1
+         * 3 1,1 2
+         * 4 1 2
+         * 5 1,2,4,2 2
+         *
+         *
+         * @param nums
+         * @param k
+         * @return
+         */
+        public boolean containsNearbyDuplicate1(int[] nums, int k) {
+            return false;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         /**
          * 设计算法
@@ -72,33 +129,6 @@ public class P219ContainsDuplicateIi {
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         /**
          * 题目意思：长度是k的数组中，是否存在相同的元素
          * 1 判断集合中是否存在此元素，不存在就添加此元素
@@ -107,9 +137,8 @@ public class P219ContainsDuplicateIi {
          * <p>
          * 优化点：
          * 可将集合换成长度是k的队列
-         *
+         * <p>
          * 窗口长度是k，
-         *
          *
          * @param nums
          * @param k
