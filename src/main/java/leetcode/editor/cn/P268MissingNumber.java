@@ -22,18 +22,54 @@ public class P268MissingNumber {
         Solution solution = new P268MissingNumber().new Solution();
         int number = solution.missingNumber(nums);
         System.out.println(number);
-
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        /**
+         * 设计算法
+         * 定理：
+         * 1 一个数字经过两次相同的异或操作，会得到原数字，例如2^3^3 = 2
+         * 2 异或满足结合律，交换律
+         * 3 两个相同的数异或，得到0
+         * 4 一个数字和0异或，得到原数字
+         * <p>
+         * 本题目可以利用数组元素及其下标
+         * 迭代数组每个元素，做累计异或，最终得到的是缺失的那个数字
+         *
+         * <p>
+         * 测试用例
+         *
+         * @param nums 1
+         * @return 1
+         */
+        public int missingNumber(int[] nums) {
+
+
+            return 1;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /**
          * 隐含条件：序列中只缺失一个数字
          *
          * @param nums
          * @return
          */
-        public int missingNumber(int[] nums) {
+        public int missingNumber1(int[] nums) {
             HashSet<Integer> set = new HashSet<Integer>();
             // 原有数字放入集合中
             for (int i = 0; i < nums.length; i++) {
