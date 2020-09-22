@@ -37,7 +37,8 @@ public class P268MissingNumber {
          * 本题目可以利用数组元素及其下标
          * 迭代数组每个元素，讲元素与其索引累计异或，最终得到的是缺失的那个数字
          * https://leetcode-cn.com/problems/missing-number/solution/que-shi-shu-zi-by-leetcode/
-         *
+         *  缺少的数字肯定在[0,n]之间，原数字长度肯定是n-1，下标需要再添加一个n
+         *  解法的主要问题是如果不缺少数字，也会返回0
          * <p>
          * 测试用例
          * 1 0
@@ -50,7 +51,6 @@ public class P268MissingNumber {
          */
         public int missingNumber(int[] nums) {
             int res = nums.length;
-
             for (int i = 0; i < nums.length; i++) {
                 res = res ^ (i ^ nums[i]);
             }
