@@ -35,18 +35,26 @@ public class P268MissingNumber {
          * 4 一个数字和0异或，得到原数字
          * <p>
          * 本题目可以利用数组元素及其下标
-         * 迭代数组每个元素，做累计异或，最终得到的是缺失的那个数字
+         * 迭代数组每个元素，讲元素与其索引累计异或，最终得到的是缺失的那个数字
+         * https://leetcode-cn.com/problems/missing-number/solution/que-shi-shu-zi-by-leetcode/
          *
          * <p>
          * 测试用例
+         * 1 0
+         * 2 1,2
+         * 3 1,0
+         * 4 1,0,3
          *
          * @param nums 1
          * @return 1
          */
         public int missingNumber(int[] nums) {
+            int res = nums.length;
 
-
-            return 1;
+            for (int i = 0; i < nums.length; i++) {
+                res = res ^ (i ^ nums[i]);
+            }
+            return res;
         }
 
 
