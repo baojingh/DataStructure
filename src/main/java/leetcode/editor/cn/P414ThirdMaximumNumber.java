@@ -35,6 +35,10 @@
 
 package leetcode.editor.cn;
 
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.PriorityQueue;
+
 //Java：第三大的数
 public class P414ThirdMaximumNumber {
     public static void main(String[] args) {
@@ -46,17 +50,65 @@ public class P414ThirdMaximumNumber {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        /**
+         * 使用大顶堆+集合
+         * <p>
+         * <p>
+         * 设计算法
+         * 1 时间复杂度要求是n，因此不能使用大顶堆
+         * 2 三个变量存储min,mid,max，并初始化为首元素
+         * 3 迭代数组，判断元素与
+         * <p>
+         * 测试用例
+         *
+         * @param nums
+         * @return
+         */
+        public int thirdMax(int[] nums) {
+
+            HashSet<Integer> set = new HashSet<>();
+            for (int ele : nums) {
+                set.add(ele);
+            }
+
+            PriorityQueue<Integer> queue = new PriorityQueue<>(new Comparator<Integer>() {
+                @Override
+                public int compare(Integer o1, Integer o2) {
+                    return o1 - o2;
+                }
+            });
+            for (int ele : set) {
+                if (queue.size() > 3) {
+                    queue.poll();
+                }
+                queue.offer(ele);
+            }
+            if (queue.size() > 2) {
+                // 长度>=3
+                // 获取第三大的数字
+                queue.poll();
+                queue.poll();
+                return queue.poll();
+            }
+            if (queue.size() > 0 && queue.size() < 3) {
+                // 长度大于0，小于3，获取最大数字
+                return queue.poll();
+            }
+            return Integer.MAX_VALUE;
+        }
+
+
         /**
          * 找三次
          * 不方法有bug
          * 如果数组中包含Long.MIN_VALUE，例如[1,2,Long.MIN_VALUE]
          * 此题还会有问题。
          *
-         *
          * @param nums
          * @return
          */
-        public int thirdMax(int[] nums) {
+        public int thirdMax1(int[] nums) {
             long max1 = Long.MIN_VALUE;
             long max2 = Long.MIN_VALUE;
             long max3 = Long.MIN_VALUE;
