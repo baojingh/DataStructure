@@ -42,7 +42,7 @@ import java.util.PriorityQueue;
 //Java：第三大的数
 public class P414ThirdMaximumNumber {
     public static void main(String[] args) {
-        int[] nums = new int[]{-2147483648, 2, 5};
+        int[] nums = new int[]{4,1,3,2};
         Solution solution = new P414ThirdMaximumNumber().new Solution();
         int thirdMax = solution.thirdMax(nums);
         System.out.println(thirdMax);
@@ -61,27 +61,33 @@ public class P414ThirdMaximumNumber {
          * 3 迭代数组，判断元素与
          * <p>
          * 测试用例
+         * 1 1,3,2,5
+         * 2 1,1,1
+         * 3 1,2,2,2,3,3,4,4
+         * 4 1,2,2,2
+         * 4
          *
          * @param nums
          * @return
          */
         public int thirdMax(int[] nums) {
+            if (nums == null || nums.length == 0) {
+                return -1;
+            }
 
             HashSet<Integer> set = new HashSet<>();
             for (int ele : nums) {
                 set.add(ele);
             }
 
-            PriorityQueue<Integer> queue = new PriorityQueue<>(new Comparator<Integer>() {
+            // 大顶堆
+            PriorityQueue<Integer> queue = new PriorityQueue<Integer>(new Comparator<Integer>(){ //大顶堆，容量11
                 @Override
-                public int compare(Integer o1, Integer o2) {
-                    return o1 - o2;
+                public int compare(Integer i1,Integer i2){
+                    return i2-i1;
                 }
             });
             for (int ele : set) {
-                if (queue.size() > 3) {
-                    queue.poll();
-                }
                 queue.offer(ele);
             }
             if (queue.size() > 2) {
@@ -91,11 +97,11 @@ public class P414ThirdMaximumNumber {
                 queue.poll();
                 return queue.poll();
             }
-            if (queue.size() > 0 && queue.size() < 3) {
+            if (queue.size() < 3) {
                 // 长度大于0，小于3，获取最大数字
                 return queue.poll();
             }
-            return Integer.MAX_VALUE;
+            return -1;
         }
 
 
