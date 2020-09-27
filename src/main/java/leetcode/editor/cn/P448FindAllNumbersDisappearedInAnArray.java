@@ -19,6 +19,8 @@
 package leetcode.editor.cn;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 //Java：找到所有数组中消失的数字
@@ -34,6 +36,47 @@ public class P448FindAllNumbersDisappearedInAnArray {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        /**
+         * 初始方案
+         * 排序后，找规律，第二个重复的数字，其索引值+1就是缺失的元素
+         *
+         *
+         * 设计算法
+         *
+         * 测试用例
+         * 1 1,2,2,4,5,6,6,8,8,10
+         *
+         * @param nums
+         * @return
+         */
+        public List<Integer> findDisappearedNumbers1(int[] nums) {
+            LinkedList<Integer> list = new LinkedList<>();
+            Arrays.sort(nums);
+            for (int i = 0; i < nums.length - 1; i++) {
+                if (nums[i] == nums[i + 1]) {
+                    list.add(i + 2);
+                }
+            }
+            return list;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public List<Integer> findDisappearedNumbers(int[] nums) {
             ArrayList<Integer> list = new ArrayList<>();
             for (int i = 0; i < nums.length; i++) {
