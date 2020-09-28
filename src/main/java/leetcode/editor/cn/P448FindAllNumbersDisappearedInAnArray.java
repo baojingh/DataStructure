@@ -40,10 +40,13 @@ public class P448FindAllNumbersDisappearedInAnArray {
         /**
          * 初始方案
          * 排序后，找规律，第二个重复的数字，其索引值+1就是缺失的元素
-         *
-         *
+         * <p>
+         * <p>
          * 设计算法
-         *
+         * <p>
+         * 缺点：
+         * 排序的时间复杂度是O(nlogn)
+         * <p>
          * 测试用例
          * 1 1,2,2,4,5,6,6,8,8,10
          *
@@ -61,23 +64,34 @@ public class P448FindAllNumbersDisappearedInAnArray {
             return list;
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         public List<Integer> findDisappearedNumbers(int[] nums) {
+            LinkedList<Integer> list = new LinkedList<>();
+            for (int i = 0; i < nums.length; i++) {
+                // 数组元素取值范围是1~n,转换成0~n-1，方便根据这个索引取值做标记。
+                // 这个标记肯定会缺少那些缺失的数字，例如1,4,2,5,2转换成0，3，1，4，1肯定会缺少2，即3
+                int index = nums[i] - 1;
+                if (nums[index] > 0) {
+                    nums[index] = nums[index] * (-1);
+                }
+            }
+            for (int i = 0; i < nums.length; i++) {
+                if (nums[i] > 0) {
+                    list.add(i + 1);
+                }
+            }
+
+            return list;
+        }
+
+
+
+
+
+
+
+
+
+        public List<Integer> findDisappearedNumbers2(int[] nums) {
             ArrayList<Integer> list = new ArrayList<>();
             for (int i = 0; i < nums.length; i++) {
                 int index = Math.abs(nums[i]) - 1;
