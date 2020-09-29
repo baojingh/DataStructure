@@ -30,6 +30,51 @@ public class P485MaxConsecutiveOnes {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        /**
+         * 设计算法
+         * 1 初始化max=0，累加变量count=0，迭代数组元素
+         * 2 如果元素是1，就count++
+         * 3 如果元素是0，就不count++，取max与count的最大值赋值给max，count=0
+         * 4 max就是最终结果
+         *
+         *
+         * 测试用例
+         * 1 0
+         * 2 1
+         * 3 1,1,1
+         * 4 1,1,0,1,0,0
+         * 5 0,0,0,1,1,1
+         * 6 1,0,1,1,0,1
+         *
+         * @param nums
+         * @return
+         */
+        public int findMaxConsecutiveOnes1(int[] nums) {
+            return -1;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public int findMaxConsecutiveOnes(int[] nums) {
             int count = 0;
             int maxCount = 0;

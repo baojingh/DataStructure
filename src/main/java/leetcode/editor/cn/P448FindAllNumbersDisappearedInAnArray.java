@@ -69,7 +69,8 @@ public class P448FindAllNumbersDisappearedInAnArray {
             for (int i = 0; i < nums.length; i++) {
                 // 数组元素取值范围是1~n,转换成0~n-1，方便根据这个索引取值做标记。
                 // 这个标记肯定会缺少那些缺失的数字，例如1,4,2,5,2转换成0，3，1，4，1肯定会缺少2，即3
-                int index = nums[i] - 1;
+                // 注意此时nums[i]的正负
+                int index = Math.abs(nums[i]) - 1;
                 if (nums[index] > 0) {
                     nums[index] = nums[index] * (-1);
                 }
@@ -79,9 +80,18 @@ public class P448FindAllNumbersDisappearedInAnArray {
                     list.add(i + 1);
                 }
             }
-
             return list;
         }
+
+
+
+
+
+
+
+
+
+
 
 
 
