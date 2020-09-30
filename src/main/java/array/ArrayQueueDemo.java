@@ -117,6 +117,9 @@ public class ArrayQueueDemo {
         demo.dequeue();
         demo.printAll();
 
+        
+        
+        
         System.out.println("*******");
         demo.dequeue();
         demo.printAll();
