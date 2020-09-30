@@ -51,7 +51,7 @@ public class P485MaxConsecutiveOnes {
          * @param nums
          * @return
          */
-        public int findMaxConsecutiveOnes1(int[] nums) {
+        public int findMaxConsecutiveOnes2(int[] nums) {
             int count = 0;
             int max = 0;
             for (int ele : nums) {
@@ -62,6 +62,28 @@ public class P485MaxConsecutiveOnes {
                 }
                 max = Math.max(max, count);
             }
+            return max;
+        }
+
+
+        /**
+         * 这个效率更高
+         * @param nums
+         * @return
+         */
+        public int findMaxConsecutiveOnes(int[] nums) {
+            int count = 0;
+            int max = 0;
+            for (int ele : nums) {
+                if (ele == 1) {
+                    count = count + 1;
+                } else {
+                    max = Math.max(max, count);
+                    count = 0;
+                }
+            }
+            // 循环结束，再次判断。处理1,0,1,0,1,1,1,1的情况
+            max = Math.max(max, count);
             return max;
         }
 
@@ -84,10 +106,7 @@ public class P485MaxConsecutiveOnes {
 
 
 
-
-
-
-        public int findMaxConsecutiveOnes(int[] nums) {
+        public int findMaxConsecutiveOnes1(int[] nums) {
             int count = 0;
             int maxCount = 0;
             for (int i = 0; i < nums.length; i++) {
