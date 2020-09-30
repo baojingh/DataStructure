@@ -35,7 +35,8 @@ public class P485MaxConsecutiveOnes {
          * 1 初始化max=0，累加变量count=0，迭代数组元素
          * 2 如果元素是1，就count++
          * 3 如果元素是0，count=0
-         * 4 取max与count的最大值赋值给max
+         * 4 无论是否是1，取max与count的最大值赋值给max，这个办法比较耗时
+         * 优化：只有是0的时候取max，迭代结束再次判断max
          * 5 迭代结束，max就是最终结果
          *
          *
