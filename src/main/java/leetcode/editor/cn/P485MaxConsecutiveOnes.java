@@ -34,8 +34,9 @@ public class P485MaxConsecutiveOnes {
          * 设计算法
          * 1 初始化max=0，累加变量count=0，迭代数组元素
          * 2 如果元素是1，就count++
-         * 3 如果元素是0，就不count++，取max与count的最大值赋值给max，count=0
-         * 4 max就是最终结果
+         * 3 如果元素是0，count=0
+         * 4 取max与count的最大值赋值给max
+         * 5 迭代结束，max就是最终结果
          *
          *
          * 测试用例
@@ -45,12 +46,23 @@ public class P485MaxConsecutiveOnes {
          * 4 1,1,0,1,0,0
          * 5 0,0,0,1,1,1
          * 6 1,0,1,1,0,1
+         * 7 0,1,1,0,1,1,1
          *
          * @param nums
          * @return
          */
         public int findMaxConsecutiveOnes1(int[] nums) {
-            return -1;
+            int count = 0;
+            int max = 0;
+            for (int ele : nums) {
+                if (ele == 1) {
+                    count = count + 1;
+                } else {
+                    count = 0;
+                }
+                max = Math.max(max, count);
+            }
+            return max;
         }
 
 
