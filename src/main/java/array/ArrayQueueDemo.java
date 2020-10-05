@@ -1,6 +1,8 @@
 package array;
 
 public class ArrayQueueDemo {
+    
+    
     private int capacity;
     private int count;
     private String[] data;

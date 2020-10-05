@@ -51,6 +51,8 @@ public class MathDemo {
         int add = add(num1, add(~num2, 1));
         return add;
     }
+    
+    
 
     private static int multiply(int num1, int num2) {
         int res = 0;
