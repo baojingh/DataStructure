@@ -34,14 +34,59 @@ public class P561ArrayPartitionI {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+
         /**
-         * 田忌赛马：
-         * 第一大与第一小组合，第二大与第二小组合，例如1，2，3，4，5，6，变成1 6，2 5，3 4，总和1+2+3
-         * 第一大与第二大组合，第三大与第四大组合，这样得到的是1+3+5
+         *
+         * 设计算法
+         * 1 数组中的每两个数字两两结合
+         * 2 经过排序后，两两相邻的数字组合，取最小值，得到的序列之和是最大的
+         *
+         * 2020.10.05第二次，没有明白原理
+         *
+         *
+         * 测试用例
          *
          * @param nums
          * @return
          */
+        public int arrayPairSum1(int[] nums) {
+
+            return -1;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            /**
+             * 田忌赛马：
+             * 第一大与第一小组合，第二大与第二小组合，例如1，2，3，4，5，6，变成1 6，2 5，3 4，总和1+2+3
+             * 第一大与第二大组合，第三大与第四大组合，这样得到的是1+3+5
+             *
+             * @param nums
+             * @return
+             */
         public int arrayPairSum(int[] nums) {
             Arrays.sort(nums);
             int sum = 0;
