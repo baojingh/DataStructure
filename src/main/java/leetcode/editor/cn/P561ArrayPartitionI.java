@@ -37,22 +37,25 @@ public class P561ArrayPartitionI {
 
 
         /**
-         *
          * 设计算法
          * 1 数组中的每两个数字两两结合
          * 2 经过排序后，两两相邻的数字组合，取最小值，得到的序列之和是最大的
-         *
+         * <p>
          * 2020.10.05第二次，没有明白原理
-         *
-         *
+         * <p>
+         * <p>
          * 测试用例
          *
          * @param nums
          * @return
          */
         public int arrayPairSum1(int[] nums) {
-
-            return -1;
+            int min = 0;
+            Arrays.sort(nums);
+            for (int i = 0; i < nums.length; i = i + 2) {
+                min = min + nums[i];
+            }
+            return min;
         }
 
 
