@@ -30,7 +30,60 @@ public class P605CanPlaceFlowers {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+
+        /**
+         *
+         * 设计算法
+         * 0 索引0，1，以及最后两个位置，要特殊判断
+         * 1 迭代数组
+         * 2 前一个位置以及后一个位置均是0，代表可以种花
+         * 3 如果已种植，就继续前进
+         * 4 到达len-1位置就停止，判断count是否等于0，不等于0就说明没有种完
+         *
+         *
+         * 测试用例
+         * 1 1,1,1,1
+         * 2 0,0,0
+         * 3 0,0
+         * 4 0
+         * 5 0,0,1,0,0,1,0,0,0,0,0,1,0,0
+         *
+         *
+         *
+         * @param flowerbed
+         * @param n
+         * @return
+         */
         public boolean canPlaceFlowers(int[] flowerbed, int n) {
+            return false;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public boolean canPlaceFlowers1(int[] flowerbed, int n) {
             int count = 0;
             for (int i = 0; i < flowerbed.length; i++) {
                 if (
