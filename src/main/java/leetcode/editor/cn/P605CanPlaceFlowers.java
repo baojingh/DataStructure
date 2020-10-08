@@ -33,15 +33,14 @@ public class P605CanPlaceFlowers {
 
 
         /**
-         *
          * 设计算法
          * 0 索引0，1，以及最后两个位置，要特殊判断
          * 1 迭代数组
          * 2 前一个位置以及后一个位置均是0，代表可以种花
          * 3 如果已种植，就继续前进
          * 4 到达len-1位置就停止，判断count是否等于0，不等于0就说明没有种完
-         *
-         *
+         * <p>
+         * <p>
          * 测试用例
          * 1 1,1,1,1
          * 2 0,0,0
@@ -49,16 +48,40 @@ public class P605CanPlaceFlowers {
          * 4 0
          * 5 0,0,1,0,0,1,0,0,0,0,0,1,0,0
          *
-         *
-         *
          * @param flowerbed
          * @param n
          * @return
          */
         public boolean canPlaceFlowers(int[] flowerbed, int n) {
+            if (flowerbed == null || flowerbed.length == 0) {
+                return false;
+            }
+            int len = flowerbed.length;
+            if (len == 1 && flowerbed[0] == 0) {
+                return true;
+            }
+
+            if (len > 1 && flowerbed[0] == 0 && flowerbed[1] == 0) {
+                n = n - 1;
+                flowerbed[0] = 1;
+            }
+            if (len > 1 && flowerbed[len - 1] == 0 && flowerbed[len - 2] == 0) {
+                n = n - 1;
+                flowerbed[len - 1] = 1;
+            }
+            for (int i = 1; i < len - 2; i++) {
+                if ((flowerbed[i] == 0) && (flowerbed[i - 1] == 0) && (flowerbed[i + 1] == 0)) {
+                     n = n - 1;
+                    flowerbed[i] = 1;
+                }
+            }
+
+
+            if (n == 0) {
+                return true;
+            }
             return false;
         }
-
 
 
 
