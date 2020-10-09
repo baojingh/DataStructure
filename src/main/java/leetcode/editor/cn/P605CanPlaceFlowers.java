@@ -75,9 +75,7 @@ public class P605CanPlaceFlowers {
                     flowerbed[i] = 1;
                 }
             }
-
-
-            if (n == 0) {
+            if (n < 1) {
                 return true;
             }
             return false;
