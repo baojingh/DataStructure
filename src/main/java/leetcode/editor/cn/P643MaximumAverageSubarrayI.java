@@ -22,6 +22,68 @@ public class P643MaximumAverageSubarrayI {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        /**
+         * 设计算法
+         * 1 创建索引index，[0~n-k+1)，记录k个数的平均值，与max比较
+         * 2 index继续前进，与max比较
+         * <p>
+         * <p>
+         * 测试用例
+         * 1 1 2
+         * 2 2 1
+         * 3 1,2,3,4 4
+         * 4 1,2,3,4,5
+         *
+         * @param nums
+         * @param k
+         * @return
+         */
+        public double findMaxAverage(int[] nums, int k) {
+            int max = 0;
+            for (int i = 0; i < nums.length - k + 1; i++) {
+                int avg = nums[i] + nums[i + 1] + nums[i + 2] + nums[i + 3];
+                max = Math.max(max, avg / 4);
+            }
+            return max;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /**
          * 滑动窗口
          * 从i～i+k的和sum1，滑动到i+1～i+k-1的和是sum2，sum2=sum1 + num[i+k-1] - num[i]
@@ -33,7 +95,7 @@ public class P643MaximumAverageSubarrayI {
          * @param k
          * @return
          */
-        public double findMaxAverage(int[] nums, int k) {
+        public double findMaxAverage1(int[] nums, int k) {
             int len = nums.length;
             int sum = 0;
             for (int i = 0; i < k; i++) {
