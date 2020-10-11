@@ -40,12 +40,20 @@ public class P643MaximumAverageSubarrayI {
          * @return
          */
         public double findMaxAverage(int[] nums, int k) {
-            int max = 0;
-            for (int i = 0; i < nums.length - k + 1; i++) {
-                int avg = nums[i] + nums[i + 1] + nums[i + 2] + nums[i + 3];
-                max = Math.max(max, avg / 4);
+            double max = 0d;
+            // 初始化max
+            for (int i = 0; i < k; i++) {
+                max = max + nums[i];
             }
-            return max;
+
+            for (int i = 1; i < nums.length - k + 1; i++) {
+                double avg = 0d;
+                for (int j = 0; j < k; j++) {
+                    avg = avg + nums[i + j];
+                }
+                max = Math.max(max, avg);
+            }
+            return max / k;
         }
 
 
