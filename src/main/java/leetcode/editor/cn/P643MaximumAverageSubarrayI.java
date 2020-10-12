@@ -14,9 +14,9 @@ package leetcode.editor.cn;
 //Java：子数组最大平均数 I
 public class P643MaximumAverageSubarrayI {
     public static void main(String[] args) {
-        int[] nums = new int[]{1};
+        int[] nums = new int[]{4,2,1,3,3};
         Solution solution = new P643MaximumAverageSubarrayI().new Solution();
-        double average = solution.findMaxAverage(nums, 1);
+        double average = solution.findMaxAverage(nums, 2);
         System.out.println(average);
     }
 
@@ -25,8 +25,12 @@ public class P643MaximumAverageSubarrayI {
 
         /**
          * 设计算法
-         * 1 创建索引index，[0~n-k+1)，记录k个数的平均值，与max比较
-         * 2 index继续前进，与max比较
+         * 1 计算数组中k个连续数字的累加和最大
+         * 2 向前移动一个位置，不可以将k个数字累加，此方案效率很低，可以将当前的和去头加尾，获取max
+         * 3 注意：使用前k个数字初始化，迭代范围是[1,len - k + 1)
+         *
+         *
+         *
          * <p>
          * <p>
          * 测试用例
@@ -40,17 +44,18 @@ public class P643MaximumAverageSubarrayI {
          * @return
          */
         public double findMaxAverage(int[] nums, int k) {
+            if (k < 1) {
+                return 0.0d;
+            }
             double max = 0d;
             // 初始化max
             for (int i = 0; i < k; i++) {
                 max = max + nums[i];
             }
-
+            double avg = max;
             for (int i = 1; i < nums.length - k + 1; i++) {
-                double avg = 0d;
-                for (int j = 0; j < k; j++) {
-                    avg = avg + nums[i + j];
-                }
+                // 不可for循环累加k个数字，否则超时
+                avg = avg - nums[i - 1] + nums[i + k - 1];
                 max = Math.max(max, avg);
             }
             return max / k;
