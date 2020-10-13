@@ -59,6 +59,52 @@ public class P692TopKFrequentWords {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         /**
+         * 设计算法
+         * 1 创建小顶堆，存放k个单词，并且小定堆支持根据字母顺序排序单词
+         * 2 迭代数组元素，基于map统计每个单词出现的次数
+         * 3 迭代数组元素，将单词放入小顶堆中，限定小顶堆长度是k
+         * 4 将元素键入小顶堆先判断是否长度=k，如果相等就移除堆顶元素，如果没有就继续添加，知道将所有元素迭代完
+         * 5 输出堆中的元素到list，插入到0位置
+         *
+         * 测试用例
+         *
+         * @param words
+         * @param k
+         * @return
+         */
+        public List<String> topKFrequent(String[] words, int k) {
+
+
+
+            return null;
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /**
          * 解释题意
          * 1 字符串数组中，一个单词可能出现多次
          * 2 计算频率最高的前k个单词
@@ -83,7 +129,7 @@ public class P692TopKFrequentWords {
          * @param k
          * @return
          */
-        public List<String> topKFrequent(String[] words, int k) {
+        public List<String> topKFrequent1(String[] words, int k) {
             LinkedList<String> wordList = new LinkedList<>();
             if (words == null || words.length == 0) {
                 return wordList;
