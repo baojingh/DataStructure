@@ -37,6 +37,51 @@ public class P724FindPivotIndex {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+
+        /**
+         * 设计算法
+         * 1 根据数学公式推导：left + mid + right = sum => 2 * left + mid = sum
+         * 2 计算数组的元素之和
+         * 2 迭代数组，结束条件是找到这个中间值或者数组元素迭代完成
+         * 3 定义left=0，用于mid左边数据的累加。
+         * 4 从第i(i>0)个位置开始，left = left + num[i-1]，2*left + num[i]是否等于sum
+         *
+         *
+         * 测试用例
+         *
+         *
+         * @param nums
+         * @return
+         */
+        public int pivotIndex(int[] nums) {
+            return -1;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /**
          * 左+右 + 中间 = 总和
          * 演变成2*左+中间= 总和
@@ -45,7 +90,7 @@ public class P724FindPivotIndex {
          * @param nums
          * @return
          */
-        public int pivotIndex(int[] nums) {
+        public int pivotIndex1(int[] nums) {
             int len = nums.length;
             int sum = 0;
             int left = 0;
