@@ -44,17 +44,37 @@ public class P724FindPivotIndex {
          * 1 根据数学公式推导：left + mid + right = sum => 2 * left + mid = sum
          * 2 计算数组的元素之和
          * 2 迭代数组，结束条件是找到这个中间值或者数组元素迭代完成
-         * 3 定义left=0，用于mid左边数据的累加。
-         * 4 从第i(i>0)个位置开始，left = left + num[i-1]，2*left + num[i]是否等于sum
-         *
-         *
+         * 3 定义left=nums[0]，用于mid左边数据的累加。
+         * 4 从第i(i=0)个位置开始，2*left + num[i]是否等于sum,left = left + num[i]，
+         * <p>
+         * <p>
          * 测试用例
-         *
+         * 1 1
+         * 2 1,2
+         * 3 1,2,3
+         * 4 1,2,1
+         * 5 1,2,3,4,5,6
          *
          * @param nums
          * @return
          */
         public int pivotIndex(int[] nums) {
+            if (nums == null) {
+                return -1;
+            }
+            int sum = 0;
+            int left = 0;
+            for (int ele : nums) {
+                sum = sum + ele;
+            }
+            // i=0处理0的情况以及[-1，-1，-1，0，1，1，]
+            for (int i = 0; i < nums.length; i++) {
+                int tmp = 2 * left + nums[i];
+                if (tmp == sum) {
+                    return i;
+                }
+                left = left + nums[i];
+            }
             return -1;
         }
 
