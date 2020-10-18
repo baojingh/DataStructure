@@ -38,18 +38,28 @@ public class P387FirstUniqueCharacterInAString {
          * 1 基于map存储每个元素以及对应的索引
          * 2 如果元素没有出现在map中则添加；如果出现了就做累加
          * 3 再次迭代map，找出
-         *
+         * <p>
          * 测试用例
-         *
-         *
-         *
-         *
          *
          * @param s
          * @return
          */
         public int firstUniqChar(String s) {
-
+            if (s == null) {
+                return -1;
+            }
+            int[] intArr = new int[26];
+            int len = s.length();
+            for (int i = 0; i < len; i++) {
+                char c = s.charAt(i);
+                intArr[c - 'a'] = intArr[c - 'a'] + 1;
+            }
+            for (int i = 0; i < len; i++) {
+                char c = s.charAt(i);
+                if (intArr[c - 'a'] == 1) {
+                    return i;
+                }
+            }
             return -1;
         }
 
