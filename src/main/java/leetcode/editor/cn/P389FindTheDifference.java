@@ -4,8 +4,6 @@
 //
 // 请找出在 t 中被添加的字母。 
 //
-// 
-//
 // 示例: 
 //
 // 输入：
@@ -36,19 +34,51 @@ public class P389FindTheDifference {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        /**
+         * 设计算法
+         * 注意一个字符串可能包含重复字符，新添加的字符可能也是
+         * 1 使用map存储新字符串的字符以及出现次数
+         * 2 迭代原字符串，元素在map中出现，就减一。
+         * 3 迭代map，如果某个字符不是0，就说明它是新增加的。
+         *
+         *
+         *
+         * 测试用例
+         *
+         * @param s
+         * @param t
+         * @return
+         */
+        public char findTheDifference1(String s, String t) {
+
+
+            return 2;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
         /**
          * 解释题意
-         *
-         *
-         *
+         * <p>
+         * <p>
+         * <p>
          * 设计算法
          * 1 使用哈希表存储小字符串各个字符的次数
          * 2 迭代大字符串
          * 3 如果这个字符在map中是null，说明此字符是新增加的。
          * 4 如果这个字符在map中是0，说明这个字符与之前的重复，也应该考虑，如s="a", t="aa"
-         *
+         * <p>
          * 测试用例
-         *
          *
          * @param s
          * @param t
