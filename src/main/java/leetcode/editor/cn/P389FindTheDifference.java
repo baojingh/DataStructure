@@ -37,23 +37,35 @@ public class P389FindTheDifference {
 
         /**
          * 设计算法
-         * 注意一个字符串可能包含重复字符，新添加的字符可能也是
+         * 注意一个字符串可能包含重复字符，新添加的字符可能也是与原来的重复
          * 1 使用map存储新字符串的字符以及出现次数
          * 2 迭代原字符串，元素在map中出现，就减一。
          * 3 迭代map，如果某个字符不是0，就说明它是新增加的。
-         *
-         *
-         *
          * 测试用例
+         *
+         * 不足之处
          *
          * @param s
          * @param t
          * @return
          */
         public char findTheDifference1(String s, String t) {
+            HashMap<Character, Integer> map = new HashMap<>();
 
-
-            return 2;
+            for (char c : t.toCharArray()) {
+                Integer integer = map.getOrDefault(c, 0);
+                map.put(c, integer + 1);
+            }
+            for (char c : s.toCharArray()) {
+                Integer integer = map.getOrDefault(c, 0);
+                map.put(c, integer - 1);
+            }
+            for (Map.Entry<Character, Integer> entry : map.entrySet()) {
+                if (entry.getValue() < 1) {
+                    return entry.getKey();
+                }
+            }
+            return ' ';
         }
 
 
