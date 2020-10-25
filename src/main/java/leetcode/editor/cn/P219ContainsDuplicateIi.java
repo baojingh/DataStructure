@@ -1,4 +1,5 @@
-//给定一个整数数组和一个整数 k，判断数组中是否存在两个不同的索引 i 和 j，使得 nums [i] = nums [j]，并且 i 和 j 的差的 绝对值
+//给定一个整数数组和一个整数 k，判断数组中是否存在两个不同的索引 i 和 j，使得 nums [i] = nums [j]，
+// 并且 i 和 j 的差的 绝对值
 // 至多为 k。 
 // 示例 1:
 // 输入: nums = [1,2,3,1], k = 3
@@ -27,6 +28,54 @@ public class P219ContainsDuplicateIi {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        /**
+         *
+         * 设计算法
+         * 1 使用map存储元素对应的索引
+         * 2 判断元素是否在map中，如果不存在就添加，存在就将两个索引比较。
+         * 3 差值<=k，就返回true
+         * 4 迭代完所有元素，没有发现目标，也返回false
+         *
+         * 测试用例
+         *
+         * @param nums
+         * @param k
+         * @return
+         */
+        public boolean containsNearbyDuplicate1(int[] nums, int k) {
+            return false;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         /**
          * 设计算法
@@ -61,32 +110,6 @@ public class P219ContainsDuplicateIi {
             }
             return false;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         /**
