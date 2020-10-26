@@ -13,6 +13,8 @@
 // Related Topics 数组 哈希表
 package leetcode.editor.cn;
 
+import com.sun.tools.internal.ws.processor.generator.ServiceGenerator;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -43,7 +45,20 @@ public class P219ContainsDuplicateIi {
          * @param k
          * @return
          */
-        public boolean containsNearbyDuplicate1(int[] nums, int k) {
+        public boolean containsNearbyDuplicate(int[] nums, int k) {
+            HashMap<Integer, Integer> map = new HashMap<>();
+            for (int i = 0; i < nums.length; i++) {
+                Integer integer = map.get(nums[i]);
+                if (integer == null) {
+                    map.put(nums[i], i);
+                } else {
+                    if (Math.abs(i - integer) > k) {
+                        return false;
+                    } else {
+
+                    }
+                }
+            }
             return false;
         }
 
@@ -95,7 +110,7 @@ public class P219ContainsDuplicateIi {
          * @param k
          * @return
          */
-        public boolean containsNearbyDuplicate(int[] nums, int k) {
+        public boolean containsNearbyDuplicate1(int[] nums, int k) {
             HashMap<Integer, Integer> map = new HashMap<>();
             for (int i = 0; i < nums.length; i++) {
                 Integer integer = map.get(nums[i]);
