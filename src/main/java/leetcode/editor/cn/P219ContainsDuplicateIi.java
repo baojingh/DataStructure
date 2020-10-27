@@ -13,8 +13,6 @@
 // Related Topics 数组 哈希表
 package leetcode.editor.cn;
 
-import com.sun.tools.internal.ws.processor.generator.ServiceGenerator;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,13 +30,16 @@ public class P219ContainsDuplicateIi {
     class Solution {
 
         /**
-         *
          * 设计算法
          * 1 使用map存储元素对应的索引
          * 2 判断元素是否在map中，如果不存在就添加，存在就将两个索引比较。
          * 3 差值<=k，就返回true
          * 4 迭代完所有元素，没有发现目标，也返回false
+         * <p>
+         * <p>
+         * 2020-10-27 10:09:08 题目描述问题：两个索引的差值最多是k，[1,0,1,1]，索引差值对大是3，这个理解与官方的代码不同
          *
+         * <p>
          * 测试用例
          *
          * @param nums
@@ -49,47 +50,15 @@ public class P219ContainsDuplicateIi {
             HashMap<Integer, Integer> map = new HashMap<>();
             for (int i = 0; i < nums.length; i++) {
                 Integer integer = map.get(nums[i]);
-                if (integer == null) {
-                    map.put(nums[i], i);
-                } else {
-                    if (Math.abs(i - integer) > k) {
-                        return false;
-                    } else {
-
+                if (integer != null) {
+                    if (Math.abs(i - integer) <= k) {
+                        return true;
                     }
                 }
+                map.put(nums[i], i);
             }
             return false;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         /**
