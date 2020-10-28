@@ -16,6 +16,7 @@ public class QueueArrayDemo {
         this.head = 0;
         this.tail = 0;
         items = new int[capacity];
+        
     }
 
     public QueueArrayDemo() {
