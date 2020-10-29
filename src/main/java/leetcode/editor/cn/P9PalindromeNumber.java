@@ -29,6 +29,8 @@
 
 package leetcode.editor.cn;
 
+import java.util.LinkedList;
+
 //Java：回文数
 public class P9PalindromeNumber {
     public static void main(String[] args) {
@@ -38,6 +40,31 @@ public class P9PalindromeNumber {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        /**
+         * 设计算法
+         * 1 负数直接返回false
+         * 2 获取数字的个十百千万未，存入链表
+         * 3 迭代链表，将这些数字组成整数，与原数比较。
+         * <p>
+         * 测试用例
+         *
+         * @param x
+         * @return
+         */
+        public boolean isPalindrome(int x) {
+            int origin = x;
+            int sum = 0;
+            int index = 0;
+            while (origin > 0) {
+                int tmp = x % 10;
+                origin = origin / 10;
+                sum = sum + tmp * (int) (Math.pow(10, index++));
+            }
+            return sum == x;
+        }
+
+
         /**
          * 将数字反转
          * 即使反转出现溢出，说明此数也不是回文数
@@ -45,7 +72,7 @@ public class P9PalindromeNumber {
          * @param x
          * @return
          */
-        public boolean isPalindrome(int x) {
+        public boolean isPalindrome1(int x) {
             if (x < 0) {
                 return false;
             }
