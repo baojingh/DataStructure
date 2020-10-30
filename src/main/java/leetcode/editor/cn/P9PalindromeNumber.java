@@ -35,7 +35,8 @@ import java.util.LinkedList;
 public class P9PalindromeNumber {
     public static void main(String[] args) {
         Solution solution = new P9PalindromeNumber().new Solution();
-        System.out.println();
+        boolean b = solution.isPalindrome(0);
+        System.out.println(b);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
@@ -48,21 +49,44 @@ public class P9PalindromeNumber {
          * 3 迭代链表，将这些数字组成整数，与原数比较。
          * <p>
          * 测试用例
+         * 1 -121
+         * 2 123
+         * 4 121
+         * 5 1221
+         * 6 22
+         * 7 1
+         * 8 0
          *
          * @param x
          * @return
          */
         public boolean isPalindrome(int x) {
+            int len = 0;
+            if (x >= 0) {
+                len = String.valueOf(x).length();
+            }
             int origin = x;
             int sum = 0;
-            int index = 0;
             while (origin > 0) {
-                int tmp = x % 10;
+                int tmp = origin % 10;
                 origin = origin / 10;
-                sum = sum + tmp * (int) (Math.pow(10, index++));
+                sum = sum + tmp * (int) (Math.pow(10, --len));
             }
             return sum == x;
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         /**
