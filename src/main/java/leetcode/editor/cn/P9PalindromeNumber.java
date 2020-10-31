@@ -61,16 +61,12 @@ public class P9PalindromeNumber {
          * @return
          */
         public boolean isPalindrome(int x) {
-            int len = 0;
-            if (x >= 0) {
-                len = String.valueOf(x).length();
-            }
             int origin = x;
             int sum = 0;
             while (origin > 0) {
                 int tmp = origin % 10;
                 origin = origin / 10;
-                sum = sum + tmp * (int) (Math.pow(10, --len));
+                sum = 10 * sum + tmp;
             }
             return sum == x;
         }
