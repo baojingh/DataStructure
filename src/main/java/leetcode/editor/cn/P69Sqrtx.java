@@ -34,6 +34,43 @@ public class P69Sqrtx {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        /**
+         * 设计算法
+         * 1 遍历的范围是1 ~ n/2
+         *
+         * 测试用例
+         *
+         *
+         * @param x
+         * @return
+         */
+        public int mySqrt1(int x) {
+
+            return 0;
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public int mySqrt(int x) {
             if (x < 2) {
                 return x;
@@ -45,7 +82,7 @@ public class P69Sqrtx {
             while (left <= right) {
                 pivot = left + (right - left) / 2;
                 // pivot * pivot有整型溢出的风险
-                val = (long)pivot * pivot - x;
+                val = (long) pivot * pivot - x;
                 if (val > 0) {
                     right = pivot - 1;
                 } else if (val < 0) {
