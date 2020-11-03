@@ -37,18 +37,29 @@ public class P69Sqrtx {
 
         /**
          * 设计算法
-         * 1 遍历的范围是1 ~ n/2
-         *
+         * 1 二分查找算法，初始比较区间是[1, n/2]
+         * 2 中间数的平方大，右边界左移；平方比较小，左边界右移
+         * 3 直到找到这个数字为止
+         * <p>
          * 测试用例
-         *
          *
          * @param x
          * @return
          */
         public int mySqrt1(int x) {
-
+            int low = 1;
+            int high = x / 2;
+            while (low <= high) {
+                int mid = low + (high - low) >> 1;
+                if (mid * mid > x) {
+                    high = high - 1;
+                } else if (mid * mid < x) {
+                    low = low + 1;
+                } else {
+                    return mid;
+                }
+            }
             return 0;
-
         }
 
 
