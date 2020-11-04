@@ -31,19 +31,37 @@ public class P231PowerOfTwo {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        /**
+         *
+         * 设计算法
+         * 常规方案是循环除以2，直到结果是0，时间复杂度是logN
+         *
+         * 非常规方案是位运算
+         *
+         * 测试用例
+         *
+         * @param n
+         * @return
+         */
+        public boolean isPowerOfTwo(int n) {
+
+        }
+
+
         /**
          * 位运算
          * 设计算法
          * 1 n如果是2的次幂，转换成二进制就是最高位是1，其余为全部是0
          * 2 n-1，最高位是0，其余为全部是1。
          * 3 两部分&，一定是0
-         *
+         * <p>
          * https://leetcode-cn.com/problems/power-of-two/solution/power-of-two-er-jin-zhi-ji-jian-by-jyd/
          *
          * @param n
          * @return
          */
-        public boolean isPowerOfTwo(int n) {
+        public boolean isPowerOfTwo2(int n) {
             if (n < 1) {
                 return false;
             }
