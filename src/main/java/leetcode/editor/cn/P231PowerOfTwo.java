@@ -33,12 +33,11 @@ public class P231PowerOfTwo {
     class Solution {
 
         /**
-         *
          * 设计算法
          * 常规方案是循环除以2，直到结果是0，时间复杂度是logN
-         *
+         * <p>
          * 非常规方案是位运算
-         *
+         * <p>
          * 测试用例
          *
          * @param n
@@ -46,6 +45,7 @@ public class P231PowerOfTwo {
          */
         public boolean isPowerOfTwo(int n) {
 
+            return false;
         }
 
 
