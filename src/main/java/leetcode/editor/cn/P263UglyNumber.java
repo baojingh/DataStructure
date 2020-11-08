@@ -58,6 +58,20 @@ public class P263UglyNumber {
          * @return
          */
         public boolean isUgly1(int num) {
+            if (num < 1) {
+                return false;
+            }
+            int[] arr = {2, 3, 5};
+            int tmp = 0;
+            for (int i = 0; i < arr.length; i++) {
+                tmp = arr[i];
+                while (num % tmp == 0) {
+                    num = num / tmp;
+                }
+            }
+            if (num == 1) {
+                return true;
+            }
             return false;
         }
 
