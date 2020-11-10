@@ -38,6 +38,28 @@ public class P326PowerOfThree {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        /**
+         * 设计算法
+         *
+         * 测试用例
+         *
+         * @param n
+         * @return
+         */
+        public boolean isPowerOfThree(int n) {
+            if (n < 1) {
+                return false;
+            }
+            while (n % 3 == 0) {
+                n = n / 3;
+            }
+            if (n == 1) {
+                return true;
+            }
+            return false;
+        }
+
+
         public boolean isPowerOfThree_1(int n) {
             if (n < 1) {
                 return false;
