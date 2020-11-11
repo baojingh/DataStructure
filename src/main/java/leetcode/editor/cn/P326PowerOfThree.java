@@ -41,6 +41,8 @@ public class P326PowerOfThree {
         /**
          * 设计算法
          *
+         *
+         *
          * 测试用例
          *
          * @param n
