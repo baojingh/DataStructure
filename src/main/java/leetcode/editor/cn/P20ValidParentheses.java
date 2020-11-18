@@ -85,6 +85,57 @@ public class P20ValidParentheses {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
 
+        /**
+         * 设计算法
+         * 1. 基于map，存储[],(),{}，三对
+         * 2. 迭代字符串，如果这个字符是map的key，就将其对应的value入栈；如果不是，出栈元素与之对比
+         * 3. 如果相等，就移动到下一个元素，继续出栈对比；如果不相等，就返回false
+         * 4. 迭代到字符串结束，栈还有元素大于0，就返回false
+         * <p>
+         * <p>
+         * 测试用例
+         *
+         * @param s
+         * @return
+         */
+        public boolean isValid(String s) {
+            Stack<Character> stack = new Stack<>();
+
+            HashMap<Character, Character> map = new HashMap<>();
+            map.put('(', ')');
+            map.put('[', ']');
+            map.put('{', '}');
+            for (char c : s.toCharArray()) {
+                if (map.containsKey(c)) {
+                    stack.push(map.get(c));
+                } else {
+                    Character pop = stack.pop();
+                    if (pop != c) {
+                        return false;
+                    }
+                }
+            }
+            if (stack.size() > 0) {
+                return false;
+            }
+            return true;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         /**
          * 测试用例
@@ -101,7 +152,7 @@ public class P20ValidParentheses {
          * @param s
          * @return
          */
-        public boolean isValid(String s) {
+        public boolean isValid1(String s) {
             HashMap<Character, Character> map = new HashMap<>();
             map.put('(', ')');
             map.put('[', ']');
@@ -127,19 +178,6 @@ public class P20ValidParentheses {
             }
             return true;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         /**
