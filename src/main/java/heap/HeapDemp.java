@@ -179,9 +179,9 @@ public class HeapDemp {
         heapDemp.insert(2);
         heapDemp.insert(12);
         heapDemp.printAll();
-        System.out.println();
-        heapDemp.deleteMax();
-        heapDemp.printAll();
+//        System.out.println();
+//        heapDemp.deleteMax();
+//        heapDemp.printAll();
 
 //        heapDemp.buildHeap(arr);
 //        System.out.println(arr.length);
