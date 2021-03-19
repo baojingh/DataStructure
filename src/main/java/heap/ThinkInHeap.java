@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * @Author: baojing.he
  * @Date: 2021-03-17 22:13
- * @Description:
+ * @Description: https://www.jianshu.com/p/4c7ad59a0489
  */
 
 @Data
@@ -38,6 +38,15 @@ public class ThinkInHeap {
         size = size + 1;
         arr[size] = data;
         int i = size;
+        swim(i);
+    }
+
+    /**
+     * 元素上移
+     *
+     * @param i
+     */
+    private void swim(int i) {
         /**
          * 大顶堆
          *
@@ -66,55 +75,40 @@ public class ThinkInHeap {
             return -1;
         }
         int max = arr[1];
-        arr[1] = arr[size - 1];
+        arr[1] = arr[size];
         size = size - 1;
-        heapify(1);
+        sink(1);
         return max;
     }
 
-//    //堆删除元素时的元素下移
-//    private void shiftDown(int i) {
-//        // TODO Auto-generated method stub
-//        while(2*i <= size){
-//            // 将要将data[i]与data[j]交换
-//            int j = 2*i;
-//            // 让j指向他的孩子结点中的大的那一个
-//            if(j+1 <= size && data[j] < data[j+1]){
-//                j += 1;
-//            }
-//            if(data[i] > data[j])
-//                break;
-//            //元素下移
-//            int t = data[i];
-//            data[i] = data[j];
-//            data[j] = t;
-//            i = j;
-//        }
-//    }
 
     /**
      * 元素下移
      * https://blog.csdn.net/csdn_blog_lcl/article/details/78186954
      *
-     * @param i
+     * @param k
      */
-    private void heapify(int i) {
-        while (2 * i <= size) {
-            int j = 2 * i;
+    private void sink(int k) {
+        while (2 * k <= size) {
+            int j = 2 * k;
             /**
              * j指向i节点最大的子节点
              */
-            if (arr[j] < arr[j + 1]) {
+            if ((j < size) && (arr[j] < arr[j + 1])) {
                 j = j + 1;
             }
-            swap(arr, i, j);
-            i = j;
+            if (arr[k] >= arr[j]) {
+                break;
+            }
+            swap(arr, k, j);
+            k = j;
         }
 
     }
 
+
     public void printAll() {
-        for (int i = 1; i < arr.length; i++) {
+        for (int i = 1; i < arr.length-1; i++) {
             System.out.print(arr[i] + " ");
         }
         System.out.println();
@@ -123,20 +117,25 @@ public class ThinkInHeap {
 
 
     public static void main(String[] args) {
-        ThinkInHeap heap = new ThinkInHeap(5);
+        ThinkInHeap heap = new ThinkInHeap(7);
         heap.insert(5);
         heap.insert(4);
         heap.insert(6);
         heap.insert(1);
-        heap.insert(2);
+        heap.insert(8);
+        heap.insert(9);
+        heap.printAll();
 
 
+        int[] newArr = new int[8];
         int[] arr = heap.getArr();
         for (int i = 1; i < arr.length; i++) {
-            heap.heapify(i);
+            newArr[i] = heap.delete();
         }
 
-        heap.printAll();
+        for (int i = 1; i < newArr.length - 1; i++) {
+            System.out.print(newArr[i] + " ");
+        }
 
 
     }
