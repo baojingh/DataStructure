@@ -44,7 +44,7 @@ public class P1046LastStoneWeight {
     //public class JianZhiLastStoneWeight{
     public static void main(String[] args) {
         Solution solution = new P1046LastStoneWeight().new Solution();
-        int[] arr = {2, 7, 4, 1, 8, 1};
+        int[] arr = {1};
         int i = solution.lastStoneWeight(arr);
         System.out.println(i);
     }
@@ -58,6 +58,10 @@ public class P1046LastStoneWeight {
          * 2. 弹出前两个数字，如果等于0，则不添加，继续从堆中弹出前两个比较
          * 3. 如果不等于0，差值放入堆中继续迭代
          * 4. 如果堆中只有一个元素，就返回这个元素；如果堆中没有元素，就返回0
+         * <p>
+         * 测试用例
+         * 1. 2, 7, 4, 1, 8, 1
+         * 2. 1,2,3
          *
          * @param stones
          * @return
@@ -73,19 +77,20 @@ public class P1046LastStoneWeight {
             for (int ele : stones) {
                 heap.add(ele);
             }
-            while (heap.size() > 0) {
-                Integer poll1 = heap.poll();
-                Integer poll2 = heap.poll();
-                if (poll1 == poll2) {
+            while (heap.size() > 1) {
+                /**
+                 * 出队列的两个值肯定是"大-小"顺序
+                 */
+                Integer max = heap.poll();
+                Integer min = heap.poll();
+                if (max == min) {
                     continue;
-                } else {
-                    int abs = Math.abs(poll1 - poll2);
-                    heap.add(abs);
                 }
+                heap.offer(max - min);
             }
-
-
-
+            if (heap.size() == 1) {
+                return heap.poll();
+            }
             return 0;
         }
     }
