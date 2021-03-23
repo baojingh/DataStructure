@@ -44,7 +44,7 @@ public class P1046LastStoneWeight {
     //public class JianZhiLastStoneWeight{
     public static void main(String[] args) {
         Solution solution = new P1046LastStoneWeight().new Solution();
-        int[] arr = {1};
+        int[] arr = {6,7,8,9,10,5};
         int i = solution.lastStoneWeight(arr);
         System.out.println(i);
     }
@@ -77,6 +77,14 @@ public class P1046LastStoneWeight {
             for (int ele : stones) {
                 heap.add(ele);
             }
+            /**
+             * 大顶堆内的元素并不是有序的，是按照完全二叉树在数组中的排列来体现，就像层次遍历。
+             * 只有在poll时，才会有序输出。
+             */
+            for (int ele : heap) {
+                System.out.println(ele);
+            }
+
             while (heap.size() > 1) {
                 /**
                  * 出队列的两个值肯定是"大-小"顺序
