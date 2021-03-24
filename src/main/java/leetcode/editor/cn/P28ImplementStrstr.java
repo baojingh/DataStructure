@@ -31,7 +31,7 @@ public class P28ImplementStrstr {
     //public class JianZhiImplementStrstr{
     public static void main(String[] args) {
         Solution solution = new P28ImplementStrstr().new Solution();
-        int i = solution.strStr(null, null);
+        int i = solution.strStr("hello", "ll");
         System.out.println(i);
     }
 
@@ -62,14 +62,11 @@ public class P28ImplementStrstr {
             int i = 0;
             int j = 0;
 
-            for (i = 0; i < haystack.length(); ) {
+            for (i = 0; i < haystack.length(); i++) {
                 char base = haystack.charAt(i);
-                for (j = 0; j < needle.length(); ) {
-                    char sub = needle.charAt(i);
-                    if (base == sub) {
-                        i = i + 1;
-                        j = j + 1;
-                    } else {
+                for (j = 0; j < needle.length();j++ ) {
+                    char sub = needle.charAt(j);
+                    if (base != sub) {
                         break;
                     }
                 }
