@@ -59,10 +59,12 @@ public class P28ImplementStrstr {
             if (haystack == null || needle == null) {
                 return 0;
             }
-            int baseHead = 0;
-            for (int i = 0; i < haystack.length(); ) {
+            int i = 0;
+            int j = 0;
+
+            for (i = 0; i < haystack.length(); ) {
                 char base = haystack.charAt(i);
-                for (int j = 0; j < needle.length(); ) {
+                for (j = 0; j < needle.length(); ) {
                     char sub = needle.charAt(i);
                     if (base == sub) {
                         i = i + 1;
@@ -71,8 +73,14 @@ public class P28ImplementStrstr {
                         break;
                     }
                 }
+                /**
+                 * 模式串已经遍历到最后
+                 */
+                if (j == needle.length() - 1) {
+                    return i;
+                }
             }
-            return 1;
+            return -1;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
