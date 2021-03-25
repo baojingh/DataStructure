@@ -59,12 +59,13 @@ public class P28ImplementStrstr {
             if (haystack == null || needle == null) {
                 return 0;
             }
-            int i = 0;
-            int j = 0;
+            int mainLen = haystack.length();
+            int vicelen = needle.length();
 
-            for (i = 0; i < haystack.length(); i++) {
-                char base = haystack.charAt(i);
-                for (j = 0; j < needle.length();j++ ) {
+            for (int i = 0; i < mainLen - vicelen + 1; i++) {
+                int j = 0;
+                for (j = 0; j < vicelen;j++ ) {
+                    char base = haystack.charAt(i + j);
                     char sub = needle.charAt(j);
                     if (base != sub) {
                         break;
@@ -73,7 +74,7 @@ public class P28ImplementStrstr {
                 /**
                  * 模式串已经遍历到最后
                  */
-                if (j == needle.length() - 1) {
+                if (j == vicelen) {
                     return i;
                 }
             }
