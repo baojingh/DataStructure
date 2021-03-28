@@ -24,7 +24,7 @@ public class P125ValidPalindrome {
     //public class JianZhiValidPalindrome{
     public static void main(String[] args) {
         Solution solution = new P125ValidPalindrome().new Solution();
-        boolean ab = solution.isPalindrome("aaa");
+        boolean ab = solution.isPalindrome("A man, a plan, a canal: Panama");
         System.out.println(ab);
     }
 
@@ -36,12 +36,14 @@ public class P125ValidPalindrome {
          * 1. 设置前后指针first，last索引分别向前向后，步长是1
          * 2. 循环结束条件是first，last相等
          * 3. 如果不相等，就返回false
+         * 4. 注意考虑大小写情况，注意只考虑字符以及数字
          * <p>
          * <p>
          * 测试用例
          * 1.aa
          * 2. ab
          * 3 aba
+         * 4. a&&&a#a
          *
          * @param s
          * @return
@@ -59,13 +61,16 @@ public class P125ValidPalindrome {
                 /**
                  * 处理非数字，字符的情况
                  */
-                while (!Character.isLetterOrDigit(s.charAt(first))) {
+                while (first < last && !Character.isLetterOrDigit(s.charAt(first))) {
                     first = first + 1;
                 }
-                while (!Character.isLetterOrDigit(s.charAt(last))) {
+                while (first < last && !Character.isLetterOrDigit(s.charAt(last))) {
                     last = last - 1;
                 }
-                if (s.charAt(first) == s.charAt(last)) {
+                /**
+                 * 统一成小写进行比较
+                 */
+                if (Character.toLowerCase(s.charAt(first)) == Character.toLowerCase(s.charAt(last))) {
                     /**
                      * 指针移动
                      */
