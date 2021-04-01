@@ -45,6 +45,7 @@ public class P205IsomorphicStrings {
     //public class JianZhiIsomorphicStrings{
     public static void main(String[] args) {
         Solution solution = new P205IsomorphicStrings().new Solution();
+        boolean isomorphic = solution.isIsomorphic("paper", "titl");
         System.out.println();
     }
 
@@ -52,37 +53,37 @@ public class P205IsomorphicStrings {
     class Solution {
 
         /**
-         * 设计算法
-         * 1. 迭代字符串s，计算当前字符与t对应的差值 <c, gap>
-         * 2. 如果当前字符不在map中，则添加，如果存在，判断当前的差值与map中的差值是否相同
+         * https://leetcode-cn.com/problems/isomorphic-strings/solution/tong-gou-zi-fu-chuan-by-leetcode-solutio-s6fd/
          * <p>
+         * 设计算法
+         * 1. 使用两个map分别存储当前字符串对应的另一个字符串中的字符
+         * 2. 迭代字符串，如果当前的字符不在map中，则存储，如果当前字符在map中但是得到的value不能与另一个map中的key对应，则是false
+         *
          * 测试用例
-         * 1. null,null
-         * 2. a a
-         * 3. ab cf
          *
          * @param s
          * @param t
          * @return
          */
         public boolean isIsomorphic(String s, String t) {
-            if (s == null || t == null) {
+            if (s == null || t == null || s.length() != t.length()) {
                 return false;
             }
-            HashMap<Character, Integer> map = new HashMap<>();
+            HashMap<Character, Character> sMap = new HashMap<>();
+            HashMap<Character, Character> tMap = new HashMap<>();
             for (int i = 0; i < s.length(); i++) {
-                char base = s.charAt(i);
-                char vice = t.charAt(i);
-                int gap = base - vice;
-
-                Integer integer = map.get(base);
-                if (integer == null) {
-                    map.put(base, gap);
-                } else {
-                    if (gap != integer) {
-                        return false;
-                    }
+                char sChar = s.charAt(i);
+                char tChar = t.charAt(i);
+                Character character1 = sMap.get(sChar);
+                Character character2 = tMap.get(tChar);
+                if (character1 != null && character1 != tChar) {
+                    return false;
                 }
+                if (character2 != null && character2 != sChar) {
+                    return false;
+                }
+                sMap.put(sChar, tChar);
+                tMap.put(tChar, sChar);
             }
             return true;
         }
