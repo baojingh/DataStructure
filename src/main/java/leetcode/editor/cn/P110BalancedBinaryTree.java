@@ -2,15 +2,10 @@
 //
 // 本题中，一棵高度平衡二叉树定义为： 
 //
-// 
 // 一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过 1 。 
-// 
-//
-// 
 //
 // 示例 1： 
 //
-// 
 //输入：root = [3,9,20,null,null,15,7]
 //输出：true
 // 
@@ -27,12 +22,9 @@
 // 
 //输入：root = []
 //输出：true
-// 
 //
-// 
 //
-// 提示： 
-//
+// 提示：
 // 
 // 树中的节点数在范围 [0, 5000] 内 
 // -104 <= Node.val <= 104 
@@ -71,27 +63,13 @@ public class P110BalancedBinaryTree {
      * }
      */
     class Solution {
-        public boolean isBalanced(TreeNode root) {
 
-//            class Solution {
-//                boolean flag = true;
-//                public boolean isBalanced(TreeNode root) {
-//                    if(root == null) return true;
-//                    dfs(root);
-//                    return flag;
-//                }
-//
-//                public int dfs(TreeNode root){
-//                    if(root == null) return 0;
-//                    int left = dfs(root.left);
-//                    int right = dfs(root.right);
-//                    if(Math.abs(left - right) > 1) {
-//                        flag = false;
-//                    }
-//                    return Math.max(left, right) + 1;
-//
-//                }
-//            }
+        /**
+         * 2021-04-08 10:27:51 不会递归
+         * @param root
+         * @return
+         */
+        public boolean isBalanced(TreeNode root) {
 
 
             return false;
