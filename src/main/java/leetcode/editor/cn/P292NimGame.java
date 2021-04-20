@@ -47,20 +47,22 @@
 
 
 package leetcode.editor.cn;
+
 //Java：Nim 游戏
-public class P292NimGame{
-//public class JianZhiNimGame{
+public class P292NimGame {
+    //public class JianZhiNimGame{
     public static void main(String[] args) {
         Solution solution = new P292NimGame().new Solution();
         System.out.println();
     }
-    
+
     //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
+    class Solution {
         public boolean canWinNim(int n) {
+
             return false;
         }
-}
+    }
 //leetcode submit region end(Prohibit modification and deletion)
 
 }
