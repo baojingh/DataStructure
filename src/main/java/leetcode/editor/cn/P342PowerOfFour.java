@@ -57,13 +57,22 @@ public class P342PowerOfFour {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        /**
+         * 设计算法：
+         * 1.计算是否是是4的次幂，即n%4==0。4，16，64，他们最后循环除以4，最后余数都得到1.
+         * 2.12%4==0，但是12不符合要求。因此要想办法过滤掉12之类的数字。例如8，12，20之类的，经过循环除之后，得到的余数都会大于1
+         *
+         *
+         * @param n
+         * @return
+         */
         public boolean isPowerOfFour(int n) {
             if (n == 0) {
                 return false;
             }
-
             while (n % 4 == 0) {
                 n = n / 4;
+
             }
             return n == 1;
         }
