@@ -22,7 +22,7 @@ public class P415AddStrings {
     //public class JianZhiAddStrings{
     public static void main(String[] args) {
         Solution solution = new P415AddStrings().new Solution();
-        String s = solution.addStrings("123", "11");
+        String s = solution.addStrings("456", "77");
         System.out.println(s);
     }
 
@@ -44,8 +44,11 @@ public class P415AddStrings {
                 if (index2 > -1) {
                     n2 = char2[index2--] - '0';
                 }
-                flag = (n1 + n2 + flag) / 10;
+                /**
+                 * 先计算余数，在计算进位
+                 */
                 int tmp = (n1 + n2 + flag) % 10;
+                flag = (n1 + n2 + flag) / 10;
                 sb.append(tmp);
             }
             if (flag == 1) {
