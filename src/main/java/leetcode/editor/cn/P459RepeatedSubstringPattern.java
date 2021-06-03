@@ -38,7 +38,8 @@ public class P459RepeatedSubstringPattern {
     //public class JianZhiRepeatedSubstringPattern{
     public static void main(String[] args) {
         Solution solution = new P459RepeatedSubstringPattern().new Solution();
-        System.out.println();
+        boolean abcdabcd = solution.repeatedSubstringPattern("abcdabcd");
+        System.out.println(abcdabcd);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
