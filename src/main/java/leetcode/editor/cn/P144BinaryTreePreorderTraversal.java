@@ -19,6 +19,7 @@
 package leetcode.editor.cn;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -64,6 +65,7 @@ public class P144BinaryTreePreorderTraversal {
 
     static class TreeNode {
         int val;
+        boolean isVisited;
         TreeNode left;
         TreeNode right;
 
@@ -84,14 +86,89 @@ public class P144BinaryTreePreorderTraversal {
      * }
      */
     class Solution {
+
+        public class TreeNodeColor {
+            TreeNode treeNode;
+            boolean isVisited;
+
+            public TreeNodeColor(TreeNode treeNode, boolean isVisited) {
+                this.treeNode = treeNode;
+                this.isVisited = isVisited;
+            }
+
+            public TreeNodeColor() {
+            }
+        }
+
         /**
-         * https://leetcode-cn.com/problems/binary-tree-postorder-traversal/
-         * solution/xiang-xi-tong-su-de-si-lu-fen-xi-duo-jie-fa-by--34/
+         * 前序遍历标记法
+         * 父节点-左子节点-右子节点
+         * <p>
+         * 设计算法
+         * 对树中的每个节点进行标记，即使第一次访问到了目标节点，需要对其标记并入栈但不处理数据。
+         * 下一次从出栈这个被标记的数据，根据标记来对这个元素处理。
+         * 标记的策略是：根据前中后遍历的需求，对数据进行标记。
          *
          * @param root
          * @return
          */
         public List<Integer> preorderTraversal(TreeNode root) {
+            LinkedList<Integer> list = new LinkedList<>();
+            if (root == null) {
+                /**
+                 * 树是否是空
+                 */
+                return list;
+            }
+            Stack<TreeNodeColor> stack = new Stack<>();
+            stack.push(new TreeNodeColor(root, false));
+            while (stack.size() > 0) {
+                TreeNodeColor pop = stack.pop();
+                if (!pop.isVisited) {
+                    if (pop.treeNode.right != null) {
+                        TreeNode right = pop.treeNode.right;
+                        stack.push(new TreeNodeColor(right, false));
+                    }
+                    if (pop.treeNode.left != null) {
+                        TreeNode left = pop.treeNode.left;
+                        stack.push(new TreeNodeColor(left, false));
+                    }
+                    pop.isVisited = true;
+                    stack.push(pop);
+                } else {
+                    list.add(pop.treeNode.val);
+                }
+            }
+            return list;
+
+
+//            Stack<TreeNode> stack = new Stack<>();
+//            LinkedList<Integer> list = new LinkedList<>();
+//            stack.push(root);
+//            while (stack.size() > 0) {
+//                TreeNode pop = stack.pop();
+//                if (!pop.isVisited) {
+//                    if (pop.right != null) {
+//                        TreeNode right = pop.right;
+//                        right.isVisited = false;
+//                        stack.push(right);
+//                    }
+//                    if (pop.left != null) {
+//                        TreeNode left = pop.left;
+//                        left.isVisited = false;
+//                        stack.push(left);
+//                    }
+//                    pop.isVisited = true;
+//                    stack.push(pop);
+//                } else {
+//                    list.add(pop.val);
+//                }
+//            }
+//            return list;
+        }
+
+
+        public List<Integer> preorderTraversal1(TreeNode root) {
             List<Integer> list = new ArrayList<>();
             if (root == null) {
                 return list;
@@ -114,3 +191,35 @@ public class P144BinaryTreePreorderTraversal {
 //leetcode submit region end(Prohibit modification and deletion)
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
