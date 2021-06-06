@@ -17,8 +17,8 @@
 
 package leetcode.editor.cn;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -38,14 +38,11 @@ public class P145BinaryTreePostorderTraversal {
         node1.left = node2;
         node1.right = node3;
 
-        TreeNode n1 = new TreeNode(1);
-        TreeNode n2 = new TreeNode(2);
-        TreeNode n3 = new TreeNode(3);
-        n1.left = n2;
-        n1.right = n3;
-        Solution solution = new P145BinaryTreePostorderTraversal().new Solution();
-        List<Integer> list = solution.postorderTraversal(node1);
-        System.out.println(list.toString());
+        P145BinaryTreePostorderTraversal.Solution solution = new P145BinaryTreePostorderTraversal().new Solution();
+        List<Integer> integers = solution.postorderTraversal(node1);
+
+
+        System.out.println(Arrays.toString(integers.toArray()));
     }
 
     static class TreeNode {
@@ -60,6 +57,20 @@ public class P145BinaryTreePostorderTraversal {
 
     //leetcode submit region begin(Prohibit modification and deletion)
 
+
+    public class TreeNodeColor {
+        TreeNode treeNode;
+        boolean isVisited;
+
+        public TreeNodeColor(TreeNode treeNode, boolean isVisited) {
+            this.treeNode = treeNode;
+            this.isVisited = isVisited;
+        }
+
+        public TreeNodeColor() {
+        }
+    }
+
     /**
      * Definition for a binary tree node.
      * public class TreeNode {
@@ -70,26 +81,59 @@ public class P145BinaryTreePostorderTraversal {
      * }
      */
     class Solution {
+
+        /**
+         * 后续遍历
+         * 左-右-中
+         *
+         * @param root
+         * @return
+         */
         public List<Integer> postorderTraversal(TreeNode root) {
-            ArrayList<Integer> list = new ArrayList<>();
+            List<Integer> list = new LinkedList<>();
             if (root == null) {
                 return list;
             }
-            Stack<TreeNode> stack = new Stack<>();
-            TreeNode cur = root;
-            while (cur != null || !stack.isEmpty()) {
-                if (cur != null) {
-                    list.add(cur.val);
-                    stack.push(cur);
-                    cur = cur.right;
+            Stack<TreeNodeColor> stack = new Stack<>();
+            stack.push(new TreeNodeColor(root, false));
+            while (stack.size() > 0) {
+                TreeNodeColor color = stack.pop();
+                if (!color.isVisited) {
+                    stack.push(new TreeNodeColor(color.treeNode, true));
+                    if (color.treeNode.right != null) {
+                        stack.push(new TreeNodeColor(color.treeNode.right, false));
+                    }
+                    if (color.treeNode.left != null) {
+                        stack.push(new TreeNodeColor(color.treeNode.left, false));
+                    }
                 } else {
-                    cur = stack.pop();
-                    cur = cur.left;
+                    list.add(color.treeNode.val);
                 }
             }
-            Collections.reverse(list);
             return list;
         }
+
+
+//        public List<Integer> postorderTraversal(TreeNode root) {
+//            ArrayList<Integer> list = new ArrayList<>();
+//            if (root == null) {
+//                return list;
+//            }
+//            Stack<TreeNode> stack = new Stack<>();
+//            TreeNode cur = root;
+//            while (cur != null || !stack.isEmpty()) {
+//                if (cur != null) {
+//                    list.add(cur.val);
+//                    stack.push(cur);
+//                    cur = cur.right;
+//                } else {
+//                    cur = stack.pop();
+//                    cur = cur.left;
+//                }
+//            }
+//            Collections.reverse(list);
+//            return list;
+//        }
     }
 //leetcode submit region end(Prohibit modification and deletion)
 
