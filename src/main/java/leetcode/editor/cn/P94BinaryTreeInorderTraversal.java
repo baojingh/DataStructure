@@ -17,9 +17,6 @@
 
 package leetcode.editor.cn;
 
-import entity.TreeNode;
-import utils.TreeFormatUtils;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
@@ -27,27 +24,7 @@ import java.util.Stack;
 //Java：二叉树的中序遍历
 public class P94BinaryTreeInorderTraversal {
     public static void main(String[] args) {
-        TreeNode node1 = new TreeNode(String.valueOf(1));
-        TreeNode node2 = new TreeNode(String.valueOf(2));
-        TreeNode node3 = new TreeNode(String.valueOf(3));
-        TreeNode node4 = new TreeNode(String.valueOf(4));
-        TreeNode node5 = new TreeNode(String.valueOf(5));
-        TreeNode node6 = new TreeNode(String.valueOf(6));
 
-        node2.left = node4;
-        node2.right = node5;
-        node3.left = node6;
-        node1.left = node2;
-        node1.right = node3;
-
-        TreeNode n1 = new TreeNode(String.valueOf(1));
-        TreeNode n2 = new TreeNode(String.valueOf(2));
-        TreeNode n3 = new TreeNode(String.valueOf(3));
-        n1.left = n2;
-        n1.right = n3;
-        Solution solution = new P94BinaryTreeInorderTraversal().new Solution();
-        List<Integer> integers = solution.inorderTraversal(node1);
-        TreeFormatUtils.printTreeWithTree(node1);
     }
 
     /**
@@ -64,15 +41,16 @@ public class P94BinaryTreeInorderTraversal {
         middleOrder(node.right);
     }
 
-//    static class TreeNode {
-//        int val;
-//        TreeNode left;
-//        TreeNode right;
-//
-//        TreeNode(int x) {
-//            val = x;
-//        }
-//    }
+
+    static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int x) {
+            val = x;
+        }
+    }
 
     //leetcode submit region begin(Prohibit modification and deletion)
 
@@ -86,6 +64,58 @@ public class P94BinaryTreeInorderTraversal {
      * }
      */
     class Solution {
+
+
+        public class TreeNodeColor {
+            TreeNode treeNode;
+            boolean isVisited;
+
+            public TreeNodeColor(TreeNode treeNode, boolean isVisited) {
+                this.treeNode = treeNode;
+                this.isVisited = isVisited;
+            }
+
+            public TreeNodeColor() {
+            }
+        }
+
+        /**
+         * 中序遍历标记法
+         * 左子节点-父节点-右子节点
+         * <p>
+         * 设计算法
+         * 对树中的每个节点进行标记，即使第一次访问到了目标节点，需要对其标记并入栈但不处理数据。
+         * 下一次从出栈这个被标记的数据，根据标记来对这个元素处理。
+         * 标记的策略是：根据前中后遍历的需求，对数据进行标记。
+         *
+         * @param root
+         * @return
+         */
+        public List<Integer> inorderTraversal(TreeNode root) {
+            LinkedList<Integer> list = new LinkedList<>();
+            if (root == null) {
+                return list;
+            }
+            Stack<TreeNodeColor> stack = new Stack<>();
+            stack.push(new TreeNodeColor(root, false));
+            while (stack.size() > 0) {
+                TreeNodeColor color = stack.pop();
+                if (!color.isVisited) {
+                    if (color.treeNode.right != null) {
+                        stack.push(new TreeNodeColor(color.treeNode.right, false));
+                    }
+                    stack.push(new TreeNodeColor(color.treeNode, true));
+                    if (color.treeNode.left != null) {
+                        stack.push(new TreeNodeColor(color.treeNode.left, false));
+                    }
+                } else {
+                    list.add(color.treeNode.val);
+                }
+            }
+            return list;
+        }
+
+
         /**
          * 迭代方法：
          * https://leetcode-cn.com/problems/binary-tree-inorder-traversal/
@@ -116,7 +146,7 @@ public class P94BinaryTreeInorderTraversal {
          * @param root
          * @return
          */
-        public List<Integer> inorderTraversal(TreeNode root) {
+        public List<Integer> inorderTraversal1(TreeNode root) {
             TreeNode cur = root;
             LinkedList<Integer> list = new LinkedList<>();
             Stack<TreeNode> stack = new Stack<>();
@@ -128,7 +158,7 @@ public class P94BinaryTreeInorderTraversal {
                 TreeNode node = stack.pop();
                 if (node.left == null && node.right == null) {
                     // 叶子结点
-                    list.add((Integer.parseInt(node.val)));
+                    // list.add((Integer.parseInt(node.val)));
                     // 找到叶子结点，还需要继续迭代，不能向下走，不可执行stack.push(node)
                     continue;
                 }
