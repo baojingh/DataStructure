@@ -43,6 +43,26 @@ public class P501FindModeInBinarySearchTree {
 
     //leetcode submit region begin(Prohibit modification and deletion)
 
+    public class TreeNode {
+        int val;
+        boolean isVisited;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
     /**
      * Definition for a binary tree node.
      * public class TreeNode {
@@ -99,16 +119,36 @@ public class P501FindModeInBinarySearchTree {
         }
 
         private List<Integer> midSearch(TreeNode root) {
-            Stack<TreeNode> stack = new Stack<>();
             LinkedList<Integer> list = new LinkedList<>();
-            while (stack.size() > 0 || root != null) {
-                if (root != null) {
-                    stack.push(root);
-                    root = root.left;
+            Stack<TreeNode> stack = new Stack<>();
+            root.isVisited = false;
+            stack.push(root);
+            while (stack.size() > 0) {
+                TreeNode pop = stack.pop();
+                if (!pop.isVisited) {
+                    /**
+                     * 中序遍历顺序：左-中-右
+                     */
+
+                    if (pop.right != null) {
+                        pop.right.isVisited = false;
+                        stack.push(pop.right);
+                    }
+
+                    pop.isVisited = true;
+                    stack.push(pop);
+
+
+                    if (pop.left != null) {
+                        pop.left.isVisited = false;
+                        stack.push(pop.left);
+                    }
+
                 } else {
-                    TreeNode pop = stack.pop();
+                    /**
+                     * 处理数据
+                     */
                     list.add(pop.val);
-                    root = pop.right;
                 }
             }
             return list;
