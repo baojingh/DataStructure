@@ -29,9 +29,9 @@
 
 package leetcode.editor.cn;
 
-import leetcode.editor.cn.P100SameTree.TreeNode;
-
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Stack;
 
 //Java：二叉搜索树中的众数
 public class P501FindModeInBinarySearchTree {
@@ -80,6 +80,11 @@ public class P501FindModeInBinarySearchTree {
      */
     class Solution {
 
+        LinkedList<Integer> list = new LinkedList<Integer>();
+        int count = 0;
+        int maxCount = 0;
+        int base = 0;
+
         /**
          * 二叉搜索树，中序遍历
          *
@@ -87,37 +92,20 @@ public class P501FindModeInBinarySearchTree {
          * @return
          */
         public int[] findMode(TreeNode root) {
-            HashMap<Integer, Integer> map = new HashMap<>();
-            List<Integer> list = midSearch(root);
-            for (Integer ele : list) {
-                map.put(ele, map.getOrDefault(ele, 0) + 1);
+            midSearch(root);
+            int[] arr = new int[list.size()];
+            for (int i = 0; i < list.size(); i++) {
+                arr[i] = list.get(i);
             }
-
-            int max = 0;
-            for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-                Integer value = entry.getValue();
-                if (value > max) {
-                    max = value;
-                }
-            }
-
-            LinkedList<Integer> resList = new LinkedList<>();
-            for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-                Integer value = entry.getValue();
-                if (value == max) {
-                    resList.add(entry.getKey());
-                }
-            }
-
-            int[] arr = new int[resList.size()];
-            int i = 0;
-            for (int ele : resList) {
-                arr[i++] = ele;
-            }
-
             return arr;
         }
 
+        /**
+         * https://leetcode-cn.com/problems/
+         * find-mode-in-binary-search-tree/solution/er-cha-sou-suo-shu-zhong-de-zhong-shu-by-leetcode-/
+         * @param root
+         * @return
+         */
         private List<Integer> midSearch(TreeNode root) {
             LinkedList<Integer> list = new LinkedList<>();
             Stack<TreeNode> stack = new Stack<>();
@@ -138,23 +126,35 @@ public class P501FindModeInBinarySearchTree {
                     pop.isVisited = true;
                     stack.push(pop);
 
-
                     if (pop.left != null) {
                         pop.left.isVisited = false;
                         stack.push(pop.left);
                     }
-
                 } else {
                     /**
                      * 处理数据
                      */
-                    list.add(pop.val);
+                    updateMode(pop.val);
                 }
             }
             return list;
         }
 
-
+        private void updateMode(int num) {
+            if (base == num) {
+                count++;
+            } else {
+                count = 1;
+                base = num;
+            }
+            if (count == maxCount) {
+                list.add(base);
+            } else if (count > maxCount) {
+                maxCount = count;
+                list.clear();
+                list.add(base);
+            }
+        }
     }
 //leetcode submit region end(Prohibit modification and deletion)
 
