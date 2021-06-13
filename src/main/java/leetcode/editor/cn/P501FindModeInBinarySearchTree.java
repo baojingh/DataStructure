@@ -148,11 +148,11 @@ public class P501FindModeInBinarySearchTree {
                 base = num;
             }
             if (count == maxCount) {
-                list.add(base);
+                list.add(num);
             } else if (count > maxCount) {
                 maxCount = count;
                 list.clear();
-                list.add(base);
+                list.add(num);
             }
         }
     }
