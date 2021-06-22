@@ -20,14 +20,14 @@ package leetcode.editor.cn;
 import java.util.HashMap;
 
 //Java：两数之和
-public class P1TwoSum{
+public class P1TwoSum {
     public static void main(String[] args) {
         Solution solution = new P1TwoSum().new Solution();
         System.out.println();
     }
-    
+
     //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
+    class Solution {
         /**
          * 解释题意
          * 遍历所有的数字，时间复杂度O(n*n)
@@ -60,22 +60,21 @@ class Solution {
          * @return
          */
         public int[] twoSum(int[] nums, int target) {
-            int[] arr = null;
-            if (nums == null) {
-                return new int[2];
-            }
+            int[] arr = new int[2];
+
             HashMap<Integer, Integer> map = new HashMap<>();
             for (int i = 0; i < nums.length; i++) {
                 Integer integer = map.get(nums[i]);
                 if (integer == null) {
                     map.put(target - nums[i], i);
                 } else {
-                    arr = new int[]{i, integer};
+                    arr[0] = i;
+                    arr[1] = integer;
                 }
             }
             return arr;
         }
-}
+    }
 //leetcode submit region end(Prohibit modification and deletion)
 
 }
