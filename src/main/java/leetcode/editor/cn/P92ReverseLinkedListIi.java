@@ -12,8 +12,6 @@
 
 package leetcode.editor.cn;
 
-import sun.tools.jconsole.HTMLPane;
-
 //Java：反转链表 II
 public class P92ReverseLinkedListIi {
     public static void main(String[] args) {
@@ -107,32 +105,6 @@ public class P92ReverseLinkedListIi {
             tail.next = next;
             return solder.next;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         /**
