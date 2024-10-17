@@ -21,14 +21,17 @@
 
 package leetcode.editor.cn;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.PriorityQueue;
 
 //Java：前 K 个高频元素
 public class P347TopKFrequentElements {
     public static void main(String[] args) {
         Solution solution = new P347TopKFrequentElements().new Solution();
-        int[] nums = new int[]{1,0,3,0};
-        int[] ints = solution.topKFrequent(nums, 1);
+        int[] nums = new int[]{1, 0, 3, 0, 3, 4, 3};
+        int[] ints = solution.topKFrequent(nums, 2);
         System.out.println(Arrays.toString(ints));
     }
 
@@ -65,7 +68,7 @@ public class P347TopKFrequentElements {
                     return map.get(o1) - map.get(o2);
                 }
             });
-            if (nums == null || k < 0){
+            if (nums == null || k < 0) {
                 return new int[0];
             }
             for (int ele : nums) {
@@ -96,85 +99,27 @@ public class P347TopKFrequentElements {
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            /**
-             * 解释题意
-             * 1 数组中，每个数字会出现多次，按照从高到低排序，取前k个
-             * <p>
-             * 设计算法
-             * 1 hashmap存储每个数字对应的出现次数
-             * 2 创建小顶堆，小顶堆的长度是k，存放的顺序是比较这个数字出现的次数。
-             * 3 先添加元素【add】，如果堆长度大于k，就移除堆头部元素即出现次数最小的元素【remove/poll】；长度小于k，就继续循环。
-             * 4 所有数字添加完成，小顶堆也就创建完成
-             * 5 输出
-             * <p>
-             * 测试用例
-             * 0 1，2，3，2，4，3
-             * 1 1，1 2
-             * 2 1，2 2
-             * 3 1，2，1 1
-             *
-             * @param nums
-             * @param k
-             * @return
-             */
+        /**
+         * 解释题意
+         * 1 数组中，每个数字会出现多次，按照从高到低排序，取前k个
+         * <p>
+         * 设计算法
+         * 1 hashmap存储每个数字对应的出现次数
+         * 2 创建小顶堆，小顶堆的长度是k，存放的顺序是比较这个数字出现的次数。
+         * 3 先添加元素【add】，如果堆长度大于k，就移除堆头部元素即出现次数最小的元素【remove/poll】；长度小于k，就继续循环。
+         * 4 所有数字添加完成，小顶堆也就创建完成
+         * 5 输出
+         * <p>
+         * 测试用例
+         * 0 1，2，3，2，4，3
+         * 1 1，1 2
+         * 2 1，2 2
+         * 3 1，2，1 1
+         *
+         * @param nums
+         * @param k
+         * @return
+         */
         public int[] topKFrequent_1(int[] nums, int k) {
             HashMap<Integer, Integer> map = new HashMap<>();
             // 统计每个数字出现的次数
