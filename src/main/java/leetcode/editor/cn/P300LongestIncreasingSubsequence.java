@@ -31,6 +31,9 @@ public class P300LongestIncreasingSubsequence {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         /**
+         *
+         * https://leetcode.cn/problems/longest-increasing-subsequence/solutions/24173/zui-chang-shang-sheng-zi-xu-lie-dong-tai-gui-hua-2/
+         *
          * 设计算法
          * 1 dp[i]代表以nums[i]结尾的子序列的最大长度
          * 2 dp[0]=1,以num[0]结尾的子序列即元素本身，最大长度是1

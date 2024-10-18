@@ -69,6 +69,11 @@ public class P121BestTimeToBuyAndSellStock {
         }
 
 
+        /**
+         * https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/solutions/1692872/by-jyd-cu90/
+         * @param prices
+         * @return
+         */
         public int maxProfit_2(int[] prices) {
             if (prices == null || prices.length == 0) {
                 return 0;
