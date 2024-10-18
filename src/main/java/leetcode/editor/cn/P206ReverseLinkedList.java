@@ -43,6 +43,7 @@ public class P206ReverseLinkedList {
 
 
         /**
+         * https://leetcode.cn/problems/reverse-linked-list/solutions/2361282/206-fan-zhuan-lian-biao-shuang-zhi-zhen-r1jel/
          * 解释题意
          * <p>
          * <p>
@@ -69,11 +70,11 @@ public class P206ReverseLinkedList {
             ListNode cur = head;
             while (cur != null) {
                 // 保存节点
-                ListNode n = cur.next;
+                ListNode tmp = cur.next;
                 cur.next = prev;
                 // 以下顺序不能变
                 prev = cur;
-                cur = n;
+                cur = tmp;
             }
             return prev;
         }
@@ -81,6 +82,7 @@ public class P206ReverseLinkedList {
 
 
         /**
+         * https://leetcode.cn/problems/reverse-linked-list/solutions/2361282/206-fan-zhuan-lian-biao-shuang-zhi-zhen-r1jel/
          * 解释题意
          * 1 链表反转，
          * <p>

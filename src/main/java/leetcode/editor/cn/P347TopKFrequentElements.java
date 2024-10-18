@@ -30,8 +30,8 @@ import java.util.PriorityQueue;
 public class P347TopKFrequentElements {
     public static void main(String[] args) {
         Solution solution = new P347TopKFrequentElements().new Solution();
-        int[] nums = new int[]{1, 0, 3, 0, 3, 4, 3};
-        int[] ints = solution.topKFrequent(nums, 2);
+        int[] nums = new int[]{1, 0, 3, 0, 3, 4, 3, 1, 2, 1, 1, 9};
+        int[] ints = solution.topKFrequent(nums, 4);
         System.out.println(Arrays.toString(ints));
     }
 
@@ -115,6 +115,7 @@ public class P347TopKFrequentElements {
          * 1 1，1 2
          * 2 1，2 2
          * 3 1，2，1 1
+         * `
          *
          * @param nums
          * @param k
