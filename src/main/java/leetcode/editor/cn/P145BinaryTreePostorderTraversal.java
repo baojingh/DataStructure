@@ -97,17 +97,18 @@ public class P145BinaryTreePostorderTraversal {
             Stack<TreeNodeColor> stack = new Stack<>();
             stack.push(new TreeNodeColor(root, false));
             while (stack.size() > 0) {
-                TreeNodeColor color = stack.pop();
-                if (!color.isVisited) {
-                    stack.push(new TreeNodeColor(color.treeNode, true));
-                    if (color.treeNode.right != null) {
-                        stack.push(new TreeNodeColor(color.treeNode.right, false));
+                TreeNodeColor pop = stack.pop();
+                if (!pop.isVisited) {
+                    pop.isVisited = true;
+                    stack.push(pop);
+                    if (pop.treeNode.right != null) {
+                        stack.push(new TreeNodeColor(pop.treeNode.right, false));
                     }
-                    if (color.treeNode.left != null) {
-                        stack.push(new TreeNodeColor(color.treeNode.left, false));
+                    if (pop.treeNode.left != null) {
+                        stack.push(new TreeNodeColor(pop.treeNode.left, false));
                     }
                 } else {
-                    list.add(color.treeNode.val);
+                    list.add(pop.treeNode.val);
                 }
             }
             return list;

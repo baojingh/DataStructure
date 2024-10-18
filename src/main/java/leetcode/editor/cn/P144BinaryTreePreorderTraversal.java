@@ -168,25 +168,31 @@ public class P144BinaryTreePreorderTraversal {
         }
 
 
-        public List<Integer> preorderTraversal1(TreeNode root) {
-            List<Integer> list = new ArrayList<>();
-            if (root == null) {
-                return list;
-            }
-            Stack<TreeNode> stack = new Stack<>();
-            stack.push(root);
-            while (stack.size() > 0) {
-                TreeNode node = stack.pop();
-                list.add(node.val);
-                if (node.right != null) {
-                    stack.push(node.right);
-                }
-                if (node.left != null) {
-                    stack.push(node.left);
-                }
-            }
-            return list;
-        }
+//        /**
+//         * https://leetcode.cn/problems/binary-tree-preorder-traversal/solutions/87526/leetcodesuan-fa-xiu-lian-dong-hua-yan-shi-xbian-2/
+//         * https://blog.51cto.com/u_15102970/2637848
+//         * @param root
+//         * @return
+//         */
+//        public List<Integer> preorderTraversal1(TreeNode root) {
+//            List<Integer> list = new ArrayList<>();
+//            if (root == null) {
+//                return list;
+//            }
+//            Stack<TreeNode> stack = new Stack<>();
+//            stack.push(root);
+//            while (stack.size() > 0) {
+//                TreeNode node = stack.pop();
+//                list.add(node.val);
+//                if (node.right != null) {
+//                    stack.push(node.right);
+//                }
+//                if (node.left != null) {
+//                    stack.push(node.left);
+//                }
+//            }
+//            return list;
+//        }
     }
 //leetcode submit region end(Prohibit modification and deletion)
 

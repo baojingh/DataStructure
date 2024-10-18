@@ -39,6 +39,7 @@ public class P66PlusOne {
     class Solution {
 
         /**
+         * https://leetcode.cn/problems/plus-one/solutions/9236/hua-jie-suan-fa-66-jia-yi-by-guanpengchn/
          * 优化
          * 0 迭代数组
          * 1 获取数值并且加一

@@ -99,82 +99,105 @@ public class P94BinaryTreeInorderTraversal {
             Stack<TreeNodeColor> stack = new Stack<>();
             stack.push(new TreeNodeColor(root, false));
             while (stack.size() > 0) {
-                TreeNodeColor color = stack.pop();
-                if (!color.isVisited) {
-                    if (color.treeNode.right != null) {
-                        stack.push(new TreeNodeColor(color.treeNode.right, false));
+                TreeNodeColor pop = stack.pop();
+                if (!pop.isVisited) {
+                    if (pop.treeNode.right != null) {
+                        stack.push(new TreeNodeColor(pop.treeNode.right, false));
                     }
-                    stack.push(new TreeNodeColor(color.treeNode, true));
-                    if (color.treeNode.left != null) {
-                        stack.push(new TreeNodeColor(color.treeNode.left, false));
+                    pop.isVisited = true;
+                    stack.push(pop);
+                    if (pop.treeNode.left != null) {
+                        stack.push(new TreeNodeColor(pop.treeNode.left, false));
                     }
                 } else {
-                    list.add(color.treeNode.val);
+                    list.add(pop.treeNode.val);
                 }
             }
             return list;
         }
 
 
-        /**
-         * 迭代方法：
-         * https://leetcode-cn.com/problems/binary-tree-inorder-traversal/
-         * solution/dong-hua-yan-shi-94-er-cha-shu-de-zhong-xu-bian-li/
-         * <p>
-         * https://leetcode-cn.com/problems/binary-tree-inorder-traversal/
-         * solution/er-cha-shu-de-zhong-xu-bian-li-by-leetcode/
-         * 时间复杂度：O(n)
-         * 空间复杂度：O(h),h是树的高度
-         * <p>
-         * 1
-         * / \
-         * 2   3
-         * \
-         * 4
-         * 其执行过程是
-         * <p>
-         * 1放入栈中，继续往左
-         * 2放入栈中，继续往左
-         * 此时节点为空，执行else分支
-         * 首先弹出一个节点，也就是2，再往右走
-         * 第四步是重点，为什么要弹出呢？
-         * 因为中序遍历的顺序是:遍历左子树-打印根节点-遍历右子树
-         * 现在我们往左走已经走不通了(节点为空)，所以就要退回(对应的是else分支)，再执行打印根节点这一步(即将节点保存)。
-         * 打印根节点对应的就是节点2，按照中序遍历的顺序，根节点打印完了，就要遍历右子树。
-         * 所以就有了root = tmp.right这一步。
-         *
-         * @param root
-         * @return
-         */
-        public List<Integer> inorderTraversal1(TreeNode root) {
-            TreeNode cur = root;
-            LinkedList<Integer> list = new LinkedList<>();
-            Stack<TreeNode> stack = new Stack<>();
-            if (cur == null) {
-                return list;
-            }
-            stack.push(cur);
-            while (stack.size() > 0) {
-                TreeNode node = stack.pop();
-                if (node.left == null && node.right == null) {
-                    // 叶子结点
-                    // list.add((Integer.parseInt(node.val)));
-                    // 找到叶子结点，还需要继续迭代，不能向下走，不可执行stack.push(node)
-                    continue;
-                }
-                // 右子节点入栈->本节点入栈->左子节点入栈，出栈的顺序就是左中右
-                if (node.right != null) {
-                    stack.push(node.right);
-                    node.right = null;
-                }
-                stack.push(node);
-                if (node.left != null) {
-                    stack.push(node.left);
-                    node.left = null;
-                }
-            }
-            return list;
-        }
+//        /**
+//         * 迭代方法：
+//         * https://leetcode-cn.com/problems/binary-tree-inorder-traversal/
+//         * solution/dong-hua-yan-shi-94-er-cha-shu-de-zhong-xu-bian-li/
+//         * <p>
+//         * https://leetcode-cn.com/problems/binary-tree-inorder-traversal/
+//         * solution/er-cha-shu-de-zhong-xu-bian-li-by-leetcode/
+//         * 时间复杂度：O(n)
+//         * 空间复杂度：O(h),h是树的高度
+//         * <p>
+//         * 1
+//         * / \
+//         * 2   3
+//         * \
+//         * 4
+//         * 其执行过程是
+//         * <p>
+//         * 1放入栈中，继续往左
+//         * 2放入栈中，继续往左
+//         * 此时节点为空，执行else分支
+//         * 首先弹出一个节点，也就是2，再往右走
+//         * 第四步是重点，为什么要弹出呢？
+//         * 因为中序遍历的顺序是:遍历左子树-打印根节点-遍历右子树
+//         * 现在我们往左走已经走不通了(节点为空)，所以就要退回(对应的是else分支)，再执行打印根节点这一步(即将节点保存)。
+//         * 打印根节点对应的就是节点2，按照中序遍历的顺序，根节点打印完了，就要遍历右子树。
+//         * 所以就有了root = tmp.right这一步。
+//         *
+//         * @param root
+//         * @return
+//         */
+//        public List<Integer> inorderTraversal1(TreeNode root) {
+//            TreeNode cur = root;
+//            LinkedList<Integer> list = new LinkedList<>();
+//            Stack<TreeNode> stack = new Stack<>();
+//            if (cur == null) {
+//                return list;
+//            }
+//            stack.push(cur);
+//            while (stack.size() > 0) {
+//                TreeNode node = stack.pop();
+//                if (node.left == null && node.right == null) {
+//                    // 叶子结点
+//                    // list.add((Integer.parseInt(node.val)));
+//                    // 找到叶子结点，还需要继续迭代，不能向下走，不可执行stack.push(node)
+//                    continue;
+//                }
+//                // 右子节点入栈->本节点入栈->左子节点入栈，出栈的顺序就是左中右
+//                if (node.right != null) {
+//                    stack.push(node.right);
+//                    node.right = null;
+//                }
+//                stack.push(node);
+//                if (node.left != null) {
+//                    stack.push(node.left);
+//                    node.left = null;
+//                }
+//            }
+//            return list;
+//        }
+//
+//
+//        // https://leetcode.cn/problems/binary-tree-preorder-traversal/solutions/87526/leetcodesuan-fa-xiu-lian-dong-hua-yan-shi-xbian-2/
+//        public void inOrderIteration(TreeNode head) {
+//            if (head == null) {
+//                return;
+//            }
+//            TreeNode cur = head;
+//            Stack<TreeNode> stack = new Stack<>();
+//            while (!stack.isEmpty() || cur != null) {
+//                while (cur != null) {
+//                    stack.push(cur);
+//                    cur = cur.left;
+//                }
+//                TreeNode node = stack.pop();
+//                System.out.print(node.val);
+//                if (node.right != null) {
+//                    cur = node.right;
+//                }
+//            }
+//        }
+
     }
 //leetcode submit region end(Prohibit modification and deletion)
 
